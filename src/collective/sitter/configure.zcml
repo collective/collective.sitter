@@ -1,0 +1,62 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="collective.sitter">
+
+
+  <i18n:registerTranslations directory="locales" />
+
+  <!-- Include configuration for dependencies listed in setup.py -->
+  <includeDependencies package="." />
+
+  <permission
+      id="collective.sitter.AddSitter"
+      title="collective.sitter: Add sitter"
+  />
+
+  <permission
+      id="collective.sitter.ManageSitters"
+      title="collective.sitter: Manage sitters"
+  />
+
+  <include package=".content" />
+  <include package=".browser" />
+  <include package=".portlet" />
+
+  <!--i18n:registerTranslations directory="locales" /-->
+
+  <!-- Register an extension profile to make the product installable
+       in Plone -->
+  <genericsetup:registerProfile
+      name="default"
+      title="Sitter agency"
+      directory="profiles/default"
+      description="Extension profile for Sitter agency"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
+      />
+
+  <!-- Sitter State -->
+  <adapter
+    for="*"
+    factory=".sitterstate.SitterState"
+   />
+
+  <utility
+    factory=".vocabularies.CatalogVocabularyFactory"
+    name="collective.sitter.Catalog"
+  />
+
+  <include package="collective.monkeypatcher" />
+
+  <monkey:patch
+    description="Don't register behaviors for collective.taxonony vocabularies"
+    class="collective.taxonomy.utility.Taxonomy"
+    original="registerBehavior"
+    replacement=".patches.registerBehavior_patched"
+    />
+
+</configure>

@@ -1,0 +1,30 @@
+from .. import MessageFactory as _
+from plone.dexterity.content import Item
+from plone.supermodel import model
+from zope import schema
+from zope.interface import implementer
+
+import logging
+
+
+logger = logging.getLogger(__name__)
+
+
+class ISitterExperience(model.Schema):
+    """
+    Babysitter Informations
+    """
+
+    title = schema.TextLine(
+        title=_('Name'),
+        required=True,
+    )
+    beschreibung = schema.TextLine(
+        title=_('Beschreibung'),
+        required=True,
+    )
+
+
+@implementer(ISitterExperience)
+class SitterExperience(Item):
+    pass

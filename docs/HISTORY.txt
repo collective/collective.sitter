@@ -1,0 +1,23 @@
+Changelog
+=========
+
+1.0dev (unreleased)
+-------------------
+
+- Initial release
+
+
+Pre-1.0 development
+-------------------
+
+This package was originally developed at the University's datacenter (HRZ) of
+the Philipps-Universität Marburg, Hesse, Germany, starting in 2014. Original
+developers were:
+
+- Kristin Kuche
+- Tobias Müllerleile
+- Oliver Drewes
+
+In 2020, the starzel.de team started working on the package and it was decided
+to publish it within the Plone Collective on Github. This was done in
+February, 2021.

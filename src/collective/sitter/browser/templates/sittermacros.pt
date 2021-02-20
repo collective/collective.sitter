@@ -1,0 +1,258 @@
+<!-- Sitter-Macro -->
+<div metal:define-macro="sitter-macro">
+  <div tal:omit-tag="" tal:condition="python: sitter.portal_type == 'sitter'">
+
+    <metal:macro use-macro="context/sittermacros/macros/sitterregistrationstatus-macro"></metal:macro>
+
+    <div class="sittercontainer">
+      <div class="sittercontent" tal:define="show_full_details python: False if not 'show_full_details' in vars() else show_full_details;
+                                             has_qualification python: (sitter.qualifications is not None and len(sitter.qualifications)>0) or (sitter.additional_qualifications is not None and len(sitter.additional_qualifications) > 0);
+                                             has_experience python: sitter.experiences is not None and len(sitter.experiences)>0;
+                                             has_language python: sitter.get_language_list() is not None and len(sitter.get_language_list())>0;
+                                             has_mobility python: sitter.get_mobility() is not None and len(sitter.get_mobility())>0;
+      ">
+
+        <metal:macro use-macro="context/sittermacros/macros/sitterhead-macro"></metal:macro>
+        <metal:macro use-macro="context/sittermacros/macros/sitterdetails-macro"></metal:macro>
+        <div tal:condition="show_full_details">
+          <div class="flexcontainer">
+            <div class="child" tal:condition="has_qualification">
+              <metal:macro use-macro="context/sittermacros/macros/sitterqualification-macro"></metal:macro>
+            </div>
+            <div class="child" tal:condition="has_experience">
+              <metal:macro use-macro="context/sittermacros/macros/sitterexperiences-macro"></metal:macro>
+            </div>
+            <div class="child" tal:condition="has_language">
+              <metal:macro use-macro="context/sittermacros/macros/sitterlanguage-macro"></metal:macro>
+            </div>
+            <div class="child" tal:condition="has_mobility">
+              <metal:macro use-macro="context/sittermacros/macros/sittermobility-macro"></metal:macro>
+            </div>
+          </div>
+        </div>
+
+        <div tal:condition="not: show_full_details">
+          <metal:macro use-macro="context/sittermacros/macros/sitterqualification-macro"></metal:macro>
+          <metal:macro use-macro="context/sittermacros/macros/sitterexperiences-macro"></metal:macro>
+          <metal:macro use-macro="context/sittermacros/macros/sitterlanguage-macro"></metal:macro>
+          <metal:macro use-macro="context/sittermacros/macros/sittermobility-macro"></metal:macro>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sitter-Head-Macro -->
+
+<div metal:define-macro="sitterhead-macro">
+  <h1 class="sitterhead">
+    <a tal:attributes="href sitter/absolute_url">
+      <span tal:replace="sitter/nickname" />
+      <span tal:condition="sitter/get_district" tal:replace="python: '(' + sitter.get_district() + ')'" />
+    </a>
+
+  </h1>
+  <h2 class="sitterhead"
+      tal:define="age sitter/get_age; gender sitter/get_gender"
+      tal:condition="python:age or gender">
+    <tal:span tal:condition="age" tal:content="string: ${age} Jahre"/>
+    <tal:span tal:condition="python:age and gender">,</tal:span>
+    <tal:span tal:condition="gender" tal:content="gender"/>
+  </h2>
+</div>
+
+<!-- Sitter-Details-Macro -->
+
+<div metal:define-macro="sitterdetails-macro">
+  <div class="sitterimageholder">
+    <a tal:attributes="href sitter/absolute_url">
+
+      <empty tal:omit-tag="" tal:condition="sitter/has_image">
+        <img src="" tal:attributes="src string:${sitter/absolute_url}/@@images/image/thumb"/>
+      </empty>
+      <empty tal:omit-tag="" tal:condition="not: sitter/has_image">
+        <img src=""
+             tal:attributes="src string:${sitter/absolute_url}/++resource++collective.sitter/defaultUser.gif"/>
+      </empty>
+    </a>
+
+  </div>
+  <div class="sitterinformation" tal:define="details sitter/details|nothing">
+    <span tal:condition="not: show_full_details" tal:omit-tag="" tal:content="structure python:details[0:350] + ' ...' if not details is None else ''"></span>
+    <span tal:condition="show_full_details" tal:omit-tag="" tal:content="structure python: details[:] if not details is None else ''"></span>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+<!-- Sitter-Qualification-Macro -->
+
+<div metal:define-macro="sitterqualification-macro">
+  <empty tal:condition="has_qualification"
+         tal:omit-tag=""
+          >
+    <empty tal:omit-tag="" tal:condition="not: show_full_details">
+      <div class="shortinfo">
+        <h3 style="display: inline">Qualifikationen:</h3>
+        <span tal:condition="not: show_full_details" class="sitter-qualification" tal:repeat="qualification sitter/qualifications">
+          <tal:helper tal:omit-tag="" tal:define="q python:view.get_object_for_qualification(qualification)">
+            <img tal:define="scales nocall:q/@@images" tal:replace="structure python: scales.tag('picture', scale='mini')"/>
+            <span tal:omit-tag="" tal:content="python: q.beschreibung"></span>
+            <span tal:omit-tag="" tal:condition="python: (not repeat['qualification'].end) or sitter.additional_qualifications">, </span>
+          </tal:helper>
+        </span>
+        <span tal:omit-tag="" tal:condition="sitter/additional_qualifications">
+          <i class="fa fa-circle-o" style="margin-right: 0.5em"></i><span tal:content="sitter/additional_qualifications">
+        </span>
+        </span>
+      </div>
+    </empty>
+
+    <empty tal:omit-tag="" tal:condition="show_full_details">
+      <div>
+        <h3 class="sitterhead">
+          Qualifikationen:
+        </h3>
+        <ul class="fa-ul">
+          <tal:repeat tal:repeat="quali sitter/qualifications">
+            <li tal:define="q python: view.get_object_for_qualification(quali);
+                            imgurl python: view.get_image_url_for_qualification(q, 32)"
+                tal:attributes="style python: f'list-style-image: url({imgurl})' if imgurl else ''">
+              <b tal:content="q/beschreibung"></b>
+            </li>
+          </tal:repeat>
+          <li tal:condition="sitter/additional_qualifications">
+            <i class="fa fa-li fa-circle-o"></i>
+            <b tal:content="sitter/additional_qualifications"></b>
+          </li>
+        </ul>
+      </div>
+    </empty>
+  </empty>
+</div>
+
+<!-- Sitter-Experience-Macro -->
+
+<div metal:define-macro="sitterexperiences-macro"  i18n:domain="collective.sitter">
+  <empty tal:omit-tag="" tal:condition="has_experience">
+
+    <empty tal:condition="not: show_full_details" tal:omit-tag="">
+      <div class="shortinfo">
+        <h3 style="display: inline"><span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:</h3>
+        <span tal:repeat="exp sitter/experiences">
+          <tal:empty tal:omit-tag="" tal:define="exp_obj python: view.get_object_for_experience(exp)">
+            <span tal:content="exp_obj/title"> </span><span tal:condition="not: repeat/exp/end">, </span>
+          </tal:empty>
+        </span>
+      </div>
+    </empty>
+
+    <empty tal:condition="show_full_details" tal:omit-tag="">
+      <div>
+        <h3 class="sitterhead">
+          <span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:
+        </h3>
+        <ul tal:repeat="exp sitter/experiences">
+          <tal:empty tal:omit-tag="" tal:define="exp_obj python: view.get_object_for_experience(exp)">
+            <li>
+              <b tal:content="exp_obj/beschreibung"></b> (<i tal:content="exp_obj/Title"> </i>)
+            </li>
+          </tal:empty>
+        </ul>
+      </div>
+    </empty>
+
+  </empty>
+</div>
+
+<!-- Sitter-Lanauge-Macro -->
+
+<div tal:condition="has_language"
+     metal:define-macro="sitterlanguage-macro"
+        >
+  <empty tal:omit-tag="" tal:condition="not: show_full_details">
+    <div class="shortinfo">
+      <h3 style="display: inline">
+        Sprachen:
+      </h3>
+      <span tal:repeat="lang sitter/get_language_list">
+        <span tal:content="lang" tal:omit-tag=""></span><span tal:condition="not: repeat/lang/end" tal:omit-tag="">, </span>
+      </span>
+    </div>
+  </empty>
+
+  <empty tal:omit-tag="" tal:condition="show_full_details">
+    <h3 class="sitterhead">
+      Sprachen:
+    </h3>
+
+    <ul tal:repeat="langs sitter/get_language_list">
+      <li>
+        <b tal:content="langs"></b>
+      </li>
+    </ul>
+  </empty>
+
+</div>
+
+<!-- Sitter-Mobility-Macro -->
+
+<div tal:condition="has_mobility"
+     metal:define-macro="sittermobility-macro">
+
+  <empty tal:omit-tag="" tal:condition="not: show_full_details">
+    <div class="shortinfo">
+      <h3 style="display: inline">
+        Mobilität:
+      </h3>
+      <span tal:repeat="mob sitter/get_mobility">
+        <span tal:content="mob" tal:omit-tag=""></span><span tal:condition="not: repeat/mob/end" tal:omit-tag="">, </span>
+      </span>
+    </div>
+  </empty>
+
+  <empty tal:omit-tag="" tal:condition="show_full_details">
+      <h3 class="sitterhead">
+        Mobilität:
+      </h3>
+      <ul tal:repeat="mob sitter/get_mobility">
+        <li><b tal:content="mob"></b></li>
+      </ul>
+  </empty>
+
+</div>
+
+<!-- Sitter Registration Step Status -->
+<div metal:define-macro="sitterregistrationstatus-macro"
+    tal:define="current_step view/get_current_registration_step|nothing"
+    tal:condition="current_step"
+    i18n:domain="plone"
+    class="table sitter-step-info">
+    <div class="table-row table-cell">
+      <p>
+        <i class="fa fa-info-circle fa-4x info"></i>
+      </p>
+    </div>
+    <div class="table-row table-cell">
+      <p class="table sitter-step-info-head">
+        <a tal:condition="current_step/link" tal:content="structure current_step/text" tal:attributes="href current_step/link"></a>
+        <span tal:condition="not: current_step/link" tal:content="structure current_step/text"></span>
+      </p>
+      <p tal:content="structure current_step/description"></p>
+    </div>
+</div>
+
+<!-- Backbutton -->
+<div metal:define-macro="sitter-back-button" tal:omit-tag="">
+  <div tal:condition="view/get_local_referer" tal:omit-tag="">
+    <a class="btn btn-back" tal:attributes="href view/get_local_referer">
+      Zurück zur Übersicht <i class="fa fa-backward"></i>
+    </a>
+  </div>
+  <div tal:condition="not: view/get_local_referer" tal:omit-tag="">
+    <a class="btn btn-back" tal:attributes="href view/get_overview_url">
+      Zur Übersicht <i class="fa fa-reorder"></i>
+    </a>
+  </div>
+</div>

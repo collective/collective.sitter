@@ -1,0 +1,23 @@
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+  <index name="experience" meta_type="KeywordIndex">
+    <indexed_attr value="experience"/>
+  </index>
+
+  <index name="mobility" meta_type="KeywordIndex">
+    <indexed_attr value="mobility"/>
+  </index>
+
+  <index name="qualification" meta_type="KeywordIndex">
+    <indexed_attr value="qualification"/>
+  </index>
+
+  <index name="fullage" meta_type="BooleanIndex">
+    <indexed_attr value="fullage"/>
+  </index>
+
+  <index name="gender" meta_type="KeywordIndex">
+    <indexed_attr value="gender" />
+  </index>
+
+</object>

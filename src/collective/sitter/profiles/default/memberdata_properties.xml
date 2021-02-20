@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<object name="portal_memberdata" meta_type="Plone Memberdata Tool">
+<property name="accepted_sitter_agreement" type="boolean"></property>
+</object>

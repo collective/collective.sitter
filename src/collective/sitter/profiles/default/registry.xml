@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records interface="collective.sitter.browser.controlpanel.ISitterSettings"
+           prefix="sitter" />
+
+  <record name="plone.displayed_types">
+    <value purge="False">
+      <element>sitterfolder</element>
+    </value>
+  </record>
+
+</registry>

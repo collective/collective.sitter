@@ -1,0 +1,13 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+  <plone:portlet
+    name="SitterRegistrationPortlet"
+    interface=".sitterportlet.ISitterPortlet"
+    assignment=".sitterportlet.Assignment"
+    view_permission="zope2.View"
+    renderer=".sitterportlet.Renderer"
+    addview=".sitterportlet.AddForm"
+    editview=".sitterportlet.EditForm"
+    />
+</configure>

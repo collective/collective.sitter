@@ -1,0 +1,7 @@
+.idea
+*.egg
+*.mo
+*.pyc
+*~
+*.egg-info
+uuid.txt

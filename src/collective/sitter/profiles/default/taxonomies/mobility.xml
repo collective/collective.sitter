@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vdex xmlns="http://www.imsglobal.org/xsd/imsvdex_v1p0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/imsvdex_v1p0 imsvdex_v1p0.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd"
+      orderSignificant="false"
+      profileType="flatTokenTerms"
+      language="de">
+  <vocabName>
+    <langstring language="de">Mobilität</langstring>
+    <langstring language="en">Mobility</langstring>
+  </vocabName>
+  <vocabIdentifier>mobility</vocabIdentifier>
+
+  <term>
+    <termIdentifier>public_transport</termIdentifier>
+    <caption>
+      <langstring language="de">öffentliche Verkehrsmittel</langstring>
+      <langstring language="en">public transport</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>bicycle</termIdentifier>
+    <caption>
+      <langstring language="de">Fahrrad</langstring>
+      <langstring language="en">bicycle</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>car</termIdentifier>
+    <caption>
+      <langstring language="de">Auto</langstring>
+      <langstring language="en">car</langstring>
+    </caption>
+  </term>
+
+</vdex>

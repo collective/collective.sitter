@@ -1,0 +1,29 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="collective.sitter">
+
+  <adapter factory=".sitter.fullageIndexer" name="fullage"/>
+  <adapter factory=".sitter.experiencesIndexer" name="experience"/>
+  <adapter factory=".sitter.qualificationsIndexer" name="qualification"/>
+
+  <subscriber
+    for=".sitter.Sitter
+         zope.lifecycleevent.IObjectAddedEvent"
+    handler=".sitter.on_created"
+    />
+
+  <subscriber
+    for=".sitter.Sitter
+         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".sitter.on_modify"
+    />
+
+  <subscriber
+    for=".sitter.Sitter
+         Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+    handler=".sitter.on_change_state"
+    />
+
+  <adapter factory=".validator.ImageFileSizeValidator" />
+
+</configure>

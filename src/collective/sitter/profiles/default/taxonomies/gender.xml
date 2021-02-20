@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vdex xmlns="http://www.imsglobal.org/xsd/imsvdex_v1p0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/imsvdex_v1p0 imsvdex_v1p0.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd"
+      orderSignificant="false"
+      profileType="flatTokenTerms"
+      language="de">
+  <vocabName>
+    <langstring language="de">Geschlecht</langstring>
+    <langstring language="en">Gender</langstring>
+  </vocabName>
+  <vocabIdentifier>gender</vocabIdentifier>
+
+  <term>
+    <termIdentifier>female</termIdentifier>
+    <caption>
+      <langstring language="de">weiblich</langstring>
+      <langstring language="en">female</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>male</termIdentifier>
+    <caption>
+      <langstring language="de">männlich</langstring>
+      <langstring language="en">male</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>diverse</termIdentifier>
+    <caption>
+      <langstring language="de">divers</langstring>
+      <langstring language="en">diverse</langstring>
+    </caption>
+  </term>
+
+</vdex>

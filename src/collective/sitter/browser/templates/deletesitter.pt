@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.sitter">
+
+<body>
+
+<metal:main fill-slot="main">
+  <tal:main-macro metal:define-macro="main">
+    <form name="delete_frm" tal:define="to_delete view/find_private_sitters">
+      <h1>Status: Private</h1>
+      <ul tal:condition="python: len(to_delete) > 0">
+        <li tal:repeat="sitter to_delete">
+          <span tal:content="sitter/id"></span>
+        </li>
+      </ul>
+      <input type="hidden" name="action" value="delete_private" />
+      <input type="submit" value="Löschen" />
+    </form>
+
+    <form name="delete_frm" tal:define="to_delete view/find_deleting_sitters">
+      <h1>Status: Deleting</h1>
+      <ul tal:condition="python: len(to_delete) > 0">
+        <li tal:repeat="sitter to_delete">
+          <span tal:content="sitter/id"></span>
+        </li>
+      </ul>
+      <input type="hidden" name="action" value="delete_deleting" />
+      <input type="submit" value="Löschen" />
+    </form>
+
+  </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

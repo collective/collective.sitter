@@ -1,0 +1,178 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.sitter">
+
+<body>
+
+<metal:main fill-slot="main">
+
+  <div tal:define="sitter nocall:context; show_full_details python: True ">
+    <metal:macro use-macro="context/sittermacros/macros/sitter-macro"></metal:macro>
+  </div>
+
+  <metal:macro use-macro="context/sittermacros/macros/sitter-back-button"></metal:macro>
+
+  <div class="sittercontainer">
+    <div class="sittercontent">
+      <h1 class="sitterhead">
+        Kontaktformular
+      </h1>
+      <div id="sittercontactform">
+        <div id="contactform" tal:attributes="ajaxformaction string:${context/absolute_url}/sittermailview">
+          <!-- method='post' tal:attributes="action string:${context/absolute_url}/sittermailview" -->
+          <h2 class="sitterhead">Bitte geben Sie hier Ihre Kontaktdaten an. <br/>
+            Nach dem erfolgreichen Absenden des Formulars wird der Babysitter benachrichtigt.
+
+          </h2>
+          <script type="text/javascript">
+            function validateEmail($email) {
+              var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+              if( !emailReg.test( $email ) ) {
+                return false;
+              } else {
+                return true;
+              }
+            }
+
+            $(document).ready(function() {
+              var path = $('#contactform').attr("ajaxformaction");
+              $('#contactform').removeAttr("action");
+              $("#result-info").hide();
+              $("#result-error").hide();
+              $("#sendcontact").click(function() {
+                var formdata = {};
+                var contactmail = $('#kontaktemail').val();
+                var contactname = $('#kontaktname').val();
+                var contacttext = $('#kontakttext').val();
+                var homepage = $('#homepage').val();
+                var accepted = $('#accepted').is(':checked')
+                if(contactmail != null && contactmail != "")
+                  if( validateEmail(contactmail)) {
+                    formdata['kontaktemail'] = contactmail;
+                  } else {
+                    alert("Bitte geben Sie eine gültige Emailadresse an.");
+                    return ;
+                  }
+
+                if(contactname != null && contactname != "") {
+                  formdata['kontaktname'] = contactname;
+                }
+                if(contacttext != null && contacttext != "") {
+                  formdata['kontakttext'] = contacttext;
+                }
+                if(homepage !== null && homepage !== "") {
+                  formdata['homepage'] = homepage;
+                }
+                if(accepted  === true) {
+                  formdata['accepted'] = 'True';
+                }
+
+                $.post(path,
+                  formdata,
+                  function(data,status) {
+                    if(status == "success") {
+                      var expected_return_value = "erfolgreich versendet"
+                      if (data.indexOf(expected_return_value) > -1) {
+                        $("#contactform").hide();
+                        $("#sendcontact").remove();
+                        $("#result-info-msg").html(data);
+                        $("#result-info").show();
+                        if (typeof _paq !== 'undefined') {
+                          _paq.push(['trackGoal', 1]);
+                        }
+                      } else {
+                        $("#result-error-msg").html(data);
+                        $("#result-error").show();
+                      }
+                    } else {
+                      text = "Ein unerwarteter Fehler ist aufgetreten";
+                      $("#result-error-msg").html(text);
+                      $("#result-error").show();
+                    }
+                  }
+                );
+                //,{ kontaktname: $("kontaktname").attr("value"), kontaktemail: $("kontaktemail").attr("value"), kontakttext: $("kontakttext").attr("value") })
+              });
+            });
+          </script>
+
+          <div class="">
+            <div class="inputline hidden">
+              <div class="input">
+                <h3 class="contactlabel sitterhead">Homepage:</h3>
+                <div class="input"><input size="26" id="homepage" name="homepage" type="text"
+                                    placeholder='https://www.example.org'/></div>
+              </div>
+            </div>
+
+            <div class="inputline flexcontainer">
+              <h3 class="child contactlabel sitterhead">
+                <label for="kontaktname">Name:</label>
+              </h3>
+              <div class="child input"><input size="26" id="kontaktname" name="kontaktname" type="text"
+                                        placeholder='Vorname Nachname'/></div>
+            </div>
+
+            <div class="inputline flexcontainer">
+              <h3 class="child contactlabel sitterhead">
+                <label for="kontaktemail">Ihre E-Mail-Adresse:</label>
+              </h3>
+              <div class="child input"><input size="26" id="kontaktemail" name="kontaktemail" type="text"
+                                        placeholder='meine.adresse@example.org'/></div>
+            </div>
+
+            <div class="inputline flexcontainer"
+                 tal:define="terms_of_use_link view/get_terms_of_use_link"
+                 tal:condition="terms_of_use_link">
+              <h3 class="child contactlabel sitterhead">
+                <label for="accepted">
+                  <a tal:attributes="href terms_of_use_link" target="_blank">
+                    Nutzungsbedingungen akzeptieren
+                  </a>
+                </label>
+              </h3>
+              <div class="child input">
+                <input type="checkbox" id="accepted" name="accepted" value="True">
+                &nbsp;<a tal:attributes="href terms_of_use_link" target="_blank">Nutzungsbedingungen anzeigen</a>
+              </div>
+            </div>
+
+          </div>
+
+          <textarea id="kontakttext" name="kontakttext" tal:content="view/getTextvorlage" rows="10"
+                    style="margin:10px; width:95%"> Hallo ...,
+
+            ich würde gerne eine Anfrage stellen, da ich für .... auf der Suche nach einem Babysitter bin.
+
+            Mein Kind ist ...
+
+
+          </textarea>
+
+          <button type="button" class="btn" id='sendcontact' name="sendcontact">
+               Anfrage absenden <i class='fa fa-envelope fa-lg'/>
+          </button>
+
+          <div id="result-error">
+            <i class="fa fa-2x fa-exclamation-triangle"></i>
+            <span id="result-error-msg"></span>
+          </div>
+        </div>
+        <div id="result-info">
+           <i class="fa fa-2x fa-info-circle"></i>
+           <span id="result-info-msg"></span>
+        </div>
+      </div>
+      <div class="sendformular" tal:attributes="id string:sendform-${context/id}">
+      </div>
+    </div>
+
+  </div>
+</metal:main>
+
+</body>
+</html>

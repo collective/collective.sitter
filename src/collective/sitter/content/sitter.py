@@ -1,0 +1,324 @@
+from .. import MessageFactory as _
+from .. import vocabularies
+from plone import api
+from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.autoform import directives
+from plone.dexterity.content import Item
+from plone.indexer.decorator import indexer
+from plone.namedfile.field import NamedBlobImage
+from plone.namedfile.interfaces import IImageScaleTraversable
+from plone.supermodel import model
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from z3c.form.browser.radio import RadioFieldWidget
+from z3c.form.browser.select import SelectFieldWidget
+from zope import schema
+from zope.component import getUtility
+from zope.globalrequest import getRequest
+from zope.i18n import translate
+from zope.interface import implementer
+from zope.schema.interfaces import IVocabularyFactory
+
+import datetime
+import logging
+
+
+logger = logging.getLogger(__name__)
+
+
+class ISitter(model.Schema, IImageScaleTraversable):
+    """
+    Sitter Information
+    """
+
+    nickname = schema.TextLine(
+        title=_('Nickname'),
+        required=True,
+    )
+
+    directives.widget(details=WysiwygFieldWidget)
+    details = schema.Text(
+        title=_('Detailed Information'),
+        description=_('Beschreiben Sie sich hier mit ein paar kurzen Worten.'),
+        required=False,
+    )
+
+    image = NamedBlobImage(
+        title=_('Image'),
+        description=_(
+            'Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht '
+            'anzuzeigen. Sie bestätigen uns, dass Sie das alleinige Urheberrecht, das '
+            'Recht bzw. die Erlaubnis auf Veröffentlichung des im Rahmen der '
+            'Babysitteranzeige hochgeladenen Fotos besitzen sowie die Zustimmung '
+            'eventuell weiterer Personen auf dem Foto vorliegen haben.'
+        ),
+        required=False,
+    )
+
+    directives.widget('district', SelectFieldWidget)
+    district = schema.List(
+        title=_('District'),
+        value_type=schema.Choice(source=vocabularies.voc_district),
+        description=_('desc_district'),
+        required=True,
+    )
+
+    directives.widget(gender=RadioFieldWidget)
+    gender = schema.List(
+        title=_('Gender'),
+        value_type=schema.Choice(vocabulary='collective.taxonomy.gender'),
+        description=_('desc_gender'),
+        required=False,
+    )
+
+    directives.widget(experiences=CheckBoxFieldWidget)
+    experiences = schema.List(
+        title=_('Experiences'),
+        value_type=schema.Choice(source=vocabularies.voc_experience),
+        description=_(
+            'Waehlen Sie aus, mit welchen Altersklassen sie schon Erfahrungen haben.'
+        ),
+        required=False,
+    )
+
+    directives.widget(mobility=CheckBoxFieldWidget)
+    mobility = schema.List(
+        title=_('Mobility'),
+        value_type=schema.Choice(vocabulary='collective.taxonomy.mobility'),
+        description=_('Waehlen Sie aus, wie mobil Sie sind.'),
+        required=False,
+    )
+
+    birthday = schema.Date(
+        title=_('Birthday'),
+        description=_('desc_birthday'),
+        required=False,
+    )
+
+    languages = schema.TextLine(
+        title=_('Sprachen'),
+        description=_('Geben sie die Sprachen mit , getrennt ein.'),
+        required=False,
+    )
+
+    directives.widget(qualifications=CheckBoxFieldWidget)
+    qualifications = schema.List(
+        title=_('Qualifications'),
+        value_type=schema.Choice(source=vocabularies.voc_quali),
+        description=_('Geben Sie hier die Qualifikationen an, die Sie mitbringen.'),
+        required=False,
+    )
+
+    additional_qualifications = schema.TextLine(
+        title=_('Additional Qualifications'), required=False
+    )
+
+
+@indexer(ISitter)
+def experiencesIndexer(context):
+    return [str(e).replace(' ', '_') for e in context.experiences or []]
+
+
+@indexer(ISitter)
+def qualificationsIndexer(context):
+    return [str(e).replace(' ', '_') for e in context.qualifications or []]
+
+
+@indexer(ISitter)
+def fullageIndexer(context):
+    return (context.get_age() or 0) > 18
+
+
+class InvalidEmailError(schema.ValidationError):
+    __doc__ = 'Please enter a valid e-mail address.'
+
+
+@implementer(ISitter)
+class Sitter(Item):
+    def get_creator(self):
+        creators = self.listCreators()
+        creator = creators[0]
+        return creator
+
+    @property
+    def email(self):
+        creator = api.user.get(username=self.get_creator())
+        try:
+            mails = creator.getProperty('email')
+            if type(mails) is tuple:
+                mail = mails[0]
+            else:
+                mail = mails.split(';')[0].strip()
+        except AttributeError:
+            mail = None
+
+        return mail
+
+    @property
+    def title(self):
+        return getattr(self, 'nickname', '')
+
+    def setTitle(self, value):
+        return
+
+    def get_age(self):
+        if self.birthday is None:
+            return
+        today = datetime.date.today()
+        try:
+            born = self.birthday.asdatetime()
+        except AttributeError:
+            born = self.birthday
+        age = (
+            today.year
+            - born.year
+            - int((today.month, today.day) < (born.month, born.day))
+        )
+        return age
+
+    def has_image(self):
+        return bool(getattr(self, 'image', None))
+
+    def get_language_list(self):
+        if self.languages is None:
+            return []
+        lang_list = [x.strip() for x in self.languages.split(',')]
+        return lang_list
+
+    def get_district(self):
+        if self.district:
+            district = self.district[0]
+            if not district == '--NOVALUE--':
+                taxonomy_name = api.portal.get_registry_record(
+                    'sitter.district_taxonomy'
+                )
+                return self.get_value_from_vocabulary(district, taxonomy_name)
+
+    def get_gender(self):
+        if self.gender:
+            gender = self.gender[0]
+            return self.get_value_from_vocabulary(gender, 'collective.taxonomy.gender')
+
+    def setLanguages(self, value):
+        logger.debug(value)
+        self.language = value
+
+    def get_mobility(self):
+        return [
+            self.get_value_from_vocabulary(m, 'collective.taxonomy.mobility')
+            for m in self.mobility or []
+        ]
+
+    def get_value_from_vocabulary(self, value, vocabulary):
+        factory = getUtility(IVocabularyFactory, name=vocabulary)
+        vocabulary = factory(self)
+        term = vocabulary.getTerm(value)
+        return translate(term.title, context=getRequest())
+
+
+def on_created(obj, event):
+    base_url = _get_base_url(include_site=True)
+    edit_url = f'{base_url}/{event.newParent.id}/{event.newName}'
+    send_mail_to_sitter_on_creation(context=obj, edit_url=edit_url)
+    send_mail_to_reviewer_on_creation(context=obj, edit_url=edit_url)
+
+
+def on_modify(obj, event):
+    base_url = _get_base_url(include_site=False)
+    edit_url = base_url + '/'.join(event.object.getPhysicalPath())
+    current_state = api.content.get_state(obj)
+    if current_state == 'published':
+        send_mail_to_reviewer_on_modify(context=obj, edit_url=edit_url)
+
+
+def on_change_state(obj, event):
+    base_url = _get_base_url(include_site=False)
+    edit_url = base_url + '/'.join(event.object.getPhysicalPath())
+    state = api.content.get_state(obj)
+    if state == 'pending':
+        send_mail_to_reviewer_on_submitting(context=obj, edit_url=edit_url)
+    if state == 'published':
+        send_mail_to_sitter_on_publishing(context=obj, edit_url=edit_url)
+
+
+def _get_base_url(include_site=True):
+    portal = api.portal.get()
+    base = portal if include_site else portal.aq_parent
+    return base.absolute_url()
+
+
+def send_mail_to_sitter_on_publishing(context, edit_url):
+    subject = api.portal.get_registry_record('sitter.sitter_msg_create_subject')
+    text = api.portal.get_registry_record('sitter.sitter_msg_create_text')
+    _send_mail_to_sitter(context, subject, text, edit_url)
+
+
+def send_mail_to_sitter_on_creation(context, edit_url):
+    subject = api.portal.get_registry_record('sitter.sitter_msg_publish_subject')
+    text = api.portal.get_registry_record('sitter.sitter_msg_publish_text')
+    _send_mail_to_sitter(context, subject, text, edit_url)
+
+
+def _send_mail_to_sitter(context, subject, text, edit_url):
+    if subject is None or text is None:
+        return
+
+    mail_from = api.portal.get_registry_record('sitter.review_from')
+    mail_to = context.email
+
+    if '{url}' in text:
+        text = text.format(url=edit_url)
+
+    _send_mail(context, mail_from, mail_to, subject, text)
+
+
+def send_mail_to_reviewer_on_creation(context, edit_url):
+    subject = api.portal.get_registry_record('sitter.reviewer_msg_create_subject')
+    text = api.portal.get_registry_record('sitter.reviewer_msg_create_text')
+    _send_mail_to_reviewer(context, subject, text, edit_url)
+
+
+def send_mail_to_reviewer_on_submitting(context, edit_url):
+    subject = api.portal.get_registry_record('sitter.reviewer_msg_submit_subject')
+    text = api.portal.get_registry_record('sitter.reviewer_msg_submit_text')
+    _send_mail_to_reviewer(context, subject, text, edit_url)
+
+
+def send_mail_to_reviewer_on_modify(context, edit_url):
+    subject = api.portal.get_registry_record('sitter.reviewer_msg_modify_subject')
+    text = api.portal.get_registry_record('sitter.reviewer_msg_modify_text')
+    _send_mail_to_reviewer(context, subject, text, edit_url)
+
+
+def _send_mail_to_reviewer(context, subject, text, edit_url):
+    mail_from = api.portal.get_registry_record('sitter.review_from')
+    mail_to = api.portal.get_registry_record('sitter.reviewer_email')
+
+    text = f'{text}\n\n{edit_url}'
+
+    _send_mail(context, mail_from, mail_to, subject, text)
+
+
+def _send_mail(context, mail_from, mail_to, subject, text):
+    mail_text = """\
+To: {mail_to}
+From: {mail_from}
+Subject: {subject}
+
+{text}""".format(
+        mail_from=mail_from,
+        mail_to=mail_to,
+        subject=subject,
+        text=text,
+    )
+
+    if not mail_to:
+        logger.error(f'No recipient to send email to:\n\n{mail_text}')
+        return
+
+    try:
+        mail_host = api.portal.get_tool('MailHost')
+        mail_host.send(mail_text, charset='utf-8')  # immediate?
+        logger.info(f'Send email to {mail_to}')
+        logger.debug(fr'Message send:\ {mail_text}')
+    except Exception as e:
+        logger.warn(f'Could not send email: {e}')

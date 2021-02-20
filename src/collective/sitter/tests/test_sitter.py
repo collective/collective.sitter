@@ -1,0 +1,96 @@
+from ..testing import SITTER_INTEGRATION_TESTING
+from ..testing import TestCase
+from ..vocabularies import voc_district
+from plone import api
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
+
+
+class TestSitterContentType(TestCase):
+
+    layer = SITTER_INTEGRATION_TESTING
+
+    def setUp(self):
+        super().setUp()
+        self.login_site_owner()
+
+        for name in ('sitter-01', 'sitter-02'):
+            api.content.create(
+                container=self.sitter_folder,
+                type='sitter',
+                id=name,
+            )
+        self.sitter_object = self.sitter_folder['sitter-02']
+
+    def test_sitter_exist(self):
+        self.assertIn('sitter-01', self.sitter_folder)
+
+    def test_sitter_email(self):
+        user = api.user.get_current()
+        user.setMemberProperties(dict(email='test@example.org; test2@example.net'))
+        self.assertEqual('test@example.org', self.sitter_object.email)
+
+    def test_sitter_getDistrict(self):
+        self.sitter_object.district = (
+            voc_district(self.sitter_folder).getTerm('north').token,
+        )
+        district = self.sitter_object.get_district()
+        self.assertEqual('Northern district', district)
+
+    def test_sitter_getDistrict_notSet(self):
+        district = self.sitter_object.get_district()
+        self.assertIsNone(district)
+
+    def test_sitter_getAge(self):
+        from DateTime import DateTime
+
+        self.sitter_object.birthday = DateTime('7/2/1981')
+        age = self.sitter_object.get_age()
+        self.assertTrue(age > 30)
+
+    def test_sitter_getAge_notSet(self):
+        age = self.sitter_object.get_age()
+        self.assertIsNone(age)
+
+    def test_sitter_getLanguages(self):
+        self.sitter_object.languages = 'deutsch, englisch'
+        langs = self.sitter_object.get_language_list()
+        self.assertIn('deutsch', langs)
+        self.assertIn('englisch', langs)
+
+    def test_sitter_getLanguages_notSet(self):
+        self.assertTrue(len(self.sitter_object.get_language_list()) == 0)
+
+    def test_sitter_image_notSet(self):
+        image = self.sitter_object.image
+        self.assertIsNone(image)
+
+    def test_sitter_getGender(self):
+        voc_gender = getUtility(IVocabularyFactory, name='collective.taxonomy.gender')
+        self.sitter_object.gender = (
+            voc_gender(self.sitter_folder).getTerm('female').value,
+        )
+        gender = self.sitter_object.get_gender()
+        self.assertEqual('female', gender)
+
+    def test_sitter_getGender_notSet(self):
+        gender = self.sitter_object.get_gender()
+        self.assertIsNone(gender)
+
+    def test_sitter_getDetails_notSet(self):
+        details = self.sitter_object.details
+        self.assertIsNone(details)
+
+    def test_sitter_getMobility(self):
+        voc_mobility = getUtility(
+            IVocabularyFactory, name='collective.taxonomy.mobility'
+        )
+        self.sitter_object.mobility = (
+            voc_mobility(self.sitter_folder).getTerm('public_transport').value,
+        )
+        mobility = self.sitter_object.get_mobility()
+        self.assertIn('public transport', mobility)
+
+    def test_sitter_getMobility_notSet(self):
+        mobility = self.sitter_object.get_mobility()
+        self.assertTrue(len(mobility) == 0)

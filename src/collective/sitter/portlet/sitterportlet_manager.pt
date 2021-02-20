@@ -1,0 +1,34 @@
+<dl class="portlet portletSitter"
+    i18n:domain="collective.sitter">
+
+    <dt class="portletHeader">
+      <span class="portletTopLeft"></span>
+      Sitter Manager
+      <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="step portletItem">
+      <a tal:attributes="href python: view.sitter_folder_path + '/folder_contents'">Ordner Inhalt anzeigen</a>
+    </dd>
+
+    <dd class="step portletItem">
+      <a tal:attributes="href python: view.sitter_folder_path + '/edit'">Ordner Eigenschaften bearbeiten</a>
+    </dd>
+
+    <dd class="step portletItem" tal:condition="view/goto_agreement">
+      <a tal:attributes="href view/goto_agreement">Nutzungsbedingungen bearbeiten</a>
+    </dd>
+
+    <dd class="step portletItem" tal:condition="view/goto_info_text">
+      <a tal:attributes="href view/goto_info_text">Info-Text für unangemeldete Benutzer bearbeiten</a>
+    </dd>
+
+    <dd class="step portletItem" tal:condition="view/goto_logged_in_info_text">
+      <a tal:attributes="href view/goto_logged_in_info_text">Info-Text für angemeldete Benutzer bearbeiten</a>
+    </dd>
+
+    <dd class="step portletItem">
+      <a tal:attributes="href python: view.sitter_folder_path + '/deletesitter'">alte Sitter löschen</a>
+    </dd>
+
+</dl>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vdex xmlns="http://www.imsglobal.org/xsd/imsvdex_v1p0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/imsvdex_v1p0 imsvdex_v1p0.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd"
+      orderSignificant="false"
+      profileType="flatTokenTerms"
+      language="de">
+  <vocabName>
+    <langstring language="de">Wohnort</langstring>
+    <langstring language="en">District</langstring>
+  </vocabName>
+  <vocabIdentifier>district</vocabIdentifier>
+
+  <term>
+    <termIdentifier>north</termIdentifier>
+    <caption>
+      <langstring language="de">Nordviertel</langstring>
+      <langstring language="en">Northern district</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>south</termIdentifier>
+    <caption>
+      <langstring language="de">Südviertel</langstring>
+      <langstring language="en">Southern district</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>west</termIdentifier>
+    <caption>
+      <langstring language="de">Westviertel</langstring>
+      <langstring language="en">Western district</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>east</termIdentifier>
+    <caption>
+      <langstring language="de">Ostviertel</langstring>
+      <langstring language="en">Eastern district</langstring>
+    </caption>
+  </term>
+
+</vdex>

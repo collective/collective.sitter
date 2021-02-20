@@ -1,0 +1,102 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  i18n_domain="collective.sitter">
+
+  <browser:resourceDirectory
+    name="collective.sitter"
+    directory="resources"
+    />
+
+  <plone:static
+    type="theme" directory="resources/css"
+    />
+
+  <browser:page
+    name="sitter-controlpanel"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".controlpanel.SitterSettingsView"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    name="signupview"
+    for="..content.sitterfolder.ISitterFolder"
+    class=".sitterfolder.SignupView"
+    permission="zope2.View"
+    template="templates/signupview.pt"
+    />
+
+  <browser:page
+    name="searchsitterview"
+    for="..content.sitterfolder.ISitterFolder"
+    class=".sitterfolder.SearchSitterView"
+    permission="zope2.View"
+    template="templates/searchsitterview.pt"
+    />
+
+  <browser:page
+    name="deletesitter"
+    for="..content.sitterfolder.ISitterFolder"
+    permission="zope2.DeleteObjects"
+    template="templates/deletesitter.pt"
+    class=".sitterfolder.DeleteSitterView"
+    />
+
+  <browser:page
+    name="checkcreator"
+    for="..content.sitterfolder.ISitterFolder"
+    permission="zope2.DeleteObjects"
+    template="templates/checkcreator.pt"
+    class=".sitterfolder.CheckCreatorView"
+    />
+
+  <browser:page
+    name="sitterview"
+    for="..content.sitter.ISitter"
+    class=".sitter.SitterView"
+    permission="zope2.View"
+    template="templates/sitterview.pt"
+    />
+
+  <browser:page
+    name="sittermailview"
+    for="..content.sitter.ISitter"
+    class=".sitter.SitterMailView"
+    permission="zope2.View"
+    template="templates/sittermailview.pt"
+    />
+
+  <adapter
+    for="Products.CMFCore.interfaces.IFolderish
+         *
+         plone.dexterity.interfaces.IDexterityFTI"
+    provides="zope.publisher.interfaces.browser.IBrowserPage"
+    factory=".sitter.AddView"
+    name="sitter"
+    />
+
+  <class class=".sitter.AddView">
+    <require
+      permission="collective.sitter.AddSitter"
+      interface="zope.publisher.interfaces.browser.IBrowserPage"
+      />
+  </class>
+
+  <browser:page
+    name="sittermacros"
+    template="templates/sittermacros.pt"
+    permission="zope2.View"
+    for="*"
+    />
+
+  <browser:page
+    name="ActionHelpers"
+    for="*"
+    class=".actionhelpers.ActionHelpers"
+    permission="zope2.View"
+    />
+
+</configure>

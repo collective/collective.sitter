@@ -1,0 +1,319 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <oli@dragoni.de>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-02-17 23:22+0000\n"
+"PO-Revision-Date: 2014-06-11 11:24+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.sitter\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: collective/sitter/content/sitter.py
+msgid "Additional Qualifications"
+msgstr "Sonstige Qualifikationen"
+
+#: collective/sitter/sitterstate.py
+msgid "Anmelden"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Beschreiben Sie sich hier mit ein paar kurzen Worten."
+msgstr "Beschreiben Sie sich hier mit ein paar kurzen Worten."
+
+#: collective/sitter/content/sitterexperience.py
+#: collective/sitter/content/sitterqualification.py
+msgid "Beschreibung"
+msgstr ""
+
+#: collective/sitter/content/sitterqualification.py
+msgid "Bildbeschreibung"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Birthday"
+msgstr "Geburtsdatum"
+
+#: collective/sitter/sitterstate.py
+msgid "Bitte akzeptieren Sie die Nutzungsbedingungen."
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Bitte geben Sie einige Daten zu sich an."
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Bitte melden Sie sich mit Ihrem Staff oder Students-Account an."
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Daten eingeben"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Detailed Information"
+msgstr "Geben Sie hier einige Details über sich an."
+
+#: collective/sitter/content/sitter.py
+msgid "District"
+msgstr "Wohnort"
+
+#: collective/sitter/sitterstate.py
+msgid "Einreichen"
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Eintrag gelöscht"
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Eintrag veröffentlicht"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Experiences"
+msgstr "Betreuungserfahrung"
+
+#: collective/sitter/configure.zcml
+msgid "Extension profile for Sitter agency"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Geben Sie hier die Qualifikationen an, die Sie mitbringen."
+msgstr "Geben Sie hier die Qualifikationen an, die Sie mitbringen."
+
+#: collective/sitter/content/sitterfolder.py
+msgid "Geben Sie hier eine Vorlage fuer das Kontaktformular an."
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Geben sie die Sprachen mit , getrennt ein."
+msgstr "Geben sie die Sprachen mit , getrennt ein."
+
+#: collective/sitter/content/sitter.py
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: collective/sitter/browser/templates/searchsitterview.pt
+msgid "Geschlecht:"
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Ihr Eintrag ist veröffentlicht. Sie können Ihren Eintrag auch <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Ihr Eintrag ist zum Löschen markiert und wird innerhalb der nächsten ${days} Tage gelöscht. Bis dahin haben Sie die Möglichkeit ihn <a href=\"${recycle_link}\">wiederherzustellen. </a>"
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Ihr Eintrag wird von der Redaktion geprüft und freigegeben. Sie können Ihre Daten weiterhin <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Image"
+msgstr "Bild"
+
+#: collective/sitter/content/validator.py
+msgid "Image is too large - it must be lower than ${size}MB"
+msgstr ""
+
+#: collective/sitter/content/sitterfolder.py
+msgid "Kontaktformular Vorlage"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Mobility"
+msgstr "Mobilität"
+
+#: collective/sitter/browser/templates/searchsitterview.pt
+msgid "Mobilität"
+msgstr ""
+
+#: collective/sitter/content/sitterexperience.py
+#: collective/sitter/content/sitterqualification.py
+msgid "Name"
+msgstr "Name"
+
+#: collective/sitter/content/sitter.py
+msgid "Nickname"
+msgstr "Titel meiner Babysitteranzeige"
+
+#: collective/sitter/sitterstate.py
+msgid "Nutzungsbedingungen akzeptieren"
+msgstr ""
+
+#: collective/sitter/browser/sitterfolder.py
+msgid "Please login before registering as babysitter"
+msgstr "Bitte melden Sie sich an, bevor Sie sich als Babysitter registrieren."
+
+#: collective/sitter/content/sitter.py
+msgid "Qualifications"
+msgstr "Qualifikationen und Auszeichnungen"
+
+#: collective/sitter/browser/templates/searchsitterview.pt
+msgid "Qualifikationen"
+msgstr ""
+
+#: collective/sitter/sitterstate.py
+msgid "Sie können Ihren Eintrag jetzt <a href=\"${link}\">einreichen</a>, damit er von der Redaktion freigegeben werden kann. Auch können Sie Ihren Eintrag weiter <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
+msgstr ""
+
+#: collective/sitter/browser/controlpanel.py collective/sitter/configure.zcml
+msgid "Sitter agency"
+msgstr "Sitterbörse"
+
+#: collective/sitter/content/sitter.py
+msgid "Sprachen"
+msgstr "Sprachen"
+
+#: collective/sitter/content/sitter.py
+msgid "Waehlen Sie aus, mit welchen Altersklassen sie schon Erfahrungen haben."
+msgstr "Wählen Sie aus, mit welchen Altersklassen Sie schon Erfahrungen haben."
+
+#: collective/sitter/content/sitter.py
+msgid "Waehlen Sie aus, wie mobil Sie sind."
+msgstr "Wie mobil sind Sie?"
+
+#: collective/sitter/sitterstate.py
+msgid "Warten auf Freigabe"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuzeigen. Sie bestätigen uns, dass Sie das alleinige Urheberrecht, das Recht bzw. die Erlaubnis auf Veröffentlichung des im Rahmen der Babysitteranzeige hochgeladenen Fotos besitzen sowie die Zustimmung eventuell weiterer Personen auf dem Foto vorliegen haben."
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "desc_birthday"
+msgstr "Geben sie Ihr Geburtsdatum ein. An Hand des Geburtsdatums wird berechnet, ob sie volljährig sind, wonach gesucht werden kann."
+
+#: collective/sitter/content/sitter.py
+msgid "desc_district"
+msgstr " "
+
+#: collective/sitter/content/sitter.py
+msgid "desc_gender"
+msgstr " "
+
+#. Default: "Erfahrung"
+#: collective/sitter/browser/templates/searchsitterview.pt
+#: collective/sitter/browser/templates/sittermacros.pt
+#: collective/sitter/content/sitterfolder.py
+#, fuzzy
+msgid "experiences"
+msgstr "Betreuungserfahrung"
+
+#: collective/sitter/content/sitterfolder.py
+msgid "info_text"
+msgstr ""
+
+#: collective/sitter/content/sitterfolder.py
+msgid "info_text_logged_in_user"
+msgstr ""
+
+#. Default: "Accept"
+#: collective/sitter/browser/templates/signupview.pt
+msgid "label_Accept"
+msgstr "Annehmen"
+
+#. Default: "Decline"
+#: collective/sitter/browser/templates/signupview.pt
+msgid "label_Decline"
+msgstr "Ablehnen"
+
+#: collective/sitter/content/sitterfolder.py
+msgid "possible_agreement"
+msgstr "Datenschutzbestimmungen"
+
+#: collective/sitter/content/sitterfolder.py
+msgid "possible_experiences"
+msgstr "Erfahrungen die dem Babysitter zur Auswahl gestellt werden."
+
+#: collective/sitter/content/sitterfolder.py
+msgid "possible_qualifications"
+msgstr "Qualifikationen, die dem Babysitter zur Auswahl gestellt werden."
+
+#: collective/sitter/content/sitterfolder.py
+msgid "qualifications"
+msgstr "Qualifikationen"
+
+#: collective/sitter/browser/templates/searchsitterview.pt
+msgid "search_sitter_title"
+msgstr "Babysitter finden!"
+
+#. Default: "Sitter"
+#: collective/sitter/profiles/default/types/sitter.xml
+msgid "sitter"
+msgstr "Babysitter"
+
+#. Default: "Sitter entry"
+#: collective/sitter/profiles/default/types/sitter.xml
+msgid "sitter_desc"
+msgstr "Babysitter-Eintrag"
+
+#. Default: "Sitter Experience"
+#: collective/sitter/profiles/default/types/sitterexperience.xml
+msgid "sitter_experience"
+msgstr "Betreuungserfahrung"
+
+#. Default: "Sitter experience"
+#: collective/sitter/profiles/default/types/sitterexperience.xml
+msgid "sitter_experience_desc"
+msgstr "Betreuungserfahrung"
+
+#. Default: "Sitter Folder"
+#: collective/sitter/profiles/default/types/sitterfolder.xml
+msgid "sitter_folder"
+msgstr "Babysitter-Ordner"
+
+#. Default: "Folder which is holding all sitters"
+#: collective/sitter/profiles/default/types/sitterfolder.xml
+msgid "sitter_folder_desc"
+msgstr "Ordner, der alle Babysitter enthält"
+
+#: collective/sitter/content/sitterfolder.py
+msgid "sitter_folder_name"
+msgstr "Babysitter-Ordner-Name"
+
+#: collective/sitter/portlet/sitterportlet.py
+msgid "sitter_portlet_add_desc"
+msgstr "Dieses Portlet zeigt Details zum Registrierungsstatus als Babysitter."
+
+#: collective/sitter/portlet/sitterportlet.py
+msgid "sitter_portlet_add_label"
+msgstr "Babysitter-Portlet hinzufügen"
+
+#: collective/sitter/portlet/sitterportlet.py
+msgid "sitter_portlet_edit_desc"
+msgstr "Dieses Portlet zeigt Details zum Registrierungsstatus als Babysitter."
+
+#: collective/sitter/portlet/sitterportlet.py
+msgid "sitter_portlet_edit_label"
+msgstr "Babysitter-Portlet bearbeiten"
+
+#: collective/sitter/portlet/sitterportlet.py
+msgid "sitter_portlet_title"
+msgstr "Babysitter-Portlet"
+
+#. Default: "Sitter Qualification"
+#: collective/sitter/profiles/default/types/sitterqualification.xml
+msgid "sitter_qualification"
+msgstr "Betreuungsqualifikation"
+
+#. Default: "Sitter qualification"
+#: collective/sitter/profiles/default/types/sitterqualification.xml
+msgid "sitter_qualification_desc"
+msgstr "Betreuungsqualifikation"
+
+#: collective/sitter/profiles/default/actions.xml
+msgid "user_action_my_sitter_entry"
+msgstr "Mein Babysitter-Eintrag"

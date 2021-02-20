@@ -1,0 +1,24 @@
+<rolemap>
+
+    <roles>
+        <role name="Babysitter"/>
+        <role name="Sitter Manager"/>
+    </roles>
+
+    <permissions>
+        <permission
+            name="collective.sitter: Manage sitters"
+            acquire="True">
+            <role name="Manager" />
+            <role name="Site Administrator" />
+            <role name="Sitter Manager" />
+        </permission>
+
+        <permission
+            name="collective.sitter: Add sitter"
+            acquire="True">
+            <role name="Member" />
+            <role name="Babysitter" />
+        </permission>
+    </permissions>
+</rolemap>
