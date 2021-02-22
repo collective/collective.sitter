@@ -22,11 +22,11 @@ class TestPermissions(TestCase):
         self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/signupview')
         self.browser.getControl(name='form.button.Accept').click()
 
-    def _create_sitter(self, nickname='not', detailes='this is a test'):
+    def _create_sitter(self, nickname='not', details='this is a test'):
         self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/++add++sitter')
         form = self.browser.getForm('form')
         form.getControl(name='form.widgets.nickname').value = nickname
-        form.getControl(name='form.widgets.details').value = detailes
+        form.getControl(name='form.widgets.details').value = details
         form.getControl(name='form.buttons.save').click()
 
     def test_notAllowedToEditForeignSitterObjects(self):
@@ -63,7 +63,7 @@ class TestPermissions(TestCase):
 
     def test_notAllowedToPublishOwnSitterObjects(self):
         self._accept_agb()
-        self._create_sitter(nickname='Testfirst', detailes='this is a sitter')
+        self._create_sitter(nickname='Testfirst', details='this is a sitter')
         own_sitterobject_name = 'testfirst'
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
@@ -87,7 +87,7 @@ class TestPermissions(TestCase):
     @unittest.skip('XXX needs to be fixed')
     def test_notAllowedToDeleteOwnObjects(self):
         self._accept_agb()
-        self._create_sitter(nickname='Testfirst', detailes='this is a sitter')
+        self._create_sitter(nickname='Testfirst', details='this is a sitter')
         own_sitterobject_name = 'testfirst'
         sitter_obj = self.sitter_folder[own_sitterobject_name]
         self.assertIsNotNone(sitter_obj)

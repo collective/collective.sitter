@@ -79,7 +79,7 @@ class BaseTest(TestCase):
 
         sitter_01 = self.sitter_folder['sitter-01']
         sitter_01.firstname = 'Kristin'
-        sitter_01.detailes = 'Hallo, das ist ein Test'
+        sitter_01.details = 'Hallo, das ist ein Test'
         sitter_01.birthday = DateTime('01.01.1970')
         sitter_01.gender = 'female'
         sitter_01.reindexObject()

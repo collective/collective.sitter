@@ -60,7 +60,7 @@ msgstr ""
 
 #: collective/sitter/content/sitter.py
 msgid "Detailed Information"
-msgstr "About me - Comment yourself with some detailes."
+msgstr "About me - Comment yourself with some details."
 
 #: collective/sitter/content/sitter.py
 msgid "District"
