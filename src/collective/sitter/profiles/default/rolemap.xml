@@ -1,7 +1,6 @@
 <rolemap>
 
     <roles>
-        <role name="Babysitter"/>
         <role name="Sitter Manager"/>
     </roles>
 
@@ -18,7 +17,6 @@
             name="collective.sitter: Add sitter"
             acquire="True">
             <role name="Member" />
-            <role name="Babysitter" />
         </permission>
     </permissions>
 </rolemap>
