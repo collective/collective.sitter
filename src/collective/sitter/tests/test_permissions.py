@@ -1,5 +1,6 @@
 from ..testing import SITTER_FUNCTIONAL_TESTING
 from ..testing import TestCase
+from plone import api
 from zExceptions import Unauthorized
 
 import unittest
@@ -79,9 +80,8 @@ class TestPermissions(TestCase):
         )
         self.browser.open(url)
         self.login_site_owner()
-        sitter = self.sitter_folder['testfirst']
-        pwt = self.portal.portal_workflow
-        state = pwt.getInfoFor(sitter, 'review_state')
+        sitter = self.sitter_folder[own_sitterobject_name]
+        state = api.content.get_state(sitter)
         self.assertEqual('private', state)
 
     @unittest.skip('XXX needs to be fixed')
