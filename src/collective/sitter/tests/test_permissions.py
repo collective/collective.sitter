@@ -6,18 +6,12 @@ from zExceptions import Unauthorized
 import unittest
 
 
-class TestPermissions(TestCase):
+class TestPermissionsBase(TestCase):
     layer = SITTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         super().setUp()
-        self.login_site_owner()
         self.portal_url = self.portal.absolute_url()
-
-        self._accept_agb()
-        self._create_sitter()
-
-        self.login_test_user()
 
     def _accept_agb(self):
         self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/signupview')
@@ -29,6 +23,15 @@ class TestPermissions(TestCase):
         form.getControl(name='form.widgets.nickname').value = nickname
         form.getControl(name='form.widgets.details').value = details
         form.getControl(name='form.buttons.save').click()
+
+
+class TestPermissionsForeign(TestPermissionsBase):
+    def setUp(self):
+        super().setUp()
+        self.login_site_owner()
+        self._accept_agb()
+        self._create_sitter()
+        self.login_test_user()
 
     def test_notAllowedToEditForeignSitterObjects(self):
         url = f'{self.portal_url}/{self.sitter_folder_name}/not/edit'
@@ -62,6 +65,16 @@ class TestPermissions(TestCase):
         )
         self.assertRaises(Unauthorized, self.browser.open, url)
 
+    def test_notAllowedToDeleteForeignObject(self):
+        url = f'{self.portal_url}/{self.sitter_folder_name}/not/delete_confirmation'
+        self.assertRaises(Unauthorized, self.browser.open, url)
+
+
+class TestPermissions(TestPermissionsBase):
+    def setUp(self):
+        super().setUp()
+        self.login_test_user()
+
     def test_notAllowedToPublishOwnSitterObjects(self):
         self._accept_agb()
         self._create_sitter(nickname='Testfirst', details='this is a sitter')
@@ -79,7 +92,6 @@ class TestPermissions(TestCase):
             f'/{own_sitterobject_name}/content_status_modify?workflow_action=publish'
         )
         self.browser.open(url)
-        self.login_site_owner()
         sitter = self.sitter_folder[own_sitterobject_name]
         state = api.content.get_state(sitter)
         self.assertEqual('private', state)
@@ -99,10 +111,6 @@ class TestPermissions(TestCase):
         self.browser.open(url)
         self.assertIn('destructive', self.browser.contents)
         self.assertRaises(Unauthorized, self.browser.getControl('Delete').click)
-
-    def test_notAllowedToDeleteForeignObject(self):
-        url = f'{self.portal_url}/{self.sitter_folder_name}/not/delete_confirmation'
-        self.assertRaises(Unauthorized, self.browser.open, url)
 
     def test_memberDoesNotHaveManageSittersPermission(self):
         ok = dict(name='Member', selected='SELECTED') in self.portal.rolesOfPermission(
