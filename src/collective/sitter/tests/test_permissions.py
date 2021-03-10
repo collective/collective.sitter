@@ -3,8 +3,6 @@ from ..testing import TestCase
 from plone import api
 from zExceptions import Unauthorized
 
-import unittest
-
 
 class TestPermissionsBase(TestCase):
     layer = SITTER_FUNCTIONAL_TESTING
@@ -95,22 +93,6 @@ class TestPermissions(TestPermissionsBase):
         sitter = self.sitter_folder[own_sitterobject_name]
         state = api.content.get_state(sitter)
         self.assertEqual('private', state)
-
-    @unittest.skip('XXX needs to be fixed')
-    def test_notAllowedToDeleteOwnObjects(self):
-        self._accept_agb()
-        self._create_sitter(nickname='Testfirst', details='this is a sitter')
-        own_sitterobject_name = 'testfirst'
-        sitter_obj = self.sitter_folder[own_sitterobject_name]
-        self.assertIsNotNone(sitter_obj)
-        self.login_site_owner()
-        url = (
-            f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{own_sitterobject_name}/delete_confirmation'
-        )
-        self.browser.open(url)
-        self.assertIn('destructive', self.browser.contents)
-        self.assertRaises(Unauthorized, self.browser.getControl('Delete').click)
 
     def test_memberDoesNotHaveManageSittersPermission(self):
         ok = dict(name='Member', selected='SELECTED') in self.portal.rolesOfPermission(
