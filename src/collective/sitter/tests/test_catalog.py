@@ -330,11 +330,22 @@ class TestSearch(BaseTest):
     def test_randomOrder_differentSessionDifferentOrder(self):
         with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
             results1 = self.view_under_test._find_sitters()
-        with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
-            results2 = self.view_under_test._find_sitters()
         ids1 = [brain.getId for brain in results1]
-        ids2 = [brain.getId for brain in results2]
-        self.assertNotEqual(ids1, ids2)
+        # retry to counter spurious failure if orders turn out equal by chance
+        for i in range(3):
+            with patch.object(
+                SearchSitterView, '_get_or_create_session', return_value={}
+            ):
+                results2 = self.view_under_test._find_sitters()
+            ids2 = [brain.getId for brain in results2]
+            try:
+                self.assertNotEqual(ids1, ids2)
+            except AssertionError as e:
+                error = e
+            else:
+                break
+        else:
+            raise error
 
     def test_searchFilterGender_female(self):
         results = self.view_under_test._find_sitters(gender=['female'])
