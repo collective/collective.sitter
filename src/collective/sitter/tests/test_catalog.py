@@ -1,16 +1,16 @@
+from ..browser.sitterfolder import SearchSitterView
 from ..testing import SITTER_INTEGRATION_TESTING
 from ..testing import TestCase
 from ..vocabularies import voc_experience
 from ..vocabularies import voc_quali
 from DateTime import DateTime
 from plone import api
+from unittest.mock import patch
 from z3c.relationfield import RelationValue
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.intid import IIntIds
 from zope.schema.interfaces import IVocabularyFactory
-
-import unittest
 
 
 class BaseTest(TestCase):
@@ -319,21 +319,19 @@ class TestSearch(BaseTest):
         )
         self.assertEqual(0, len(results))
 
-    @unittest.skip('')
     def test_randomOrder_sameSessionSameOrder(self):
-        results1 = self.view_under_test._find_sitters()
-        results2 = self.view_under_test._find_sitters()
+        with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
+            results1 = self.view_under_test._find_sitters()
+            results2 = self.view_under_test._find_sitters()
         ids1 = [brain.getId for brain in results1]
         ids2 = [brain.getId for brain in results2]
         self.assertEqual(ids1, ids2)
 
-    @unittest.skip('')
     def test_randomOrder_differentSessionDifferentOrder(self):
-        results1 = self.view_under_test._find_sitters()
-        session_manager = api.portal.get_tool('session_data_manager')
-        session = session_manager.getSessionData()
-        del session['random']
-        results2 = self.view_under_test._find_sitters()
+        with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
+            results1 = self.view_under_test._find_sitters()
+        with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
+            results2 = self.view_under_test._find_sitters()
         ids1 = [brain.getId for brain in results1]
         ids2 = [brain.getId for brain in results2]
         self.assertNotEqual(ids1, ids2)

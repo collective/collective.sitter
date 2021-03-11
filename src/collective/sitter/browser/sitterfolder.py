@@ -121,13 +121,11 @@ class SearchSitterView(BaseSitterView):
         session = self._get_or_create_session()
         if session is None:
             random_key = random.random()
-        elif session.has_key(  # noqa - You can not use 'in'-operator for session-object
-            'random'
-        ):
+        elif 'random' in session:
             random_key = session['random']
         else:
             random_key = random.random()
-            session.set('random', random_key)
+            session['random'] = random_key
         return random_key
 
     def _get_or_create_session(self):
