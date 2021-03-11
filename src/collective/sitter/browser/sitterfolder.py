@@ -76,34 +76,10 @@ class SearchSitterView(BaseSitterView):
         experiences=None,
         gender=None,
     ):
-        if qualifications is None:
-            qualifications = []
-        if not type(qualifications) is list and not type(qualifications) is tuple:
-            qualifications = [
-                qualifications,
-            ]
-
-        if experiences is None:
-            experiences = []
-        if not type(experiences) is list and not type(experiences) is tuple:
-            experiences = [
-                experiences,
-            ]
-
-        if mobility is None:
-            mobility = []
-        if not type(mobility) is list and not type(mobility) is tuple:
-            mobility = [
-                mobility,
-            ]
-
-        if gender is None:
-            gender = []
-
-        if not type(gender) is list and not type(gender) is tuple:
-            gender = [
-                gender,
-            ]
+        qualifications = _listify(qualifications)
+        experiences = _listify(experiences)
+        mobility = _listify(mobility)
+        gender = _listify(gender)
 
         query = {
             'portal_type': 'sitter',
@@ -111,29 +87,21 @@ class SearchSitterView(BaseSitterView):
             'review_state': 'published',
         }
 
-        if len(mobility) > 0:
-            query_mobility = []
-            for q in mobility:
-                query_mobility.append(q)
-            query['mobility'] = {'query': query_mobility, 'operator': 'and'}
+        if mobility:
+            query['mobility'] = {'query': mobility, 'operator': 'and'}
 
-        if fullage is not None:
-            if fullage is not None and fullage != '':
-                query['fullage'] = fullage
+        if fullage not in (None, ''):
+            query['fullage'] = fullage
 
-        if len(qualifications) > 0:
-            qualifications_filter = []
-            for q in qualifications:
-                qualifications_filter.append(q.replace(' ', '_'))
+        if qualifications:
+            qualifications_filter = [q.replace(' ', '_') for q in qualifications]
             query['qualification'] = {'query': qualifications_filter, 'operator': 'and'}
 
-        if len(experiences) > 0:
-            experiences_filter = []
-            for q in experiences:
-                experiences_filter.append(q.replace(' ', '_'))
+        if experiences:
+            experiences_filter = [q.replace(' ', '_') for q in experiences]
             query['experience'] = {'query': experiences_filter, 'operator': 'and'}
 
-        if len(gender) > 0:
+        if gender:
             factory = getUtility(IVocabularyFactory, name='collective.taxonomy.gender')
             vocabulary = factory(self.context)
             values = {term.value for term in vocabulary}
@@ -169,10 +137,7 @@ class SearchSitterView(BaseSitterView):
             # may occur when testing
             return
 
-        session = sdm.getSessionData(create=False)
-        if session is None:
-            session = sdm.getSessionData(create=True)
-
+        session = sdm.getSessionData(create=True)
         return session
 
     def is_a_user_logged_in(self):
@@ -397,3 +362,11 @@ class DeletedLdapUsersService:
     def remove_all_from_list(self):
         for c in self.list_of_removed_users:
             self.remove_user_from_list_of_deleted_users(c)
+
+
+def _listify(value):
+    if value is None:
+        value = []
+    if type(value) not in (list, tuple):
+        value = [value]
+    return value

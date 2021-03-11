@@ -323,10 +323,9 @@ class TestSearch(BaseTest):
     def test_randomOrder_sameSessionSameOrder(self):
         results1 = self.view_under_test._find_sitters()
         results2 = self.view_under_test._find_sitters()
-        i = 0
-        while i < len(results1):
-            self.assertEqual(results1[i].getId, results2[i].getId)
-            i += 1
+        ids1 = [brain.getId for brain in results1]
+        ids2 = [brain.getId for brain in results2]
+        self.assertEqual(ids1, ids2)
 
     @unittest.skip('')
     def test_randomOrder_differentSessionDifferentOrder(self):
