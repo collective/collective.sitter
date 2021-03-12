@@ -94,7 +94,8 @@ class TestRedirection(BaseTestClass):
 
 
 class BaseSeleniumTestClass(BaseTestClass):
-    def setup_selenium(self):
+    def setUp(self):
+        super().setUp()
         options = webdriver.FirefoxOptions()
         options.headless = not os.environ.get('WEBDRIVER_DEBUG')
         self.driver = webdriver.Firefox(options=options)
@@ -114,6 +115,10 @@ class BaseSeleniumTestClass(BaseTestClass):
         self.driver.find_element_by_id('__ac_password').send_keys(SITE_OWNER_PASSWORD)
         self.driver.find_element_by_name('submit').click()
 
+    def tearDown(self):
+        self.driver.quit()
+        super().tearDown()
+
 
 class TestHoneyPot(BaseSeleniumTestClass):
 
@@ -121,7 +126,6 @@ class TestHoneyPot(BaseSeleniumTestClass):
 
     def setUp(self):
         super().setUp()
-        self.setup_selenium()
         self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-06'
         self.driver.get(self.url)
 
@@ -145,9 +149,6 @@ class TestHoneyPot(BaseSeleniumTestClass):
             'Die E-Mail wurde !erfolgreich versendet', self.driver.page_source
         )
 
-    def tearDown(self):
-        self.driver.quit()
-
 
 class TestTermsOfUse(BaseSeleniumTestClass):
 
@@ -155,7 +156,6 @@ class TestTermsOfUse(BaseSeleniumTestClass):
 
     def setUp(self):
         super().setUp()
-        self.setup_selenium()
         self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-06'
         self.driver.get(self.url)
 
@@ -175,9 +175,6 @@ class TestTermsOfUse(BaseSeleniumTestClass):
         self.driver.find_element_by_id('sendcontact').click()
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
-    def tearDown(self):
-        self.driver.quit()
-
 
 class TestSpecialChars(BaseSeleniumTestClass):
 
@@ -185,7 +182,6 @@ class TestSpecialChars(BaseSeleniumTestClass):
 
     def setUp(self):
         super().setUp()
-        self.setup_selenium()
         self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-07'
         self.driver.get(self.url)
 
@@ -205,7 +201,6 @@ class TestRemovePortalMessage(BaseSeleniumTestClass):
 
     def setUp(self):
         super().setUp()
-        self.setup_selenium()
         self.selenium_login_site_owner()
         # submit sitter entry:
         self.url = (
@@ -218,9 +213,6 @@ class TestRemovePortalMessage(BaseSeleniumTestClass):
         self.assertNotIn('Item state changed.', self.driver.page_source)
         self.assertNotIn('Artikelstatus ge', self.driver.page_source)
         self.assertIn('Kontaktformular', self.driver.page_source)
-
-    def tearDown(self):
-        self.driver.quit()
 
 
 class TestPortalActions(BaseTestClass):
@@ -261,7 +253,6 @@ class TestReferer(BaseSeleniumTestClass):
 
     def setUp(self):
         super().setUp()
-        self.setup_selenium()
         self.selenium_login_site_owner()
 
     def test_noReferer(self):
@@ -292,10 +283,6 @@ class TestReferer(BaseSeleniumTestClass):
 @unittest.skip('')
 class TestIsEditBarVisible(BaseSeleniumTestClass):
     layer = SITTER_SELENIUM_TESTING
-
-    def setUp(self):
-        super().setUp()
-        self.setup_selenium()
 
     def test_userHasPermission_editbarShow(self):
         self.selenium_login_site_owner()
