@@ -278,23 +278,23 @@ class TestReferer(BaseSeleniumTestClass):
         self.assertEqual(expected_url, back_link_href)
 
 
-@unittest.skip('')
-class TestIsEditBarVisible(BaseSeleniumTestClass):
+class TestIsEditable(BaseSeleniumTestClass):
+
     layer = SITTER_SELENIUM_TESTING
 
-    def test_userHasPermission_editbarShow(self):
+    def test_sitter_is_editable_for_owner(self):
         self.selenium_login_site_owner()
         self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-07'
         self.driver.get(self.url)
-        edit_bar = self.driver.find_element_by_css_selector('#edit-bar')
+        edit_bar = self.driver.find_element_by_css_selector('#contentview-edit')
         self.assertIsNotNone(edit_bar)
 
-    def test_userHasPermission_editbarNotShow(self):
+    def test_sitter_is_not_editable_for_others(self):
         self.selenium_login_test_user()
         self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-07'
         self.driver.get(self.url)
         self.assertRaises(
             NoSuchElementException,
             self.driver.find_element_by_css_selector,
-            '#edit-bar',
+            '#contentview-edit',
         )
