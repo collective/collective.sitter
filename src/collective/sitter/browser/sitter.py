@@ -154,7 +154,7 @@ Subject: {subject}
 
         sitter_folder = ISitterState(self.context).get_sitter_folder()
         if sitter_folder.agreement and form.get('accepted') != 'True':
-            return 'Bitte bestätigen Sie die Nutzungbedingungen (über dem Textfeld).'
+            return 'Bitte bestätigen Sie die Nutzungsbedingungen (über dem Textfeld).'
 
         kontaktname = form.get('kontaktname')
         kontaktemail = form.get('kontaktemail')

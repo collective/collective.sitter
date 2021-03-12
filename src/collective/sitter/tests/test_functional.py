@@ -160,12 +160,12 @@ class TestTermsOfUse(BaseSeleniumTestClass):
         self.driver.get(self.url)
 
     def test_accepted_false(self):
-        self.assertNotIn('Sie die Nutzungbedingungen', self.driver.page_source)
+        self.assertNotIn('Sie die Nutzungsbedingungen', self.driver.page_source)
         self.driver.find_element_by_id('kontaktname').send_keys('KK')
         self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
         self.driver.find_element_by_id('kontakttext').send_keys('hallo')
         self.driver.find_element_by_id('sendcontact').click()
-        self.assertIn('Sie die Nutzungbedingungen', self.driver.page_source)
+        self.assertIn('Sie die Nutzungsbedingungen', self.driver.page_source)
 
     def test_accepted_true(self):
         self.driver.find_element_by_id('kontaktname').send_keys('KK')
