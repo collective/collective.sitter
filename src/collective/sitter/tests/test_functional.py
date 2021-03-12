@@ -115,7 +115,6 @@ class BaseSeleniumTestClass(BaseTestClass):
         self.driver.find_element_by_name('submit').click()
 
 
-@unittest.skip('')
 class TestHoneyPot(BaseSeleniumTestClass):
 
     layer = SITTER_SELENIUM_TESTING
@@ -150,7 +149,6 @@ class TestHoneyPot(BaseSeleniumTestClass):
         self.driver.quit()
 
 
-@unittest.skip('')
 class TestTermsOfUse(BaseSeleniumTestClass):
 
     layer = SITTER_SELENIUM_TESTING
@@ -181,7 +179,6 @@ class TestTermsOfUse(BaseSeleniumTestClass):
         self.driver.quit()
 
 
-@unittest.skip('')
 class TestSpecialChars(BaseSeleniumTestClass):
 
     layer = SITTER_SELENIUM_TESTING

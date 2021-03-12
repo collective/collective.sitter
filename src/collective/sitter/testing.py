@@ -15,6 +15,9 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
 from plone.testing.zope import Browser
 from plone.testing.zope import WSGI_SERVER_FIXTURE
+from z3c.relationfield import RelationValue
+from zope.component import getUtility
+from zope.intid import IIntIds
 
 import collective.sitter
 import collective.taxonomy
@@ -37,6 +40,9 @@ class SitterLayer(PloneSandboxLayer):
         portal.acl_users.userFolderAddUser(
             SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ['Manager'], []
         )
+        api.user.get(username=SITE_OWNER_NAME).setMemberProperties(
+            {'email': 'sitter-06@example.org'}
+        )
         setRoles(portal, TEST_USER_ID, ['Member'])
 
         login(portal, SITE_OWNER_NAME)
@@ -46,6 +52,13 @@ class SitterLayer(PloneSandboxLayer):
             id='sitter_folder',
         )
         api.content.transition(sitter_folder, transition='publish')
+
+        int_ids = getUtility(IIntIds)
+        terms_of_use = api.content.create(
+            container=portal, type='Document', id='terms_of_use'
+        )
+        api.content.transition(terms_of_use, transition='publish')
+        sitter_folder.agreement = RelationValue(int_ids.queryId(terms_of_use))
 
 
 SITTER_FIXTURE = SitterLayer()
