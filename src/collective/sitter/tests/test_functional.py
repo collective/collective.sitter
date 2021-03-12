@@ -12,7 +12,6 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 import os
-import time
 import transaction
 import unittest
 
@@ -96,19 +95,9 @@ class TestRedirection(BaseTestClass):
 
 class BaseSeleniumTestClass(BaseTestClass):
     def setup_selenium(self):
-        use_firefox = os.environ.get('USE_FIREFOX_FOR_SELENIUM')
-        if use_firefox == '1' or use_firefox == 'True':
-            print(
-                ' Using Firefox for tests. Set environment variable '
-                "USE_FIREFOX_FOR_SELENIUM to 'False' or remove it."
-            )
-            self.driver = webdriver.Firefox()
-        else:
-            print(
-                ' Using PhantomJS for tests. Set environment variable '
-                "USE_FIREFOX_FOR_SELENIUM to 'True' for Firefox."
-            )
-            self.driver = webdriver.PhantomJS()
+        options = webdriver.FirefoxOptions()
+        options.headless = not os.environ.get('WEBDRIVER_DEBUG')
+        self.driver = webdriver.Firefox(options=options)
         self.driver.implicitly_wait(10)  # seconds
 
     def selenium_login_test_user(self):
@@ -143,7 +132,6 @@ class TestHoneyPot(BaseSeleniumTestClass):
         self.driver.find_element_by_id('kontakttext').send_keys('hallo')
         self.driver.find_element_by_id('accepted').click()
         self.driver.find_element_by_id('sendcontact').click()
-        time.sleep(1)  # Because of timing issue while using PhantomJS
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
     def test_honeypotfield_filled(self):
@@ -153,7 +141,6 @@ class TestHoneyPot(BaseSeleniumTestClass):
         self.driver.find_element_by_id('accepted').click()
         self.driver.find_element_by_id('kontakttext').send_keys('hallo')
         self.driver.find_element_by_id('sendcontact').click()
-        time.sleep(1)  # Because of timing issue while using PhantomJS
 
         self.assertIn(
             'Die E-Mail wurde !erfolgreich versendet', self.driver.page_source
@@ -180,7 +167,6 @@ class TestTermsOfUse(BaseSeleniumTestClass):
         self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
         self.driver.find_element_by_id('kontakttext').send_keys('hallo')
         self.driver.find_element_by_id('sendcontact').click()
-        time.sleep(1)  # Because of timing issue while using PhantomJS
         self.assertIn('Sie die Nutzungbedingungen', self.driver.page_source)
 
     def test_accepted_true(self):
@@ -189,7 +175,6 @@ class TestTermsOfUse(BaseSeleniumTestClass):
         self.driver.find_element_by_id('accepted').click()
         self.driver.find_element_by_id('kontakttext').send_keys('hallo')
         self.driver.find_element_by_id('sendcontact').click()
-        time.sleep(1)  # Because of timing issue while using PhantomJS
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
     def tearDown(self):
@@ -213,7 +198,6 @@ class TestSpecialChars(BaseSeleniumTestClass):
         self.driver.find_element_by_id('accepted').click()
         self.driver.find_element_by_id('kontakttext').send_keys('hallo täst')
         self.driver.find_element_by_id('sendcontact').click()
-        time.sleep(1)  # Because of timing issue while using PhantomJS
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
 
