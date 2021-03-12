@@ -102,18 +102,17 @@ class BaseSeleniumTestClass(BaseTestClass):
         self.driver.implicitly_wait(10)  # seconds
 
     def selenium_login_test_user(self):
-        self.url = f'{self.portal_url}/login'
-        self.driver.get(self.url)
-        self.driver.find_element_by_id('__ac_name').send_keys(TEST_USER_NAME)
-        self.driver.find_element_by_id('__ac_password').send_keys(TEST_USER_PASSWORD)
-        self.driver.find_element_by_name('submit').click()
+        self.selenium_login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
     def selenium_login_site_owner(self):
+        self.selenium_login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+
+    def selenium_login(self, name, password):
         self.url = f'{self.portal_url}/login'
         self.driver.get(self.url)
-        self.driver.find_element_by_id('__ac_name').send_keys(SITE_OWNER_NAME)
-        self.driver.find_element_by_id('__ac_password').send_keys(SITE_OWNER_PASSWORD)
-        self.driver.find_element_by_name('submit').click()
+        self.driver.find_element_by_id('__ac_name').send_keys(name)
+        self.driver.find_element_by_id('__ac_password').send_keys(password)
+        self.driver.find_element_by_name('buttons.login').click()
 
     def tearDown(self):
         self.driver.quit()
@@ -246,7 +245,6 @@ class TestPortalActions(BaseTestClass):
         self.assertNotIn('logout', self.browser.contents)
 
 
-@unittest.skip('')
 class TestReferer(BaseSeleniumTestClass):
 
     layer = SITTER_SELENIUM_TESTING
