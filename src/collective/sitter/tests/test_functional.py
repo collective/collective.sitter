@@ -193,7 +193,6 @@ class TestSpecialChars(BaseSeleniumTestClass):
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
 
-@unittest.skip('')
 class TestRemovePortalMessage(BaseSeleniumTestClass):
 
     layer = SITTER_SELENIUM_TESTING
@@ -202,15 +201,14 @@ class TestRemovePortalMessage(BaseSeleniumTestClass):
         super().setUp()
         self.selenium_login_site_owner()
         # submit sitter entry:
-        self.url = (
-            f'{self.portal_url}/{self.sitter_folder_name}/sitter-01'
-            f'/content_status_modify?workflow_action=submit'
-        )
+        self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-01'
         self.driver.get(self.url)
 
     def test(self):
+        self.driver.find_element_by_id('plone-contentmenu-workflow').click()
+        self.driver.find_element_by_id('workflow-transition-submit').click()
         self.assertNotIn('Item state changed.', self.driver.page_source)
-        self.assertNotIn('Artikelstatus ge', self.driver.page_source)
+        self.assertNotIn('Artikelstatus geändert.', self.driver.page_source)
         self.assertIn('Kontaktformular', self.driver.page_source)
 
 

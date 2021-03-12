@@ -2,11 +2,9 @@ from ..sitterstate import ISitterState
 from plone import api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.add import DefaultAddView
+from Products.CMFPlone import PloneMessageFactory
 from Products.Five.browser import BrowserView
-from Products.statusmessages import STATUSMESSAGEKEY
-from Products.statusmessages.adapter import _decodeCookieValue
-from Products.statusmessages.adapter import IStatusMessage
-from zope.annotation.interfaces import IAnnotations
+from Products.statusmessages.interfaces import IStatusMessage
 
 import logging
 import re
@@ -45,11 +43,11 @@ class BaseSitterView(BrowserView):
 
 
 class SitterView(BaseSitterView):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __call__(self):
         self.remove_from_portal_messages(
-            ['Artikelstatus geändert.', 'Item state changed.']
+            self.context.translate(PloneMessageFactory('Item state changed.'))
         )
+        return super().__call__()
 
     def get_current_registration_step(self):
         sitter_state = self.sitter_state
@@ -61,29 +59,12 @@ class SitterView(BaseSitterView):
         else:
             return None
 
-    def remove_from_portal_messages(self, messages_to_remove):
-        request = self.context.REQUEST
-        annotations = IAnnotations(request)
-        value = annotations.get(STATUSMESSAGEKEY, request.cookies.get(STATUSMESSAGEKEY))
-        if value is None:
-            return []
-
-        value = _decodeCookieValue(value)
-
-        if request.response.getStatus() not in (301, 302, 304):
-            to_remove = []
-            for x in value:
-                if x.message in messages_to_remove:
-                    to_remove.append(x)
-
-            if not len(to_remove) == 0:
-                for to_r in to_remove:
-                    value.remove(to_r)
-                status_messages = IStatusMessage(request)
-                status_messages.show()  # removes all
-                # add remaining
-                for msg in value:
-                    status_messages.add(msg.message, msg.type)
+    def remove_from_portal_messages(self, *messages_to_remove):
+        status_message = IStatusMessage(self.request)  # noqa: P001
+        messages = status_message.show()  # clears messages
+        for msg in messages:
+            if msg.message not in messages_to_remove:
+                status_message.add(msg.message, msg.type)
 
     def getTextvorlage(self):
         sitter_folder = self.sitter_state.get_sitter_folder()
