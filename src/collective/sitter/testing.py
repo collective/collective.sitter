@@ -32,7 +32,6 @@ class SitterLayer(PloneSandboxLayer):
     )
 
     def setUpZope(self, app, configurationContext):
-        self.loadZCML(package=collective.taxonomy)
         self.loadZCML(package=collective.sitter)
 
     def setUpPloneSite(self, portal):
