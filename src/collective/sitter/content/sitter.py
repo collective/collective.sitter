@@ -94,9 +94,17 @@ class ISitter(model.Schema, IImageScaleTraversable):
         required=False,
     )
 
+    directives.widget(language=CheckBoxFieldWidget)
+    language = schema.List(
+        title=_('Languages'),
+        value_type=schema.Choice(vocabulary='collective.taxonomy.language'),
+        description=_('Select languages that you speak.'),
+        required=False,
+    )
+
     languages = schema.TextLine(
-        title=_('Sprachen'),
-        description=_('Geben sie die Sprachen mit , getrennt ein.'),
+        title=_('Additional Languages'),
+        description=_('Enter additional languages that you speak, separated by comma.'),
         required=False,
     )
 
@@ -179,9 +187,17 @@ class Sitter(Item):
         return bool(getattr(self, 'image', None))
 
     def get_language_list(self):
-        if self.languages is None:
-            return []
-        lang_list = [x.strip() for x in self.languages.split(',')]
+        lang_list = [
+            self.get_value_from_vocabulary(x, 'collective.taxonomy.language')
+            for x in self.language or []
+        ]
+        langs = set(lang.lower() for lang in lang_list)
+        if self.languages:
+            lang_list.extend(
+                lang
+                for x in self.languages.split(',')
+                if (lang := x.strip()).lower() not in langs
+            )
         return lang_list
 
     def get_district(self):
@@ -197,10 +213,6 @@ class Sitter(Item):
         if self.gender:
             gender = self.gender[0]
             return self.get_value_from_vocabulary(gender, 'collective.taxonomy.gender')
-
-    def setLanguages(self, value):
-        logger.debug(value)
-        self.language = value
 
     def get_mobility(self):
         return [

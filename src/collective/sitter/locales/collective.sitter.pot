@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-02-17 23:22+0000\n"
+"POT-Creation-Date: 2021-03-17 22:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.sitter\n"
+
+#: collective.sitter/src/collective/sitter/content/sitter.py
+msgid "Additional Languages"
+msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
 msgid "Additional Qualifications"
@@ -79,6 +83,10 @@ msgid "Eintrag veröffentlicht"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
+msgid "Enter additional languages that you speak, separated by comma."
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/content/sitter.py
 msgid "Experiences"
 msgstr ""
 
@@ -92,10 +100,6 @@ msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitterfolder.py
 msgid "Geben Sie hier eine Vorlage fuer das Kontaktformular an."
-msgstr ""
-
-#: collective.sitter/src/collective/sitter/content/sitter.py
-msgid "Geben sie die Sprachen mit , getrennt ein."
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
@@ -131,6 +135,10 @@ msgid "Kontaktformular Vorlage"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
+msgid "Languages"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/content/sitter.py
 msgid "Mobility"
 msgstr ""
 
@@ -163,6 +171,10 @@ msgstr ""
 msgid "Qualifikationen"
 msgstr ""
 
+#: collective.sitter/src/collective/sitter/content/sitter.py
+msgid "Select languages that you speak."
+msgstr ""
+
 #: collective.sitter/src/collective/sitter/sitterstate.py
 msgid "Sie können Ihren Eintrag jetzt <a href=\"${link}\">einreichen</a>, damit er von der Redaktion freigegeben werden kann. Auch können Sie Ihren Eintrag weiter <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
 msgstr ""
@@ -170,10 +182,6 @@ msgstr ""
 #: collective.sitter/src/collective/sitter/browser/controlpanel.py
 #: collective.sitter/src/collective/sitter/configure.zcml
 msgid "Sitter agency"
-msgstr ""
-
-#: collective.sitter/src/collective/sitter/content/sitter.py
-msgid "Sprachen"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py

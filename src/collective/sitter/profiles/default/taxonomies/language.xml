@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vdex xmlns="http://www.imsglobal.org/xsd/imsvdex_v1p0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/imsvdex_v1p0 imsvdex_v1p0.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd"
+      orderSignificant="false"
+      profileType="flatTokenTerms"
+      language="de">
+  <vocabName>
+    <langstring language="de">Sprache</langstring>
+    <langstring language="en">Language</langstring>
+  </vocabName>
+  <vocabIdentifier>language</vocabIdentifier>
+
+  <term>
+    <termIdentifier>de</termIdentifier>
+    <caption>
+      <langstring language="de">Deutsch</langstring>
+      <langstring language="en">German</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>en</termIdentifier>
+    <caption>
+      <langstring language="de">Englisch</langstring>
+      <langstring language="en">English</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>fr</termIdentifier>
+    <caption>
+      <langstring language="de">Französisch</langstring>
+      <langstring language="en">French</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>zh</termIdentifier>
+    <caption>
+      <langstring language="de">Chinesisch</langstring>
+      <langstring language="en">Chinese</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>ja</termIdentifier>
+    <caption>
+      <langstring language="de">Japanisch</langstring>
+      <langstring language="en">Japanese</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>es</termIdentifier>
+    <caption>
+      <langstring language="de">Spanisch</langstring>
+      <langstring language="en">Spanish</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>ru</termIdentifier>
+    <caption>
+      <langstring language="de">Russisch</langstring>
+      <langstring language="en">Russian</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>tr</termIdentifier>
+    <caption>
+      <langstring language="de">Türkisch</langstring>
+      <langstring language="en">Turkish</langstring>
+    </caption>
+  </term>
+
+</vdex>
