@@ -16,19 +16,19 @@ class ISitterState(Interface):
     of the currently logged in sitter"""
 
     def is_logged_in():
-        """ Is a user logged in? """
+        """Is a user logged in?"""
 
     def has_accepted():
-        """ Has Sitter accepted AGB? """
+        """Has Sitter accepted AGB?"""
 
     def is_created():
-        """ Is the sitter object created? """
+        """Is the sitter object created?"""
 
     def is_submitted():
-        """ Is the sitter object submitted to reviewer? """
+        """Is the sitter object submitted to reviewer?"""
 
     def is_published():
-        """ Is the sitter object published? """
+        """Is the sitter object published?"""
 
     def get_sitter_folder():
         """Return the nearest ISitterFolder up the hierarchy or None."""
