@@ -82,8 +82,6 @@ class SearchSitterView(BaseSitterView):
         gender = _listify(gender)
 
         query = {
-            'portal_type': 'sitter',
-            'path': {'query': '/'.join(self.context.getPhysicalPath())},
             'review_state': 'published',
         }
 
@@ -112,7 +110,7 @@ class SearchSitterView(BaseSitterView):
         # query['sort_on'] = 'modified'
         # query['sort_order'] = 'descending'
 
-        results = list(api.content.find(**query))
+        results = list(self.context.find_sitters(**query))
         random.shuffle(results, self._get_random_key_from_session)
 
         return results

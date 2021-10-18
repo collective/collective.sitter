@@ -1,4 +1,5 @@
 from .. import MessageFactory as _
+from plone import api
 from plone.app.z3cform.widget import RelatedItemsFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
@@ -104,7 +105,17 @@ class ISitterFolder(model.Schema):
         required=True,
     )
 
+    def find_sitters(**query_params):
+        pass
+
 
 @implementer(ISitterFolder)
 class SitterFolder(Container):
-    pass
+    def find_sitters(self, **query_params):
+        query = dict(
+            portal_type='sitter',
+            path={'query': '/'.join(self.getPhysicalPath())},
+        )
+        query.update(query_params)
+        results = api.content.find(**query)
+        return results

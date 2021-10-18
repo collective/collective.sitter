@@ -57,11 +57,7 @@ class SitterState:
         if not sitter_folder:
             return False
 
-        results = api.content.find(
-            portal_type='sitter',
-            path='/'.join(sitter_folder.getPhysicalPath()),
-            Creator=str(self.logged_in_member),
-        )
+        results = sitter_folder.find_sitters(Creator=str(self.logged_in_member))
         return bool(results)
 
     @memoize
@@ -70,9 +66,7 @@ class SitterState:
         is_deleted = False
         if sitter_folder is not None:
             member = self.logged_in_member
-            results = api.content.find(
-                portal_type='sitter',
-                path='/'.join(sitter_folder.getPhysicalPath()),
+            results = sitter_folder.find_sitters(
                 Creator=str(member),
                 review_state='deleting',
             )
@@ -102,17 +96,11 @@ class SitterState:
 
     @memoize
     def get_sitter(self):
-        member = self.logged_in_member
-        query = {
-            'portal_type': 'sitter',
-            'Creator': str(member),
-        }
-
         sitter_folder = self.get_sitter_folder()
-        if sitter_folder:
-            query['path'] = '/'.join(sitter_folder.getPhysicalPath())
+        if not sitter_folder:
+            return
 
-        results = api.content.find(**query)
+        results = sitter_folder.find_sitters(Creator=str(self.logged_in_member))
         if results:
             return results[0]
 
