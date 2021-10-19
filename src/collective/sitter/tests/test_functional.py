@@ -10,6 +10,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
 import os
+import time
 import transaction
 
 
@@ -174,6 +175,7 @@ class TestRemovePortalMessage(BaseSeleniumTestClass):
         self.driver.get(self.url)
 
     def test(self):
+        time.sleep(0.1)
         self.driver.find_element_by_id('plone-contentmenu-workflow').click()
         self.driver.find_element_by_id('workflow-transition-submit').click()
         self.assertNotIn('Item state changed.', self.driver.page_source)
