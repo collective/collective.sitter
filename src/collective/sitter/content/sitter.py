@@ -12,6 +12,7 @@ from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.browser.select import SelectFieldWidget
 from zope import schema
+from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.i18n import translate
@@ -311,6 +312,10 @@ def _send_mail_to_reviewer(context, subject, text, edit_url):
 
 
 def _send_mail(context, mail_from, mail_to, subject, text):
+    annotations = IAnnotations(getRequest())
+    if annotations.get('DONT_SEND_MAIL'):
+        return
+
     mail_text = """\
 To: {mail_to}
 From: {mail_from}
