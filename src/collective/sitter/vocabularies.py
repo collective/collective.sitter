@@ -45,26 +45,33 @@ def voc_district(context):
     return taxonomy(context)
 
 
-@provider(IContextSourceBinder)
-def voc_experience(context):
-    terms = []
-    sitter_folder = ISitterState(context).get_sitter_folder()
+@implementer(IVocabularyFactory)
+@implementer(IContextSourceBinder)
+class ContentVocabularyFactory:
+    items_name = None
 
-    if sitter_folder is not None and sitter_folder.experiences is not None:
-        for x in sitter_folder.experiences:
-            exp_obj = x.to_object
-            terms.append(SimpleTerm(value=exp_obj.UID(), title=exp_obj.title))
+    def __call__(self, context):
+        terms = []
+        sitter_folder = ISitterState(context).get_sitter_folder()
+        items = getattr(sitter_folder, self.items_name)
 
-    return SimpleVocabulary(terms)
+        if sitter_folder is not None and items is not None:
+            for x in items:
+                obj = x.to_object
+                terms.append(SimpleTerm(value=obj.UID(), title=obj.title))
+
+        return SimpleVocabulary(terms)
 
 
-@provider(IContextSourceBinder)
-def voc_quali(context):
-    terms = []
-    sitter_folder = ISitterState(context).get_sitter_folder()
+class ExperienceVocabularyFactory(ContentVocabularyFactory):
+    items_name = 'experiences'
 
-    if sitter_folder is not None and sitter_folder.qualificationlist is not None:
-        for x in sitter_folder.qualificationlist:
-            quali_obj = x.to_object
-            terms.append(SimpleTerm(value=quali_obj.UID(), title=quali_obj.title))
-    return SimpleVocabulary(terms)
+
+voc_experience = ExperienceVocabularyFactory()
+
+
+class QualificationVocabularyFactory(ContentVocabularyFactory):
+    items_name = 'qualificationlist'
+
+
+voc_quali = QualificationVocabularyFactory()

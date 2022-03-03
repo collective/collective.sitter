@@ -50,6 +50,18 @@
     name="collective.sitter.Catalog"
   />
 
+  <utility
+    factory=".vocabularies.ExperienceVocabularyFactory"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    name="collective.sitter.Experiences"
+  />
+
+  <utility
+    factory=".vocabularies.QualificationVocabularyFactory"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    name="collective.sitter.Qualifications"
+  />
+
   <include package="collective.monkeypatcher" />
 
   <monkey:patch
