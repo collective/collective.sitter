@@ -89,14 +89,15 @@
 <!-- Sitter-Qualification-Macro -->
 
 <div metal:define-macro="sitterqualification-macro">
-  <empty tal:condition="has_qualification"
-         tal:omit-tag=""
-          >
+  <tal:sitterqualifications
+    define="baseview context/@@basesitterview"
+    condition="has_qualification"
+    >
     <empty tal:omit-tag="" tal:condition="not: show_full_details">
       <div class="shortinfo">
         <h3 style="display: inline">Qualifikationen:</h3>
         <span tal:condition="not: show_full_details" class="sitter-qualification" tal:repeat="qualification sitter/qualifications">
-          <tal:helper tal:omit-tag="" tal:define="q python:view.get_object_for_qualification(qualification)">
+          <tal:helper define="q python:baseview.get_object_for_qualification(qualification)">
             <img tal:define="scales nocall:q/@@images" tal:replace="structure python: scales.tag('picture', scale='mini')"/>
             <span tal:omit-tag="" tal:content="python: q.beschreibung"></span>
             <span tal:omit-tag="" tal:condition="python: (not repeat['qualification'].end) or sitter.additional_qualifications">, </span>
@@ -129,19 +130,21 @@
         </ul>
       </div>
     </empty>
-  </empty>
+  </tal:sitterqualifications>
 </div>
 
 <!-- Sitter-Experience-Macro -->
 
 <div metal:define-macro="sitterexperiences-macro"  i18n:domain="collective.sitter">
-  <empty tal:omit-tag="" tal:condition="has_experience">
-
+  <tal:sitterexperiences
+    define="baseview context/@@basesitterview"
+    condition="has_experience"
+    >
     <empty tal:condition="not: show_full_details" tal:omit-tag="">
       <div class="shortinfo">
         <h3 style="display: inline"><span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:</h3>
         <span tal:repeat="exp sitter/experiences">
-          <tal:empty tal:omit-tag="" tal:define="exp_obj python: view.get_object_for_experience(exp)">
+          <tal:empty define="exp_obj python:baseview.get_object_for_experience(exp)">
             <span tal:content="exp_obj/title"> </span><span tal:condition="not: repeat/exp/end">, </span>
           </tal:empty>
         </span>
@@ -162,8 +165,7 @@
         </ul>
       </div>
     </empty>
-
-  </empty>
+  </tal:sitterexperiences>
 </div>
 
 <!-- Sitter-Lanauge-Macro -->

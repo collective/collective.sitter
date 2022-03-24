@@ -62,6 +62,13 @@
     />
 
   <browser:page
+    name="basesitterview"
+    for="*"
+    class=".sitter.BaseSitterView"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="sittermailview"
     for="..content.sitter.ISitter"
     class=".sitter.SitterMailView"
