@@ -54,13 +54,13 @@
     </a>
 
   </h1>
-  <h2 class="sitterhead"
+  <div
       tal:define="age sitter/get_age; gender sitter/get_gender"
       tal:condition="python:age or gender">
     <tal:span tal:condition="age" tal:content="string: ${age} Jahre"/>
     <tal:span tal:condition="python:age and gender">,</tal:span>
     <tal:span tal:condition="gender" tal:content="gender"/>
-  </h2>
+  </div>
 </div>
 
 <!-- Sitter-Details-Macro -->
