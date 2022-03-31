@@ -127,7 +127,9 @@
           <value tal:define="sitter sitterbrain/getObject" tal:omit-tag="">
             <div tal:omit-tag="" tal:condition="python: sitter.portal_type == 'sitter'">
 
+              <a tal:attributes="href sitter/absolute_url">
               <metal:macro use-macro="context/sittermacros/macros/sitter-macro"></metal:macro>
+              </a>
 
             </div>
           </value>
