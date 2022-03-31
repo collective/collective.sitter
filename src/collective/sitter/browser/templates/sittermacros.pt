@@ -115,7 +115,7 @@
         <h3 class="sitterhead">
           Qualifikationen:
         </h3>
-        <ul class="fa-ul">
+        <ul>
           <tal:repeat tal:repeat="quali sitter/qualifications">
             <li tal:define="q python: view.get_object_for_qualification(quali);
                             imgurl python: view.get_image_url_for_qualification(q, 32)"
