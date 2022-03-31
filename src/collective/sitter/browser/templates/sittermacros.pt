@@ -47,10 +47,10 @@
 <!-- Sitter-Head-Macro -->
 
 <div metal:define-macro="sitterhead-macro">
-  <h1 class="sitterhead">
+  <h2 class="sitterhead">
       <span tal:replace="sitter/nickname" />
       <span tal:condition="sitter/get_district" tal:replace="python: '(' + sitter.get_district() + ')'" />
-  </h1>
+  </h2>
   <div
       tal:define="age sitter/get_age; gender sitter/get_gender"
       tal:condition="python:age or gender">
