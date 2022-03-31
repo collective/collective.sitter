@@ -156,12 +156,12 @@
         <h3 class="sitterhead">
           <span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:
         </h3>
-        <ul tal:repeat="exp sitter/experiences">
-          <tal:empty tal:omit-tag="" tal:define="exp_obj python: view.get_object_for_experience(exp)">
-            <li>
+        <ul>
+          <tal:repeat repeat="exp sitter/experiences">
+            <li tal:define="exp_obj python: view.get_object_for_experience(exp)">
               <b tal:content="exp_obj/beschreibung"></b> (<i tal:content="exp_obj/Title"> </i>)
             </li>
-          </tal:empty>
+          </tal:repeat>
         </ul>
       </div>
     </empty>
@@ -189,8 +189,8 @@
       Sprachen:
     </h3>
 
-    <ul tal:repeat="langs sitter/get_language_list">
-      <li>
+    <ul>
+      <li tal:repeat="langs sitter/get_language_list">
         <b tal:content="langs"></b>
       </li>
     </ul>
@@ -218,8 +218,10 @@
       <h3 class="sitterhead">
         Mobilität:
       </h3>
-      <ul tal:repeat="mob sitter/get_mobility">
-        <li><b tal:content="mob"></b></li>
+      <ul>
+        <li tal:repeat="mob sitter/get_mobility">
+          <b tal:content="mob"></b>
+        </li>
       </ul>
   </empty>
 
