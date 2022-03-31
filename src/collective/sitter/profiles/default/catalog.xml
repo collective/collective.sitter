@@ -8,6 +8,10 @@
     <indexed_attr value="mobility"/>
   </index>
 
+  <index name="language" meta_type="KeywordIndex">
+    <indexed_attr value="language"/>
+  </index>
+
   <index name="qualification" meta_type="KeywordIndex">
     <indexed_attr value="qualification"/>
   </index>
