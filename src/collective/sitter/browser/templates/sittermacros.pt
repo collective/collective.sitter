@@ -85,7 +85,7 @@
     >
     <empty tal:omit-tag="" tal:condition="not: show_full_details">
       <div class="shortinfo">
-        <h3 style="display: inline">Qualifikationen:</h3>
+        <strong>Qualifikationen:</strong>
         <span tal:condition="not: show_full_details" class="sitter-qualification" tal:repeat="qualification sitter/qualifications">
           <tal:helper define="q python:baseview.get_object_for_qualification(qualification)">
             <img tal:define="scales nocall:q/@@images" tal:replace="structure python: scales.tag('picture', scale='mini')"/>
@@ -132,7 +132,7 @@
     >
     <empty tal:condition="not: show_full_details" tal:omit-tag="">
       <div class="shortinfo">
-        <h3 style="display: inline"><span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:</h3>
+        <strong><span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:</strong>
         <span tal:repeat="exp sitter/experiences">
           <tal:empty define="exp_obj python:baseview.get_object_for_experience(exp)">
             <span tal:content="exp_obj/title"> </span><span tal:condition="not: repeat/exp/end">, </span>
@@ -165,9 +165,7 @@
         >
   <empty tal:omit-tag="" tal:condition="not: show_full_details">
     <div class="shortinfo">
-      <h3 style="display: inline">
-        Sprachen:
-      </h3>
+      <strong>Sprachen:</strong>
       <span tal:repeat="lang sitter/get_language_list">
         <span tal:content="lang" tal:omit-tag=""></span><span tal:condition="not: repeat/lang/end" tal:omit-tag="">, </span>
       </span>
@@ -195,9 +193,7 @@
 
   <empty tal:omit-tag="" tal:condition="not: show_full_details">
     <div class="shortinfo">
-      <h3 style="display: inline">
-        Mobilität:
-      </h3>
+      <strong>Mobilität:</strong>
       <span tal:repeat="mob sitter/get_mobility">
         <span tal:content="mob" tal:omit-tag=""></span><span tal:condition="not: repeat/mob/end" tal:omit-tag="">, </span>
       </span>
