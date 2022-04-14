@@ -70,7 +70,7 @@
          tal:attributes="src string:${sitter/absolute_url}/@@images/image/large"/>
   </div>
   <div class="sitterinformation" tal:define="details sitter/details|nothing">
-    <span tal:condition="not: show_full_details" tal:omit-tag="" tal:content="structure python:details[0:350] + ' ...' if not details is None else ''"></span>
+    <span tal:condition="not: show_full_details" tal:omit-tag="" tal:content="structure python:sitter.abbreviated_details(350)"></span>
     <span tal:condition="show_full_details" tal:omit-tag="" tal:content="structure python: details[:] if not details is None else ''"></span>
   </div>
   <div style="clear:both;"></div>

@@ -1,5 +1,6 @@
 from .. import MessageFactory as _
 from .. import vocabularies
+from bs4 import BeautifulSoup
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.autoform import directives
@@ -226,6 +227,24 @@ class Sitter(Item):
         vocabulary = factory(self)
         term = vocabulary.getTerm(value)
         return translate(term.title, context=getRequest())
+
+    def abbreviated_details(self, length):
+        if not self.details:
+            return ''
+
+        soup = BeautifulSoup(self.details, features='lxml')
+
+        def soup_iter():
+            remaining = length
+            for s in soup.stripped_strings:
+                if len(s) > remaining:
+                    yield s[:remaining].rsplit(None, 1)[0] + '…'
+                    break
+                else:
+                    yield s
+                    remaining -= len(s)
+
+        return ''.join(f'<p>{s}</p>' for s in soup_iter())
 
 
 def on_created(obj, event):
