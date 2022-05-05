@@ -88,7 +88,6 @@
         <strong>Qualifikationen:</strong>
         <span tal:condition="not: show_full_details" class="sitter-qualification" tal:repeat="qualification sitter/qualifications">
           <tal:helper define="q python:baseview.get_object_for_qualification(qualification)">
-            <img tal:define="scales nocall:q/@@images" tal:replace="structure python: scales.tag('picture', scale='mini')"/>
             <span tal:omit-tag="" tal:content="python: q.beschreibung"></span>
             <span tal:omit-tag="" tal:condition="python: (not repeat['qualification'].end) or sitter.additional_qualifications">, </span>
           </tal:helper>
@@ -107,9 +106,7 @@
         </h3>
         <ul>
           <tal:repeat tal:repeat="quali sitter/qualifications">
-            <li tal:define="q python: view.get_object_for_qualification(quali);
-                            imgurl python: view.get_image_url_for_qualification(q, 32)"
-                tal:attributes="style python: f'list-style-image: url({imgurl})' if imgurl else ''">
+            <li tal:define="q python: view.get_object_for_qualification(quali)">
               <b tal:content="q/beschreibung"></b>
             </li>
           </tal:repeat>
