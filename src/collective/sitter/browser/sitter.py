@@ -13,18 +13,11 @@ import re
 logger = logging.getLogger(__name__)
 
 
-class BaseSitterView(BrowserView):
+class SitterView(BrowserView):
     @property
     def sitter_state(self):
         return ISitterState(self.context)
 
-    def get_image_url_for_qualification(self, quali, size):
-        if quali.picture:
-            scales = quali.restrictedTraverse('@@images')
-            return scales.scale('picture', width=size, height=size).url
-
-
-class SitterView(BaseSitterView):
     def __call__(self):
         self.remove_from_portal_messages(
             self.context.translate(PloneMessageFactory('Item state changed.'))
