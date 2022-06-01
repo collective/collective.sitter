@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-01 14:30+0000\n"
+"POT-Creation-Date: 2022-06-01 20:32+0000\n"
 "PO-Revision-Date: 2014-06-11 11:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.sitter\n"
 "X-Generator: Poedit 1.5.4\n"
-
-#: collective/sitter/content/sitter.py
-msgid "Additional Languages"
-msgstr "Weitere Sprachen"
 
 #: collective/sitter/content/sitter.py
 msgid "Additional Qualifications"
@@ -82,10 +78,6 @@ msgstr ""
 #: collective/sitter/sitterstate.py
 msgid "Eintrag veröffentlicht"
 msgstr ""
-
-#: collective/sitter/content/sitter.py
-msgid "Enter additional languages that you speak, separated by comma."
-msgstr "Geben Sie weitere Sprachen ein, die Sie sprechen, getrennt mit Komma."
 
 #: collective/sitter/content/sitter.py
 msgid "Experiences"

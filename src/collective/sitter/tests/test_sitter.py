@@ -54,9 +54,8 @@ class TestSitterContentType(TestCase):
 
     def test_sitter_getLanguages(self):
         self.sitter_object.language = ['en', 'ru']
-        self.sitter_object.languages = 'deutsch, english'
         langs = self.sitter_object.get_language_list()
-        self.assertEqual(['English', 'Russian', 'deutsch'], langs)
+        self.assertEqual(['English', 'Russian'], langs)
 
     def test_sitter_getLanguages_notSet(self):
         self.assertTrue(len(self.sitter_object.get_language_list()) == 0)

@@ -104,12 +104,6 @@ class ISitter(model.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    languages = schema.TextLine(
-        title=_('Additional Languages'),
-        description=_('Enter additional languages that you speak, separated by comma.'),
-        required=False,
-    )
-
     directives.widget(qualifications=CheckBoxFieldWidget)
     qualifications = schema.List(
         title=_('Qualifications'),
@@ -193,13 +187,6 @@ class Sitter(Item):
             self.get_value_from_vocabulary(x, 'collective.taxonomy.language')
             for x in self.language or []
         ]
-        langs = set(lang.lower() for lang in lang_list)
-        if self.languages:
-            lang_list.extend(
-                lang
-                for x in self.languages.split(',')
-                if (lang := x.strip()).lower() not in langs
-            )
         return lang_list
 
     def get_district(self):
