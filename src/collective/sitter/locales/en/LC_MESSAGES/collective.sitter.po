@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-01 20:32+0000\n"
+"POT-Creation-Date: 2022-06-01 20:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.sitter\n"
-
-#: collective/sitter/content/sitter.py
-msgid "Additional Qualifications"
-msgstr ""
 
 #: collective/sitter/sitterstate.py
 msgid "Anmelden"

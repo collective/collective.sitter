@@ -6,7 +6,7 @@
 
     <div class="sittercontainer">
       <div class="sittercontent" tal:define="show_full_details python: False if not 'show_full_details' in vars() else show_full_details;
-                                             has_qualification python: (sitter.qualifications is not None and len(sitter.qualifications)>0) or (sitter.additional_qualifications is not None and len(sitter.additional_qualifications) > 0);
+                                             has_qualification python: sitter.qualifications is not None and len(sitter.qualifications)>0;
                                              has_experience python: sitter.experiences is not None and len(sitter.experiences)>0;
                                              has_language python: sitter.get_language_list() is not None and len(sitter.get_language_list())>0;
                                              has_mobility python: sitter.get_mobility() is not None and len(sitter.get_mobility())>0;
@@ -89,12 +89,8 @@
         <span tal:condition="not: show_full_details" class="sitter-qualification" tal:repeat="qualification sitter/qualifications">
           <tal:helper define="q python:baseview.get_object_for_qualification(qualification)">
             <span tal:omit-tag="" tal:content="python: q.beschreibung"></span>
-            <span tal:omit-tag="" tal:condition="python: (not repeat['qualification'].end) or sitter.additional_qualifications">, </span>
+            <span tal:omit-tag="" tal:condition="python: not repeat['qualification'].end">, </span>
           </tal:helper>
-        </span>
-        <span tal:omit-tag="" tal:condition="sitter/additional_qualifications">
-          <i class="fa fa-circle-o" style="margin-right: 0.5em"></i><span tal:content="sitter/additional_qualifications">
-        </span>
         </span>
       </div>
     </empty>
@@ -110,10 +106,6 @@
               <b tal:content="q/beschreibung"></b>
             </li>
           </tal:repeat>
-          <li tal:condition="sitter/additional_qualifications">
-            <i class="fa fa-li fa-circle-o"></i>
-            <b tal:content="sitter/additional_qualifications"></b>
-          </li>
         </ul>
       </div>
     </empty>

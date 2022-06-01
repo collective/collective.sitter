@@ -9,7 +9,7 @@
     <div class="sittercontainer">
       <div class="sittercontent"
            tal:define="show_full_details python: False if not 'show_full_details' in vars() else show_full_details;
-                       has_qualification python: (sitter.qualifications is not None and len(sitter.qualifications)>0) or (sitter.additional_qualifications is not None and len(sitter.additional_qualifications) > 0);
+                       has_qualification python: sitter.qualifications is not None and len(sitter.qualifications)>0;
                        has_experience python: sitter.experiences is not None and len(sitter.experiences)>0;
                        has_language python: sitter.get_language_list() is not None and len(sitter.get_language_list())>0;
                        has_mobility python: sitter.get_mobility() is not None and len(sitter.get_mobility())>0;

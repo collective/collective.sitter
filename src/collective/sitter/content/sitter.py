@@ -112,10 +112,6 @@ class ISitter(model.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    additional_qualifications = schema.TextLine(
-        title=_('Additional Qualifications'), required=False
-    )
-
 
 @indexer(ISitter)
 def experiencesIndexer(context):
