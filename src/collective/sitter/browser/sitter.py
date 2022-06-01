@@ -18,24 +18,6 @@ class BaseSitterView(BrowserView):
     def sitter_state(self):
         return ISitterState(self.context)
 
-    def get_object_for_qualification(self, qualification_id):
-        sitter_folder = self.sitter_state.get_sitter_folder()
-        all_qualifications = sitter_folder.qualifications
-        qualification = [
-            x for x in all_qualifications if x.to_object.UID() == qualification_id
-        ]
-        if qualification:
-            quali = qualification[0]
-            return quali.to_object
-
-    def get_object_for_experience(self, experience_id):
-        sitter_folder = self.sitter_state.get_sitter_folder()
-        all_experiences = sitter_folder.experiences
-        experience = [x for x in all_experiences if x.to_object.UID() == experience_id]
-        if experience:
-            exp = experience[0]
-            return exp.to_object
-
     def get_image_url_for_qualification(self, quali, size):
         if quali.picture:
             scales = quali.restrictedTraverse('@@images')

@@ -10,11 +10,110 @@
 
 <metal:main fill-slot="main">
 
-  <div tal:define="sitter nocall:context; show_full_details python: True ">
-    <metal:macro use-macro="context/sittermacros/macros/sitter-macro"></metal:macro>
+  <div
+    tal:define="current_step view/get_current_registration_step|nothing"
+    tal:condition="current_step"
+    class="table sitter-step-info">
+    <div class="table-row table-cell">
+      <p>
+        <i class="fa fa-info-circle fa-4x info"></i>
+      </p>
+    </div>
+    <div class="table-row table-cell">
+      <p class="table sitter-step-info-head">
+        <a tal:condition="current_step/link"
+           tal:content="structure current_step/text"
+           tal:attributes="href current_step/link" />
+        <span tal:condition="not: current_step/link"
+              tal:content="structure current_step/text" />
+      </p>
+      <p tal:content="structure current_step/description" />
+    </div>
   </div>
 
-  <metal:macro use-macro="context/sittermacros/macros/sitter-back-button"></metal:macro>
+  <div class="sittercontainer">
+    <div class="sittercontent">
+
+    <h2 class="sitterhead">
+      <span tal:replace="context/nickname" />
+      <span tal:condition="context/get_district"
+            tal:replace="python: '(' + context.get_district() + ')'" />
+    </h2>
+    <div tal:define="age context/get_age; gender context/get_gender"
+         tal:condition="python:age or gender">
+      <tal:span condition="age" content="string: ${age} Jahre"
+                /><tal:span condition="python:age and gender">,</tal:span>
+      <tal:span condition="gender" content="gender" />
+    </div>
+
+    <div class="sitterimageholder" tal:condition="context/has_image">
+      <img tal:attributes="src string:${context/absolute_url}/@@images/image/large"/>
+    </div>
+    <div class="sitterinformation" tal:content="structure context/details" />
+    </div>
+    <div style="clear:both;"></div>
+
+    <div class="flexcontainer">
+      <div class="child" tal:condition="context/qualifications">
+        <div>
+          <h3 class="sitterhead">Qualifikationen:</h3>
+          <ul>
+            <li tal:repeat="obj python: context.get_qualifications()">
+              <b tal:content="obj/beschreibung"></b>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="child" tal:condition="context/experiences">
+        <div>
+          <h3 class="sitterhead">
+            <tal:span i18n:translate="experiences">Erfahrung</tal:span>:
+          </h3>
+          <ul>
+            <li tal:repeat="obj python: context.get_experiences()">
+              <b tal:content="obj/beschreibung"></b> (<i tal:content="obj/Title"> </i>)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="child"
+           tal:define="languages python: context.get_language_list()"
+           tal:condition="languages">
+        <h3 class="sitterhead">Sprachen:</h3>
+        <ul>
+          <li tal:repeat="langs languages">
+            <b tal:content="langs"></b>
+          </li>
+        </ul>
+      </div>
+
+      <div class="child"
+           tal:define="mobility python: context.get_mobility()"
+           tal:condition="mobility">
+        <h3 class="sitterhead">Mobilität:</h3>
+        <ul>
+          <li tal:repeat="mob mobility">
+            <b tal:content="mob"></b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div tal:define="local_referer python: view.get_local_referer()">
+    <tal:back-button condition="local_referer">
+      <a class="btn btn-back" tal:attributes="href local_referer">
+        Zurück zur Übersicht <i class="fa fa-backward"></i>
+      </a>
+    </tal:back-button>
+    <tal:back-button condition="not: local_referer">
+      <a class="btn btn-back" tal:attributes="href view/get_overview_url">
+        Zur Übersicht <i class="fa fa-reorder"></i>
+      </a>
+    </tal:back-button>
+  </div>
 
   <div class="sittercontainer">
     <div class="sittercontent">

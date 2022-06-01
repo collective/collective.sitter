@@ -89,13 +89,6 @@
   </class>
 
   <browser:page
-    name="sittermacros"
-    template="templates/sittermacros.pt"
-    permission="zope2.View"
-    for="*"
-    />
-
-  <browser:page
     name="ActionHelpers"
     for="*"
     class=".actionhelpers.ActionHelpers"
