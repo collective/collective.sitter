@@ -30,14 +30,6 @@
             </div>
           </div>
         </div>
-
-        <div tal:condition="not: show_full_details">
-          <metal:macro use-macro="context/sittermacros/macros/sitterqualification-macro"></metal:macro>
-          <metal:macro use-macro="context/sittermacros/macros/sitterexperiences-macro"></metal:macro>
-          <metal:macro use-macro="context/sittermacros/macros/sitterlanguage-macro"></metal:macro>
-          <metal:macro use-macro="context/sittermacros/macros/sittermobility-macro"></metal:macro>
-        </div>
-
       </div>
     </div>
   </div>
@@ -64,13 +56,10 @@
 
 <div metal:define-macro="sitterdetails-macro">
   <div class="sitterimageholder" tal:condition="sitter/has_image">
-    <img tal:condition="not: show_full_details"
-         tal:attributes="src string:${sitter/absolute_url}/@@images/image/thumb"/>
     <img tal:condition="show_full_details"
          tal:attributes="src string:${sitter/absolute_url}/@@images/image/large"/>
   </div>
   <div class="sitterinformation" tal:define="details sitter/details|nothing">
-    <span tal:condition="not: show_full_details" tal:omit-tag="" tal:content="structure python:sitter.abbreviated_details(350)"></span>
     <span tal:condition="show_full_details" tal:omit-tag="" tal:content="structure python: details[:] if not details is None else ''"></span>
   </div>
   <div style="clear:both;"></div>
@@ -83,18 +72,6 @@
     define="baseview context/@@basesitterview"
     condition="has_qualification"
     >
-    <empty tal:omit-tag="" tal:condition="not: show_full_details">
-      <div class="shortinfo">
-        <strong>Qualifikationen:</strong>
-        <span tal:condition="not: show_full_details" class="sitter-qualification" tal:repeat="qualification sitter/qualifications">
-          <tal:helper define="q python:baseview.get_object_for_qualification(qualification)">
-            <span tal:omit-tag="" tal:content="python: q.beschreibung"></span>
-            <span tal:omit-tag="" tal:condition="python: not repeat['qualification'].end">, </span>
-          </tal:helper>
-        </span>
-      </div>
-    </empty>
-
     <empty tal:omit-tag="" tal:condition="show_full_details">
       <div>
         <h3 class="sitterhead">
@@ -119,17 +96,6 @@
     define="baseview context/@@basesitterview"
     condition="has_experience"
     >
-    <empty tal:condition="not: show_full_details" tal:omit-tag="">
-      <div class="shortinfo">
-        <strong><span tal:omit-tag="" i18n:translate="experiences">Erfahrung</span>:</strong>
-        <span tal:repeat="exp sitter/experiences">
-          <tal:empty define="exp_obj python:baseview.get_object_for_experience(exp)">
-            <span tal:content="exp_obj/title"> </span><span tal:condition="not: repeat/exp/end">, </span>
-          </tal:empty>
-        </span>
-      </div>
-    </empty>
-
     <empty tal:condition="show_full_details" tal:omit-tag="">
       <div>
         <h3 class="sitterhead">
@@ -152,15 +118,6 @@
 <div tal:condition="has_language"
      metal:define-macro="sitterlanguage-macro"
         >
-  <empty tal:omit-tag="" tal:condition="not: show_full_details">
-    <div class="shortinfo">
-      <strong>Sprachen:</strong>
-      <span tal:repeat="lang sitter/get_language_list">
-        <span tal:content="lang" tal:omit-tag=""></span><span tal:condition="not: repeat/lang/end" tal:omit-tag="">, </span>
-      </span>
-    </div>
-  </empty>
-
   <empty tal:omit-tag="" tal:condition="show_full_details">
     <h3 class="sitterhead">
       Sprachen:
@@ -179,16 +136,6 @@
 
 <div tal:condition="has_mobility"
      metal:define-macro="sittermobility-macro">
-
-  <empty tal:omit-tag="" tal:condition="not: show_full_details">
-    <div class="shortinfo">
-      <strong>Mobilität:</strong>
-      <span tal:repeat="mob sitter/get_mobility">
-        <span tal:content="mob" tal:omit-tag=""></span><span tal:condition="not: repeat/mob/end" tal:omit-tag="">, </span>
-      </span>
-    </div>
-  </empty>
-
   <empty tal:omit-tag="" tal:condition="show_full_details">
       <h3 class="sitterhead">
         Mobilität:

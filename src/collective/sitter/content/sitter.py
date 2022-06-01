@@ -1,5 +1,6 @@
 from .. import MessageFactory as _
 from .. import vocabularies
+from ..sitterstate import ISitterState
 from bs4 import BeautifulSoup
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -211,6 +212,18 @@ class Sitter(Item):
         vocabulary = factory(self)
         term = vocabulary.getTerm(value)
         return translate(term.title, context=getRequest())
+
+    def get_qualifications(self):
+        # don't use vocabulary for efficiency
+        sitter_folder = ISitterState(self).get_sitter_folder()
+        objects = [x.to_object for x in sitter_folder.qualifications]
+        return [obj for obj in objects if obj.UID() in set(self.qualifications)]
+
+    def get_experiences(self):
+        # don't use vocabulary for efficiency
+        sitter_folder = ISitterState(self).get_sitter_folder()
+        objects = [x.to_object for x in sitter_folder.experiences]
+        return [obj for obj in objects if obj.UID() in set(self.experiences)]
 
     def abbreviated_details(self, length):
         if not self.details:

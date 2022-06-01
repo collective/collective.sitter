@@ -2,39 +2,52 @@
   tal:define="portal_type context/portal_type|string:;
               useViewTypes context/portal_properties/site_properties/typesUseViewActionInListings|python:[];
               useView python:portal_type in useViewTypes;
-              sitter python:context;
 ">
 
-  <a tal:attributes="href sitter/absolute_url">
+  <a tal:attributes="href context/absolute_url">
     <div class="sittercontainer">
-      <div class="sittercontent"
-           tal:define="show_full_details python: False if not 'show_full_details' in vars() else show_full_details;
-                       has_qualification python: sitter.qualifications is not None and len(sitter.qualifications)>0;
-                       has_experience python: sitter.experiences is not None and len(sitter.experiences)>0;
-                       has_language python: sitter.get_language_list() is not None and len(sitter.get_language_list())>0;
-                       has_mobility python: sitter.get_mobility() is not None and len(sitter.get_mobility())>0;
-      ">
-
+      <div class="sittercontent">
         <h3 class="sitterhead">
-          <span tal:replace="sitter/nickname" />
-          <span tal:condition="sitter/get_district" tal:replace="python: '(' + sitter.get_district() + ')'" />
+          <span tal:replace="context/nickname" />
+          <span tal:condition="context/get_district" tal:replace="python: '(' + context.get_district() + ')'" />
         </h3>
 
-        <div class="sitterimageholder" tal:condition="sitter/has_image">
-          <img tal:attributes="src string:${sitter/absolute_url}/@@images/image/thumb"/>
+        <div class="sitterimageholder" tal:condition="context/has_image">
+          <img tal:attributes="src string:${context/absolute_url}/@@images/image/thumb"/>
         </div>
 
-        <div class="sitterinformation" tal:content="structure python:sitter.abbreviated_details(350)" />
+        <div class="sitterinformation" tal:content="structure python:context.abbreviated_details(350)" />
         <div style="clear:both;"></div>
 
         <div>
-          <metal:macro use-macro="context/sittermacros/macros/sitterqualification-macro"></metal:macro>
-          <metal:macro use-macro="context/sittermacros/macros/sitterexperiences-macro"></metal:macro>
-          <metal:macro use-macro="context/sittermacros/macros/sitterlanguage-macro"></metal:macro>
-          <metal:macro use-macro="context/sittermacros/macros/sittermobility-macro"></metal:macro>
+          <div class="shortinfo"
+               tal:condition="context/qualifications">
+            <strong>Qualifikationen:</strong>
+            <span tal:content="python: ', '.join(x.beschreibung for x in context.get_qualifications())" />
+          </div>
+
+          <div class="shortinfo"
+               tal:condition="context/experiences">
+            <strong><tal:span i18n:translate="experiences">Erfahrungen</tal:span>:</strong>
+            <span tal:content="python: ', '.join(x.title for x in context.get_experiences())" />
+          </div>
+
+          <div class="shortinfo"
+               tal:define="languages python: context.get_language_list()"
+               tal:condition="languages">
+            <strong>Sprachen:</strong>
+            <span tal:content="python: ', '.join(languages)" />
+          </div>
+
+          <div class="shortinfo"
+               tal:define="mobility python: context.get_mobility()"
+               tal:condition="mobility">
+            <strong>Mobilität:</strong>
+            <span tal:content="python: ', '.join(mobility)" />
+          </div>
         </div>
 
-        <div tal:define="gender sitter/get_gender"
+        <div tal:define="gender context/get_gender"
              tal:condition="gender"
              style="float:left; margin-top: 2ex">
           <strong>Geschlecht:</strong> ${gender}
