@@ -33,6 +33,7 @@ setup(
     install_requires=[
         'beautifulsoup4',
         'collective.taxonomy',
+        'eea.facetednavigation',
         'plone.app.z3cform',
         'plone.autoform',
         'plone.dexterity',
@@ -41,6 +42,7 @@ setup(
         'plone.z3cform',
         'setuptools',
         'z3c.form',
+        'z3c.jbot',
         'z3c.relationfield',
         'zope.formlib',
     ],

@@ -1,153 +1,16 @@
 from .. import MessageFactory as _
 from ..sitterstate import ISitterState
-from .sitter import BaseSitterView
 from DateTime import DateTime
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
-from zope.component import getUtility
 from zope.interface import alsoProvides
-from zope.schema.interfaces import IVocabularyFactory
 
 import logging
-import random
 import urllib.request
 
 
 logger = logging.getLogger(__name__)
-
-
-class SearchSitterView(BaseSitterView):
-    def get_search_mode(self):
-        mode = self.request.form is not None and len(self.request.form) >= 1
-        return mode
-
-    def find_sitters(self):
-        if self.request.form is not None and len(self.request.form) > 1:
-            frm = self.request.form
-            mobility = frm.get('mobility', None)
-            u18 = frm.get('u18', None)
-            if u18 is not None:
-                u18 = u18 == 'ja'
-            qualifications = frm.get('qualifications', None)
-            if (
-                qualifications is not None
-                and not type(qualifications) is list
-                and not type(qualifications) is tuple
-            ):
-                qualifications = (qualifications,)
-            experiences = frm.get('experiences', None)
-            if (
-                experiences is not None
-                and not type(experiences) is list
-                and not type(experiences) is tuple
-            ):
-                experiences = (experiences,)
-
-            gender = frm.get('gender', None)
-            if (
-                gender is not None
-                and not type(gender) is list
-                and type(gender) is tuple
-            ):
-                gender = (gender,)
-
-            return self._find_sitters(
-                mobility=mobility,
-                fullage=u18,
-                qualifications=qualifications,
-                experiences=experiences,
-                gender=gender,
-            )
-        else:
-            return self._find_sitters()
-
-    def batch_size(self):
-        sitters_per_page = api.portal.get_registry_record(
-            'sitter.sitters_per_page', default=20
-        )
-        return sitters_per_page
-
-    def _find_sitters(
-        self,
-        mobility=None,
-        fullage=None,
-        qualifications=None,
-        experiences=None,
-        gender=None,
-    ):
-        qualifications = _listify(qualifications)
-        experiences = _listify(experiences)
-        mobility = _listify(mobility)
-        gender = _listify(gender)
-
-        query = {
-            'portal_type': 'sitter',
-            'path': {'query': '/'.join(self.context.getPhysicalPath())},
-            'review_state': 'published',
-        }
-
-        if mobility:
-            query['mobility'] = {'query': mobility, 'operator': 'and'}
-
-        if fullage not in (None, ''):
-            query['fullage'] = fullage
-
-        if qualifications:
-            qualifications_filter = [q.replace(' ', '_') for q in qualifications]
-            query['qualification'] = {'query': qualifications_filter, 'operator': 'and'}
-
-        if experiences:
-            experiences_filter = [q.replace(' ', '_') for q in experiences]
-            query['experience'] = {'query': experiences_filter, 'operator': 'and'}
-
-        if gender:
-            factory = getUtility(IVocabularyFactory, name='collective.taxonomy.gender')
-            vocabulary = factory(self.context)
-            values = {term.value for term in vocabulary}
-            gender_filter = [i for i in gender if i in values]
-            if gender_filter:
-                query['gender'] = gender_filter
-
-        # query['sort_on'] = 'modified'
-        # query['sort_order'] = 'descending'
-
-        results = list(api.content.find(**query))
-        random.shuffle(results, self._get_random_key_from_session)
-
-        return results
-
-    def _get_random_key_from_session(self):
-        session = self._get_or_create_session()
-        if session is None:
-            random_key = random.random()
-        elif 'random' in session:
-            random_key = session['random']
-        else:
-            random_key = random.random()
-            session['random'] = random_key
-        return random_key
-
-    def _get_or_create_session(self):
-        try:
-            sdm = self.context.session_data_manager
-        except AttributeError:
-            # may occur when testing
-            return
-
-        session = sdm.getSessionData(create=True)
-        return session
-
-    def is_a_user_logged_in(self):
-        return not api.user.is_anonymous()
-
-    def gender_list(self):
-        factory = getUtility(IVocabularyFactory, name='collective.taxonomy.gender')
-        return factory(self.context)
-
-    def mobility_list(self):
-        factory = getUtility(IVocabularyFactory, name='collective.taxonomy.mobility')
-        return factory(self.context)
 
 
 class SignupView(BrowserView):
@@ -164,9 +27,7 @@ class SignupView(BrowserView):
             self.request.response.redirect(self.context.absolute_url() + '/login?')
 
         elif ISitterState(self.context).has_accepted():
-            self.request.response.redirect(
-                self.context.absolute_url() + '/searchsitterview'
-            )
+            self.request.response.redirect(self.context.absolute_url())
 
         elif (
             'form.button.Accept' in self.request

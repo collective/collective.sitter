@@ -34,9 +34,7 @@
   <!-- View information -->
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
-  <property name="default_view">searchsitterview</property>
   <property name="view_methods">
-    <element value="searchsitterview"/>
     <element value="view"/>
     <element value="signupview"/>
   </property>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-03-17 22:19+0000\n"
+"POT-Creation-Date: 2022-06-01 14:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,10 +106,6 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: collective.sitter/src/collective/sitter/browser/templates/searchsitterview.pt
-msgid "Geschlecht:"
-msgstr ""
-
 #: collective.sitter/src/collective/sitter/sitterstate.py
 msgid "Ihr Eintrag ist veröffentlicht. Sie können Ihren Eintrag auch <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
 msgstr ""
@@ -142,10 +138,6 @@ msgstr ""
 msgid "Mobility"
 msgstr ""
 
-#: collective.sitter/src/collective/sitter/browser/templates/searchsitterview.pt
-msgid "Mobilität"
-msgstr ""
-
 #: collective.sitter/src/collective/sitter/content/sitterexperience.py
 #: collective.sitter/src/collective/sitter/content/sitterqualification.py
 msgid "Name"
@@ -165,10 +157,6 @@ msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
 msgid "Qualifications"
-msgstr ""
-
-#: collective.sitter/src/collective/sitter/browser/templates/searchsitterview.pt
-msgid "Qualifikationen"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
@@ -213,7 +201,6 @@ msgid "desc_gender"
 msgstr ""
 
 #. Default: "Erfahrung"
-#: collective.sitter/src/collective/sitter/browser/templates/searchsitterview.pt
 #: collective.sitter/src/collective/sitter/browser/templates/sittermacros.pt
 #: collective.sitter/src/collective/sitter/content/sitterfolder.py
 msgid "experiences"
@@ -251,10 +238,6 @@ msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitterfolder.py
 msgid "qualifications"
-msgstr ""
-
-#: collective.sitter/src/collective/sitter/browser/templates/searchsitterview.pt
-msgid "search_sitter_title"
 msgstr ""
 
 #. Default: "Sitter"

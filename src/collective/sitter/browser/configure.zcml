@@ -14,6 +14,11 @@
     type="theme" directory="resources/css"
     />
 
+  <include package="z3c.jbot" file="meta.zcml" />
+  <browser:jbot
+      directory="overrides"
+      />
+
   <browser:page
     name="sitter-controlpanel"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
@@ -27,14 +32,6 @@
     class=".sitterfolder.SignupView"
     permission="zope2.View"
     template="templates/signupview.pt"
-    />
-
-  <browser:page
-    name="searchsitterview"
-    for="..content.sitterfolder.ISitterFolder"
-    class=".sitterfolder.SearchSitterView"
-    permission="zope2.View"
-    template="templates/searchsitterview.pt"
     />
 
   <browser:page
@@ -103,6 +100,12 @@
     for="*"
     class=".actionhelpers.ActionHelpers"
     permission="zope2.View"
+    />
+
+  <adapter
+    for="eea.facetednavigation.widgets.sorting.widget.Widget"
+    provides="eea.facetednavigation.interfaces.IWidgetFilterBrains"
+    factory=".faceted.Shuffle"
     />
 
 </configure>

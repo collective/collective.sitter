@@ -22,22 +22,6 @@
     width:100%;
 }
 
-#findsittersform > * {
-    margin: 1em;
-}
-
-.sitterlist > div{
-    margin-bottom: 1rem;
-}
-.infos {
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-.infos > * {
-    margin: 1em;
-}
-
 .sittercontent {
     min-width:70%;
 }
@@ -207,10 +191,6 @@ div.portlet ul.step_more_links {
     display: table-cell;
     padding: 0em 1em 1em 1em;
     width: 25%;
-}
-
-#findsittersresult {
-    margin-top: 1em;
 }
 
 .hidden {
@@ -388,13 +368,4 @@ dl.portalMessage dd {
 
 .child.input {
     padding: 8px;
-}
-
-
-#findsittersform input[type="checkbox"] {
-    margin-top: 0px;
-}
-
-#findsittersform label {
-    font-weight: normal;
 }
