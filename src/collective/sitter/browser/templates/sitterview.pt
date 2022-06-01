@@ -34,11 +34,11 @@
   <div class="sittercontainer">
     <div class="sittercontent">
 
-    <h2 class="sitterhead">
+    <h1 class="sitterhead">
       <span tal:replace="context/nickname" />
       <span tal:condition="context/get_district"
             tal:replace="python: '(' + context.get_district() + ')'" />
-    </h2>
+    </h1>
     <div tal:define="age context/get_age; gender context/get_gender"
          tal:condition="python:age or gender">
       <tal:span condition="age" content="string: ${age} Jahre"
