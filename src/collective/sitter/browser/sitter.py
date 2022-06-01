@@ -20,7 +20,7 @@ class BaseSitterView(BrowserView):
 
     def get_object_for_qualification(self, qualification_id):
         sitter_folder = self.sitter_state.get_sitter_folder()
-        all_qualifications = sitter_folder.qualificationlist
+        all_qualifications = sitter_folder.qualifications
         qualification = [
             x for x in all_qualifications if x.to_object.UID() == qualification_id
         ]

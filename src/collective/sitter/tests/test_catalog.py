@@ -64,7 +64,7 @@ class BaseTest(TestCase):
         self.assertIn('sitter-02', self.sitter_folder)
 
         self.int_ids = getUtility(IIntIds)
-        self.sitter_folder.qualificationlist = (
+        self.sitter_folder.qualifications = (
             RelationValue(self.int_ids.queryId(self.sitter_folder['sitter-quali-01'])),
             RelationValue(self.int_ids.queryId(self.sitter_folder['sitter-quali-02'])),
             RelationValue(self.int_ids.queryId(self.sitter_folder['sitter-quali-03'])),

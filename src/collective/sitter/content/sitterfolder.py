@@ -62,7 +62,7 @@ class ISitterFolder(model.Schema):
         ),
     )
 
-    qualificationlist = RelationList(
+    qualifications = RelationList(
         title=_('qualifications'),
         value_type=RelationChoice(
             title=_('possible_qualifications'),
@@ -73,7 +73,7 @@ class ISitterFolder(model.Schema):
         missing_value=[],
     )
     directives.widget(
-        'qualificationlist',
+        'qualifications',
         RelatedItemsFieldWidget,
         pattern_options=dict(
             selectableTypes=['sitterqualification'],

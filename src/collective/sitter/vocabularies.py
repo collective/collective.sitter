@@ -71,7 +71,7 @@ voc_experience = ExperienceVocabularyFactory()
 
 
 class QualificationVocabularyFactory(ContentVocabularyFactory):
-    items_name = 'qualificationlist'
+    items_name = 'qualifications'
 
 
 voc_quali = QualificationVocabularyFactory()
