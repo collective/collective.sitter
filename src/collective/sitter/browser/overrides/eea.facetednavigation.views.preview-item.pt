@@ -47,9 +47,9 @@
           </div>
         </div>
 
-        <div tal:define="gender context/get_gender"
-             tal:condition="gender"
-             style="float:left; margin-top: 2ex">
+        <div class="shortinfo"
+             tal:define="gender context/get_gender"
+             tal:condition="gender">
           <strong>Geschlecht:</strong> ${gender}
         </div>
 
