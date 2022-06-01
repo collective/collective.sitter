@@ -348,22 +348,14 @@ class TestSearch:  # (BaseTest):
             raise error
 
     def test_searchFilterGender_female(self):
-        results = self.view_under_test._find_sitters(gender=['female'])
+        results = self.view_under_test._find_sitters(gender='female')
         self.assertEqual(3, len(results))
 
     def test_searchFilterGender_male(self):
-        results = self.view_under_test._find_sitters(gender=['male'])
+        results = self.view_under_test._find_sitters(gender='male')
         self.assertEqual(1, len(results))
 
-    def test_searchFilterGender_femalemale(self):
-        results = self.view_under_test._find_sitters(gender=['male', 'female'])
-        self.assertEqual(4, len(results))
-
     def test_searchFilterGender_invalidValue_returnAllGender(self):
-        results = self.view_under_test._find_sitters(gender=['foo'])
-        self.assertEqual(5, len(results))
-
-    def test_searchFilterGender_invalidStringValue_returnAllGender(self):
         results = self.view_under_test._find_sitters(gender='foo')
         self.assertEqual(5, len(results))
 
@@ -373,7 +365,7 @@ class TestSearch:  # (BaseTest):
             qualifications=[
                 uid_1,
             ],
-            gender=['female'],
+            gender='female',
         )
         self.assertEqual(1, len(result))
 
@@ -383,8 +375,4 @@ class TestSearch:  # (BaseTest):
 
     def test_searchFilterGender_StringFemale_returnFemale(self):
         results = self.view_under_test._find_sitters(gender='female')
-        self.assertEqual(3, len(results))
-
-    def test_searchFilterGender_invalidGender_returnFemale(self):
-        results = self.view_under_test._find_sitters(gender=['female', 'foo', 'bar'])
         self.assertEqual(3, len(results))

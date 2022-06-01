@@ -68,8 +68,9 @@ class TestSitterContentType(TestCase):
     def test_sitter_getGender(self):
         voc_gender = getUtility(IVocabularyFactory, name='collective.taxonomy.gender')
         self.sitter_object.gender = (
-            voc_gender(self.sitter_folder).getTerm('female').value,
+            voc_gender(self.sitter_folder).getTerm('female').value
         )
+
         gender = self.sitter_object.get_gender()
         self.assertEqual('female', gender)
 

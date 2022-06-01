@@ -65,9 +65,9 @@ class ISitter(model.Schema, IImageScaleTraversable):
     )
 
     directives.widget(gender=RadioFieldWidget)
-    gender = schema.List(
+    gender = schema.Choice(
         title=_('Gender'),
-        value_type=schema.Choice(vocabulary='collective.taxonomy.gender'),
+        vocabulary='collective.taxonomy.gender',
         description=_('desc_gender'),
         required=False,
     )
@@ -213,8 +213,9 @@ class Sitter(Item):
 
     def get_gender(self):
         if self.gender:
-            gender = self.gender[0]
-            return self.get_value_from_vocabulary(gender, 'collective.taxonomy.gender')
+            return self.get_value_from_vocabulary(
+                self.gender, 'collective.taxonomy.gender'
+            )
 
     def get_mobility(self):
         return [
