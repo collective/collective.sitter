@@ -121,5 +121,16 @@
    <property name="hidden">True</property>
    <property name="custom_css"></property>
   </criterion>
+  <criterion name="c8">
+   <property name="widget">path</property>
+   <property name="title">Path</property>
+   <property name="index">path</property>
+   <property name="default">SITTERFOLDER</property>
+   <property name="depth">0</property>
+   <property name="position">right</property>
+   <property name="section">default</property>
+   <property name="hidden">True</property>
+   <property name="theme">apple</property>
+  </criterion>
  </criteria>
 </object>

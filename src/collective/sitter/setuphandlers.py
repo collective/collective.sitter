@@ -40,6 +40,10 @@ def configure_facetednavigation(sitterfolder):
     )
     with open(import_file_path) as import_file:
         xml = import_file.read()
+
+        # XXX quick fix to limit search, there should be a less hacky way to do this
+        xml = xml.replace('SITTERFOLDER', f'/{sitterfolder.getId()}')
+
         environ = SnapshotImportContext(sitterfolder, 'utf-8')
         importer = queryMultiAdapter((sitterfolder, environ), IBody)
         importer.body = xml
