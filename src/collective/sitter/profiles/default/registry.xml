@@ -10,10 +10,10 @@
     </value>
   </record>
 
-  <records interface="eea.facetednavigation.interfaces.IEEASettings">
-    <record name="disable_diazo_rules_ajax">
-      <value>True</value>
-    </record>
+  <records
+      interface="eea.facetednavigation.interfaces.IEEASettings"
+      prefix="eea.facetednavigation.interfaces.IEEASettings">
+    <value key="disable_diazo_rules_ajax">True</value>
   </records>
 
 </registry>
