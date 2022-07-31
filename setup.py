@@ -4,7 +4,7 @@ from setuptools import setup
 import os
 
 
-version = '1.0alpha1'
+version = '1.0a1'
 
 setup(
     name='collective.sitter',
