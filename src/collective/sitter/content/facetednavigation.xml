@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <object name="sitter" meta_type="Dexterity Container">
  <criteria>
-  <criterion name="c4">
+  <criterion name="criterion-experience">
    <property name="widget">checkbox</property>
    <property name="title">Erfahrung</property>
    <property name="index">experience</property>
@@ -18,7 +18,7 @@
    <property name="maxitems">10</property>
    <property name="sortreversed">False</property>
   </criterion>
-  <criterion name="c5">
+  <criterion name="criterion-qualification">
    <property name="widget">checkbox</property>
    <property name="title">Qualifikation</property>
    <property name="index">qualification</property>
@@ -35,7 +35,7 @@
    <property name="maxitems">10</property>
    <property name="sortreversed">False</property>
   </criterion>
-  <criterion name="c6">
+  <criterion name="criterion-mobility">
    <property name="widget">checkbox</property>
    <property name="title">Mobilität</property>
    <property name="index">mobility</property>
@@ -52,7 +52,7 @@
    <property name="maxitems">10</property>
    <property name="sortreversed">False</property>
   </criterion>
-  <criterion name="c7">
+  <criterion name="criterion-language">
    <property name="widget">checkbox</property>
    <property name="title">Sprache</property>
    <property name="index">language</property>
@@ -69,14 +69,13 @@
    <property name="maxitems">10</property>
    <property name="sortreversed">False</property>
   </criterion>
-  <criterion name="c3">
+  <criterion name="criterion-portaltype">
    <property name="widget">checkbox</property>
    <property name="title">Portal type</property>
    <property name="index">portal_type</property>
    <property name="operator">or</property>
    <property name="operator_visible">False</property>
-   <property
-      name="vocabulary">eea.faceted.vocabularies.FacetedPortalTypes</property>
+   <property name="vocabulary">eea.faceted.vocabularies.FacetedPortalTypes</property>
    <property name="catalog"></property>
    <property name="default">
     <element value="sitter"/>
@@ -91,7 +90,7 @@
    <property name="maxitems">5</property>
    <property name="sortreversed">True</property>
   </criterion>
-  <criterion name="c2">
+  <criterion name="criteria">
    <property name="widget">criteria</property>
    <property name="title">Current search</property>
    <property name="position">center</property>
@@ -99,7 +98,7 @@
    <property name="hidden">False</property>
    <property name="custom_css"></property>
   </criterion>
-  <criterion name="c0">
+  <criterion name="criterion-resultsperpage">
    <property name="widget">resultsperpage</property>
    <property name="title">Results per page</property>
    <property name="default">200</property>
@@ -111,7 +110,7 @@
    <property name="end">200</property>
    <property name="step">10</property>
   </criterion>
-  <criterion name="c1">
+  <criterion name="criterion-sorting">
    <property name="widget">sorting</property>
    <property name="title">Sort on</property>
    <property name="vocabulary"></property>
@@ -121,7 +120,7 @@
    <property name="hidden">True</property>
    <property name="custom_css"></property>
   </criterion>
-  <criterion name="c8">
+  <criterion name="criterion-path">
    <property name="widget">path</property>
    <property name="title">Path</property>
    <property name="index">path</property>
@@ -130,7 +129,6 @@
    <property name="position">right</property>
    <property name="section">default</property>
    <property name="hidden">True</property>
-   <property name="theme">apple</property>
   </criterion>
  </criteria>
 </object>
