@@ -23,7 +23,7 @@ class Shuffle:
         shuffled = annotations.get(SHUFFLE_KEY, False)
         if not shuffled:
             annotations[SHUFFLE_KEY] = True
-            log.info('Shuffling sitters')
+            log.debug('Shuffling sitters')
             brains = list(brains)
             random.shuffle(brains, self._get_random_key_from_session)
 
