@@ -101,7 +101,7 @@
   <criterion name="criterion-resultsperpage">
    <property name="widget">resultsperpage</property>
    <property name="title">Results per page</property>
-   <property name="default">200</property>
+   <property name="default">20</property>
    <property name="position">right</property>
    <property name="section">default</property>
    <property name="hidden">True</property>
