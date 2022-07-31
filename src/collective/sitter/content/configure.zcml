@@ -26,4 +26,6 @@
 
   <adapter factory=".validator.ImageFileSizeValidator" />
 
+  <subscriber handler=".sitterfolder.configure_facetednavigation" />
+
 </configure>

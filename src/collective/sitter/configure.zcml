@@ -36,7 +36,6 @@
       directory="profiles/default"
       description="Extension profile for Sitter agency"
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.post_install"
       />
 
   <!-- Sitter State -->
