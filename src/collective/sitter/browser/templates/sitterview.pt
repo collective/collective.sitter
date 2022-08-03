@@ -192,7 +192,7 @@
           </script>
 
           <div class="">
-            <div class="inputline hidden">
+            <div class="inputline honeypot">
               <div class="input">
                 <h3 class="contactlabel">Homepage:</h3>
                 <div class="input"><input size="26" id="homepage" name="homepage" type="text"

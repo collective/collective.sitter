@@ -5,13 +5,10 @@
   xmlns:plone="http://namespaces.plone.org/plone"
   i18n_domain="collective.sitter">
 
-  <browser:resourceDirectory
-    name="collective.sitter"
-    directory="resources"
-    />
-
   <plone:static
-    type="theme" directory="resources/css"
+    directory="static"
+    type="plone"
+    name="collective.sitter"
     />
 
   <include package="z3c.jbot" file="meta.zcml" />

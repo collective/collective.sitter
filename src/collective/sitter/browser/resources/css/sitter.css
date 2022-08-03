@@ -104,10 +104,6 @@ div.portlet ul.step_more_links {
     width: 25%;
 }
 
-.hidden {
-    display: None;
-}
-
 button.btn,
  a.btn {
     background-color: #dee7ec;
