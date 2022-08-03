@@ -3,7 +3,7 @@
   <a tal:attributes="href context/absolute_url">
     <div class="sittercontainer">
       <div class="sittercontent">
-        <h3 class="sitterhead">
+        <h3>
           <span tal:replace="context/nickname" />
           <span tal:condition="context/get_district" tal:replace="python: '(' + context.get_district() + ')'" />
         </h3>

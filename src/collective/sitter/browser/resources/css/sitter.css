@@ -24,38 +24,6 @@
 
 }
 
-h1.sitterhead {
-    font-weight:bold;
-    background-color: #227ab1;
-    color: #ffffff;
-    margin-top: 0px;
-}
-
-h1.sitterhead > a {
-    color: #ffffff !important;
-}
-
-#content h1.sitterhead > a:hover {
-    text-decoration: none;
-    color: #ffffff !important;
-    font-weight: 200;
-}
-
-h2.sitterhead {
-    color: gray;
-    line-height: 1.3em;
-}
-
-.sitterhead {
-    font-size:1.3em;
-    font-weight:bold;
-    vertical-align: bottom;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    line-height: 100%;
-}
-
 .inputline {
     margin: 10px;
 }
