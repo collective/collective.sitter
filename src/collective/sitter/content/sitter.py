@@ -156,7 +156,10 @@ class Sitter(Item):
 
     @property
     def title(self):
-        return getattr(self, 'nickname', '')
+        title = getattr(self, 'nickname', '')
+        if district := self.get_district():
+            title = f'{title} ({district})'
+        return title
 
     def setTitle(self, value):
         return

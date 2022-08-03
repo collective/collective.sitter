@@ -8,7 +8,7 @@
 
 <body>
 
-<metal:main fill-slot="main">
+<metal:main fill-slot="content-core">
 
   <div
     tal:define="current_step view/get_current_registration_step|nothing"
@@ -34,11 +34,6 @@
   <div class="sittercontainer">
     <div class="sittercontent">
 
-    <h1>
-      <span tal:replace="context/nickname" />
-      <span tal:condition="context/get_district"
-            tal:replace="python: '(' + context.get_district() + ')'" />
-    </h1>
     <div tal:define="age context/get_age; gender context/get_gender"
          tal:condition="python:age or gender">
       <tal:span condition="age" content="string: ${age} Jahre"
@@ -117,16 +112,13 @@
 
   <div class="sittercontainer">
     <div class="sittercontent">
-      <h1>
-        Kontaktformular
-      </h1>
+      <h2>Kontaktformular</h2>
       <div id="sittercontactform">
         <div id="contactform" tal:attributes="ajaxformaction string:${context/absolute_url}/sittermailview">
           <!-- method='post' tal:attributes="action string:${context/absolute_url}/sittermailview" -->
-          <h2>Bitte geben Sie hier Ihre Kontaktdaten an. <br/>
+          <p>Bitte geben Sie hier Ihre Kontaktdaten an. <br/>
             Nach dem erfolgreichen Absenden des Formulars wird der Babysitter benachrichtigt.
-
-          </h2>
+          </p>
           <script type="text/javascript">
             function validateEmail($email) {
               var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
