@@ -1,8 +1,4 @@
-<div class="photoAlbumEntry"
-  tal:define="portal_type context/portal_type|string:;
-              useViewTypes context/portal_properties/site_properties/typesUseViewActionInListings|python:[];
-              useView python:portal_type in useViewTypes;
-">
+<div class="photoAlbumEntry">
 
   <a tal:attributes="href context/absolute_url">
     <div class="sittercontainer">
