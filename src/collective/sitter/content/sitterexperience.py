@@ -27,4 +27,4 @@ class ISitterExperience(model.Schema):
 
 @implementer(ISitterExperience)
 class SitterExperience(Item):
-    pass
+    exclude_from_nav = False

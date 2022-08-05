@@ -119,7 +119,7 @@ class ISitterFolder(model.Schema):
 
 @implementer(ISitterFolder)
 class SitterFolder(Container):
-    pass
+    exclude_from_nav = False
 
 
 @adapter(ISitterFolder, IObjectAddedEvent)

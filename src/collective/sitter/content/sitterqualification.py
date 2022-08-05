@@ -27,4 +27,4 @@ class ISitterQualification(model.Schema):
 
 @implementer(ISitterQualification)
 class SitterQualification(Item):
-    pass
+    exclude_from_nav = False
