@@ -29,6 +29,7 @@
 
   <property name="behaviors">
     <element value="plone.namefromtitle" />
+    <element value="plone.excludefromnavigation" />
   </property>
 
   <!-- View information -->
