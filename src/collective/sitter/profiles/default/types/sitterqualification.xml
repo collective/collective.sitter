@@ -19,8 +19,8 @@
   <property name="klass">collective.sitter.content.sitterqualification.SitterQualification</property>
 
   <property name="behaviors">
-     <element value="plone.app.content.interfaces.INameFromTitle" />
-   </property>
+    <element value="plone.namefromtitle" />
+  </property>
 
   <!-- View information -->
   <property name="link_target"></property>
