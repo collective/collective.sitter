@@ -53,10 +53,9 @@ class ContentVocabularyFactory:
     def __call__(self, context):
         terms = []
         sitter_folder = ISitterState(context).get_sitter_folder()
-        items = getattr(sitter_folder, self.items_name)
-
-        if sitter_folder is not None and items is not None:
-            for x in items:
+        if sitter_folder is not None:
+            items = getattr(sitter_folder, self.items_name)
+            for x in items or ():
                 obj = x.to_object
                 terms.append(SimpleTerm(value=obj.UID(), title=obj.title))
 
