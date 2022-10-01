@@ -26,7 +26,7 @@ import os
 logger = logging.getLogger(__name__)
 
 
-class ISitterFolder(model.Schema):
+class ISitterFolder(model.Schema, IFacetedNavigable):
     """
     Folder which is holding all babysitters
     """
@@ -127,7 +127,6 @@ def configure_facetednavigation(sitterfolder, event=None):
     config_file_name = 'facetednavigation.xml'
     layout_id = 'faceted-sitter'
 
-    alsoProvides(sitterfolder, IFacetedNavigable)
     alsoProvides(sitterfolder, IDisableSmartFacets)
     alsoProvides(sitterfolder, IHidePloneRightColumn)
     faceted_enabled(sitterfolder, None)

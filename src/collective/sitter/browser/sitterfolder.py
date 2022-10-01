@@ -1,11 +1,16 @@
 from .. import MessageFactory as _
 from ..sitterstate import ISitterState
 from DateTime import DateTime
+from eea.facetednavigation.browser.app.query import FacetedQueryHandler
+from pathlib import Path
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
+from Products.CMFPlone.browser.navigation import PhysicalNavigationBreadcrumbs
 from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.interface import alsoProvides
 
+import eea.facetednavigation.browser
 import logging
 import urllib.request
 
@@ -229,3 +234,26 @@ def _listify(value):
     if type(value) not in (list, tuple):
         value = [value]
     return value
+
+
+class SitterFolderFacetedQueryHandler(FacetedQueryHandler):
+
+    index = ViewPageTemplateFile(
+        Path(eea.facetednavigation.browser.__file__).parent / 'template/query.pt'
+    )
+
+    def __call__(self, *args, **kwargs):
+        sdm = api.portal.get_tool('session_data_manager')
+        session = sdm.getSessionData(create=True)
+        session.set('faceted_query', self.request.get('QUERY_STRING'))
+        return super().__call__(*args, **kwargs)
+
+
+class SitterFolderBreadcrumbs(PhysicalNavigationBreadcrumbs):
+    def breadcrumbs(self):
+        sdm = api.portal.get_tool('session_data_manager')
+        session = sdm.getSessionData()
+        breadcrumbs = super().breadcrumbs()
+        if session and (query := session.get('faceted_query')):
+            breadcrumbs[-1]['absolute_url'] += '#' + query
+        return breadcrumbs

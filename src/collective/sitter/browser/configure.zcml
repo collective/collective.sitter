@@ -48,6 +48,21 @@
     />
 
   <browser:page
+      name="faceted_query"
+      for="..content.sitterfolder.ISitterFolder"
+      class=".sitterfolder.SitterFolderFacetedQueryHandler"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="breadcrumbs_view"
+      for="..content.sitterfolder.ISitterFolder"
+      class=".sitterfolder.SitterFolderBreadcrumbs"
+      permission="zope.Public"
+      allowed_attributes="breadcrumbs"
+      />
+
+  <browser:page
     name="sitterview"
     for="..content.sitter.ISitter"
     class=".sitter.SitterView"
