@@ -166,13 +166,10 @@ class AddForm(DefaultAddForm):
 
     def render(self):
         sitterstate = ISitterState(self.context)
-        sitter = sitterstate.get_sitter()
-        if sitter:
-            self.request.response.redirect(sitter.getURL() + '/edit')
-
-        elif not sitterstate.has_accepted():
+        if not sitterstate.has_accepted():
             self.request.response.redirect(self.context.absolute_url() + '/signupview')
-
+        elif sitter := sitterstate.get_sitter():
+            self.request.response.redirect(sitter.getURL() + '/edit')
         else:
             return super().render()
 
