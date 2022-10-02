@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-01 22:49+0000\n"
+"POT-Creation-Date: 2022-10-02 16:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,4 +294,8 @@ msgstr ""
 
 #: collective.sitter/src/collective/sitter/profiles/default/actions.xml
 msgid "user_action_my_sitter_entry"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/profiles/default/actions.xml
+msgid "user_action_reject_sitter_agreement"
 msgstr ""

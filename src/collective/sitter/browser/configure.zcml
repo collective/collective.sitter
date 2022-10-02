@@ -100,6 +100,14 @@
     permission="zope2.View"
     />
 
+  <browser:page
+      name="reject_sitter_agreement"
+      for="*"
+      class=".actionhelpers.ActionHelpers"
+      attribute="reject_sitter_agreement"
+      permission="zope2.View"
+      />
+
   <adapter
     for="eea.facetednavigation.widgets.sorting.widget.Widget"
     provides="eea.facetednavigation.interfaces.IWidgetFilterBrains"
