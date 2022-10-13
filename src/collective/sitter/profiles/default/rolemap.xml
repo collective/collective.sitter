@@ -18,5 +18,11 @@
             acquire="True">
             <role name="Member" />
         </permission>
+
+        <permission name="Show Toolbar"
+                    acquire="False">
+          <role name="Manager" />
+          <role name="Site Administrator" />
+        </permission>
     </permissions>
 </rolemap>
