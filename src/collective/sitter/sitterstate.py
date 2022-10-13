@@ -1,6 +1,7 @@
 from . import MessageFactory as _
 from plone import api
 from plone.memoize.view import memoize
+from plone.protect.authenticator import createToken
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.location.location import LocationIterator
@@ -148,25 +149,20 @@ class SitterState:
         steps.append(step2)
 
         this_sitter = self.get_sitter()
-        if this_sitter is not None:
-            this_sitter = this_sitter.getObject()
-            link = (
-                this_sitter.absolute_url()
-                + '/content_status_modify?workflow_action=submit'
-            )
-
         edit_link = ''
         delete_link = ''
         recycle_link = ''
         if this_sitter is not None:
-            edit_link = this_sitter.absolute_url() + '/edit'
+            sitter_url = this_sitter.getURL()
+            auth_token = createToken()
+            auth = f'_authenticator={auth_token}'
+            link = f'{sitter_url}/content_status_modify?workflow_action=submit&{auth}'
+            edit_link = f'{sitter_url}/edit?{auth}'
             delete_link = (
-                this_sitter.absolute_url()
-                + '/content_status_modify?workflow_action=delete'
+                f'{sitter_url}/content_status_modify?workflow_action=delete&{auth}'
             )
             recycle_link = (
-                this_sitter.absolute_url()
-                + '/content_status_modify?workflow_action=recycle'
+                f'{sitter_url}/content_status_modify?workflow_action=recycle&{auth}'
             )
 
         if not self.is_deleted():
