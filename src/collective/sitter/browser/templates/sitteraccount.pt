@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.sitter">
+
+<body>
+
+<metal:main fill-slot="main">
+<tal:condition tal:condition="python: not view.is_manager">
+    <h1 i18n:translate="">My Sitteraccount</h1>
+
+    <p>${view/account_intro_text}</p>
+
+
+    <h2 i18n:translate="">My next Step</h2>
+    <tal:define tal:define="step python: view.get_current_registration_step()">
+
+      <a class="activestep" tal:condition="python: step.link != ''" tal:attributes="href nocall: step/link" tal:content="nocall: step/text" ></a>
+      <span class="activestep" tal:condition="python: step.link == ''" tal:content="nocall: step/text"></span>
+
+      <i tal:attributes="class step/get_icon_classes"></i>
+      <p class="step_description" tal:content="structure nocall: step/description"></p>
+
+      <a class="step_more_links_toggle"
+         tal:condition="step/has_more_links" href="javascript: event.defaultPrevented"
+         onclick="javascript: jQuery('.step_more_links').toggle();">
+        <i class="fa fa-toggle-down"></i> Mehr
+      </a>
+      <ul class="step_more_links" tal:condition="step/has_more_links" style="display:None">
+        <li tal:repeat="link step/more_links">
+          <a tal:attributes="href nocall: link/link;">
+            <i tal:attributes="class nocall: link/class_name"></i>
+            <span tal:content="link/text"></span>
+          </a>
+        </li>
+      </ul>
+
+  </tal:define>
+
+</tal:condition>
+<tal:condition tal:condition="python: view.is_manager">
+    <h2 i18n:translate="">Sittermanager</h2>
+</tal:condition>
+</metal:main>
+
+</body>
+</html>

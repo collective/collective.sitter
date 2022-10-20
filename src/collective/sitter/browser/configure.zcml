@@ -16,6 +16,14 @@
       />
 
   <browser:page
+    name="sitteraccount"
+    for="*"
+    class=".sitteraccount.SitterAccountView"
+    permission="zope2.View"
+    template="templates/sitteraccount.pt"
+    />
+
+  <browser:page
     name="sitter-controlpanel"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     class=".controlpanel.SitterSettingsView"
@@ -83,6 +91,7 @@
     class=".sitter.SitterMailView"
     permission="zope2.View"
     />
+
 
   <adapter
     for="Products.CMFCore.interfaces.IFolderish
