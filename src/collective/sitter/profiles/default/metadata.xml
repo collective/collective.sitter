@@ -1,6 +1,7 @@
 <metadata>
-  <version>1</version>
+  <version>2</version>
     <dependencies>
+        <dependency>profile-collective.z3cform.datagridfield:default</dependency>
         <dependency>profile-collective.taxonomy:default</dependency>
         <dependency>profile-eea.facetednavigation:default</dependency>
     </dependencies>

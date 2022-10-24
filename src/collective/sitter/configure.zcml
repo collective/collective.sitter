@@ -41,6 +41,7 @@
   <include package=".content" />
   <include package=".browser" />
   <include package=".portlet" />
+  <include file="upgrades.zcml" />
 
   <!--i18n:registerTranslations directory="locales" /-->
 

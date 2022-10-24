@@ -16,8 +16,8 @@
       />
 
   <browser:page
-    name="sitteraccount"
-    for="*"
+    name="account"
+    for="..content.sitterfolder.ISitterFolder"
     class=".sitteraccount.SitterAccountView"
     permission="zope2.View"
     template="templates/sitteraccount.pt"
@@ -129,5 +129,14 @@
     provides="eea.facetednavigation.interfaces.IWidgetFilterBrains"
     factory=".faceted.Shuffle"
     />
+
+  <!-- Macros -->
+    <browser:page
+      name="sittercontent"
+      for="*"
+      permission="zope2.Public"
+      class=".macros.SitterMacros"
+      template="templates/macros/sittercontent.pt"
+      />
 
 </configure>

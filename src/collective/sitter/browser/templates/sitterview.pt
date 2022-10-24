@@ -31,74 +31,9 @@
     </div>
   </div>
 
-  <div class="sittercontainer">
-      <h1>TEST asasasfasf</h1>
-    <div class="sittercontent">
-
-    <div tal:define="fullage context/fullage; gender context/get_gender"
-         tal:condition="python:fullage or gender">
-      <tal:span condition="fullage" i18n:translate="full age">full age
-      </tal:span><tal:span condition="python:fullage and gender">,</tal:span>
-      <tal:span condition="gender" content="gender" />
-    </div>
-
-    <div class="sitterimageholder" tal:condition="context/has_image">
-      <img tal:attributes="src string:${context/absolute_url}/@@images/image/large"/>
-    </div>
-    <div class="sitterinformation" tal:content="structure context/details" />
-    </div>
-    <div style="clear:both;"></div>
-
-    <div class="flexcontainer">
-      <div class="child" tal:condition="context/qualifications">
-        <div>
-          <h3>Qualifikationen:</h3>
-          <ul>
-            <li tal:repeat="obj python: context.get_qualifications()">
-              <b tal:content="obj/beschreibung"></b>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="child" tal:condition="context/experiences">
-        <div>
-          <h3>
-            <tal:span i18n:translate="experiences">Erfahrung</tal:span>:
-          </h3>
-          <ul>
-            <li tal:repeat="obj python: context.get_experiences()">
-              <b tal:content="obj/beschreibung"></b> (<i tal:content="obj/Title"> </i>)
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="child"
-           tal:define="languages python: context.get_language_list()"
-           tal:condition="languages">
-        <h3>Sprachen:</h3>
-        <ul>
-          <li tal:repeat="langs languages">
-            <b tal:content="langs"></b>
-          </li>
-        </ul>
-      </div>
-
-      <div class="child"
-           tal:define="mobility python: context.get_mobility()"
-           tal:condition="mobility">
-        <h3>Mobilität:</h3>
-        <ul>
-          <li tal:repeat="mob mobility">
-            <b tal:content="mob"></b>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div tal:define="local_referer python: view.get_local_referer()">
+  <div class="sittercontainer" >
+    <div metal:use-macro="context/sittercontent/sittercontent"></div>
+    <div tal:define="local_referer python: view.get_local_referer()">
     <tal:back-button condition="local_referer">
       <a class="btn btn-back" tal:attributes="href local_referer">
         Zurück zur Übersicht <i class="fa fa-backward"></i>
