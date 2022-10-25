@@ -15,7 +15,6 @@ class SitterAccountView(BrowserView):
 
     @property
     def is_manager(self):
-        return False
         return api.user.has_permission(
             'collective.sitter: Manage sitters', obj=self.context
         )
@@ -23,6 +22,10 @@ class SitterAccountView(BrowserView):
     @property
     def sitter_state(self):
         return ISitterState(self.context)
+
+    @property
+    def sitter_folder(self):
+        return self.sitter_state.get_sitter_folder()
 
     @property
     def sitter(self) -> SitterView:
@@ -71,3 +74,33 @@ class SitterAccountView(BrowserView):
         auth_token = createToken()
         auth = f'_authenticator={auth_token}'
         return f'{sitter.getURL()}/content_status_modify?workflow_action=recycle&{auth}'
+
+    @property
+    def info_text_url(self):
+        try:
+            info_text_obj = self.sitter_folder.info_text
+            return self._get_link_for(info_text_obj)
+        except AttributeError:
+            return None
+
+    @property
+    def info_text_logged_in_url(self):
+        try:
+            info_text_logged_in_obj = self.sitter_folder.info_text_logged_in
+            return self._get_link_for(info_text_logged_in_obj)
+        except AttributeError:
+            return None
+
+    @property
+    def agreement_url(self):
+        try:
+            agreement_obj = self.sitter_folder.agreement
+            return self._get_link_for(agreement_obj)
+        except AttributeError:
+            return None
+
+    def _get_link_for(self, relation_obj):
+        if relation_obj:
+            path = relation_obj.to_path
+            if path:
+                return f'{path}/edit'

@@ -245,7 +245,7 @@ class ISitterSettings(Interface):
 
     sitteraccount_intro_text_sitter = schema.Text(
         title='Sitteraccount Seite Intro Text (Sitter)',
-        default='Von hier aus kannst du den anmeldeprozess abschließen, deinen Eintrag bearbeiten und zur Prüfung durch die Readktion einreichen.',
+        default='Von hier aus kannst du den Anmeldeprozess abschließen, deinen Eintrag bearbeiten und zur Prüfung durch die Redaktion einreichen.',
     )
 
     sitteraccount_intro_text_manager = schema.Text(
