@@ -81,6 +81,8 @@ class TestCase(unittest.TestCase):
         self.sitter_folder_name = 'sitter_folder'
         self.sitter_folder = self.portal[self.sitter_folder_name]
         self.browser = self.make_browser()
+        self.portal_url = self.portal.absolute_url()
+        self.sitter_folder_url = f'{self.portal_url}/{self.sitter_folder_name}'
 
     def make_browser(self):
         browser = Browser(self.layer['app'])
