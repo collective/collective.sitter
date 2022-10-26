@@ -1,0 +1,5 @@
+<h1 class="documentFirstHeading">
+  ${context/nickname}
+  <tal:district define="district context/get_district"
+                condition="district">(${district})</tal:district>
+</h1>

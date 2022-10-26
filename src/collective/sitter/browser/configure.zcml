@@ -71,6 +71,14 @@
     />
 
   <browser:page
+      name="title"
+      for="..content.sitter.ISitter"
+      template="templates/sittertitle.pt"
+      layer=".layer.ICollectiveSitterLayer"
+      permission="zope.Public"
+      />
+
+  <browser:page
     name="sittermailview"
     for="..content.sitter.ISitter"
     class=".sitter.SitterMailView"
