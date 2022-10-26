@@ -34,10 +34,10 @@
   <div class="sittercontainer">
     <div class="sittercontent">
 
-    <div tal:define="age context/get_age; gender context/get_gender"
-         tal:condition="python:age or gender">
-      <tal:span condition="age" content="string: ${age} Jahre"
-                /><tal:span condition="python:age and gender">,</tal:span>
+    <div tal:define="fullage context/fullage; gender context/get_gender"
+         tal:condition="python:fullage or gender">
+      <tal:span condition="fullage" i18n:translate="full age">full age
+      </tal:span><tal:span condition="python:fullage and gender">,</tal:span>
       <tal:span condition="gender" content="gender" />
     </div>
 

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-02 16:41+0000\n"
-"PO-Revision-Date: 2022-10-02 18:44+0200\n"
+"POT-Creation-Date: 2022-10-26 21:06+0000\n"
+"PO-Revision-Date: 2022-10-26 23:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,10 +34,6 @@ msgstr ""
 #: collective/sitter/content/sitterqualification.py
 msgid "Bildbeschreibung"
 msgstr ""
-
-#: collective/sitter/content/sitter.py
-msgid "Birthday"
-msgstr "Geburtsdatum"
 
 #: collective/sitter/sitterstate.py
 msgid "Bitte akzeptieren Sie die Nutzungsbedingungen."
@@ -82,6 +78,10 @@ msgstr "Betreuungserfahrung"
 #: collective/sitter/configure.zcml
 msgid "Extension profile for Sitter agency"
 msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Full age"
+msgstr "Volljährig"
 
 #: collective/sitter/content/sitter.py
 msgid "Geben Sie hier die Qualifikationen an, die Sie mitbringen."
@@ -177,12 +177,12 @@ msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuze
 msgstr ""
 
 #: collective/sitter/content/sitter.py
-msgid "desc_birthday"
-msgstr "Geben sie Ihr Geburtsdatum ein. An Hand des Geburtsdatums wird berechnet, ob sie volljährig sind, wonach gesucht werden kann."
-
-#: collective/sitter/content/sitter.py
 msgid "desc_district"
 msgstr " "
+
+#: collective/sitter/content/sitter.py
+msgid "desc_fullage"
+msgstr "Geben Sie an, ob Sie volljährig sind. Die Angebote können ggf. danach gefiltert werden."
 
 #: collective/sitter/content/sitter.py
 msgid "desc_gender"
@@ -194,6 +194,10 @@ msgstr " "
 #, fuzzy
 msgid "experiences"
 msgstr "Betreuungserfahrung"
+
+#: collective/sitter/browser/templates/sitterview.pt
+msgid "full age"
+msgstr "volljährig"
 
 #: collective/sitter/content/sitterfolder.py
 msgid "info_text"

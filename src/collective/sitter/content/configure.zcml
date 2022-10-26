@@ -2,7 +2,6 @@
   xmlns="http://namespaces.zope.org/zope"
   i18n_domain="collective.sitter">
 
-  <adapter factory=".sitter.fullageIndexer" name="fullage"/>
   <adapter factory=".sitter.experiencesIndexer" name="experience"/>
   <adapter factory=".sitter.qualificationsIndexer" name="qualification"/>
 

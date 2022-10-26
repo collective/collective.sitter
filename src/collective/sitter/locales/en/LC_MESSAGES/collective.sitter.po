@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-02 16:41+0000\n"
+"POT-Creation-Date: 2022-10-26 21:06+0000\n"
 "PO-Revision-Date: 2022-10-02 18:44+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,10 +33,6 @@ msgstr "Description"
 #: collective/sitter/content/sitterqualification.py
 msgid "Bildbeschreibung"
 msgstr "Imagedescription"
-
-#: collective/sitter/content/sitter.py
-msgid "Birthday"
-msgstr "Birthdate"
 
 #: collective/sitter/sitterstate.py
 msgid "Bitte akzeptieren Sie die Nutzungsbedingungen."
@@ -80,6 +76,10 @@ msgstr "Experiences"
 
 #: collective/sitter/configure.zcml
 msgid "Extension profile for Sitter agency"
+msgstr ""
+
+#: collective/sitter/content/sitter.py
+msgid "Full age"
 msgstr ""
 
 #: collective/sitter/content/sitter.py
@@ -176,11 +176,11 @@ msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuze
 msgstr ""
 
 #: collective/sitter/content/sitter.py
-msgid "desc_birthday"
+msgid "desc_district"
 msgstr ""
 
 #: collective/sitter/content/sitter.py
-msgid "desc_district"
+msgid "desc_fullage"
 msgstr ""
 
 #: collective/sitter/content/sitter.py
@@ -191,6 +191,10 @@ msgstr ""
 #: collective/sitter/browser/templates/sitterview.pt
 #: collective/sitter/content/sitterfolder.py
 msgid "experiences"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitterview.pt
+msgid "full age"
 msgstr ""
 
 #: collective/sitter/content/sitterfolder.py

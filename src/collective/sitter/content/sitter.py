@@ -21,7 +21,6 @@ from zope.i18n import translate
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 
-import datetime
 import logging
 
 
@@ -91,10 +90,10 @@ class ISitter(model.Schema, IImageScaleTraversable):
         required=False,
     )
 
-    birthday = schema.Date(
-        title=_('Birthday'),
-        description=_('desc_birthday'),
-        required=False,
+    fullage = schema.Bool(
+        title=_('Full age'),
+        description=_('desc_fullage'),
+        required=True,
     )
 
     directives.widget(language=CheckBoxFieldWidget)
@@ -122,11 +121,6 @@ def experiencesIndexer(context):
 @indexer(ISitter)
 def qualificationsIndexer(context):
     return [str(e).replace(' ', '_') for e in context.qualifications or []]
-
-
-@indexer(ISitter)
-def fullageIndexer(context):
-    return (context.get_age() or 0) > 18
 
 
 class InvalidEmailError(schema.ValidationError):
@@ -160,21 +154,6 @@ class Sitter(Item):
 
     def setTitle(self, value):
         return
-
-    def get_age(self):
-        if self.birthday is None:
-            return
-        today = datetime.date.today()
-        try:
-            born = self.birthday.asdatetime()
-        except AttributeError:
-            born = self.birthday
-        age = (
-            today.year
-            - born.year
-            - int((today.month, today.day) < (born.month, born.day))
-        )
-        return age
 
     def has_image(self):
         return bool(getattr(self, 'image', None))

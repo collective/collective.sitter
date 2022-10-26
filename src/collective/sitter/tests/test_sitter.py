@@ -41,17 +41,6 @@ class TestSitterContentType(TestCase):
         district = self.sitter_object.get_district()
         self.assertIsNone(district)
 
-    def test_sitter_getAge(self):
-        from DateTime import DateTime
-
-        self.sitter_object.birthday = DateTime('7/2/1981')
-        age = self.sitter_object.get_age()
-        self.assertTrue(age > 30)
-
-    def test_sitter_getAge_notSet(self):
-        age = self.sitter_object.get_age()
-        self.assertIsNone(age)
-
     def test_sitter_getLanguages(self):
         self.sitter_object.language = ['en', 'ru']
         langs = self.sitter_object.get_language_list()

@@ -2,7 +2,6 @@ from ..testing import SITTER_INTEGRATION_TESTING
 from ..testing import TestCase
 from ..vocabularies import voc_experience
 from ..vocabularies import voc_quali
-from DateTime import DateTime
 from plone import api
 from unittest.mock import patch
 from z3c.relationfield import RelationValue
@@ -79,12 +78,12 @@ class BaseTest(TestCase):
         sitter_01 = self.sitter_folder['sitter-01']
         sitter_01.firstname = 'Kristin'
         sitter_01.details = 'Hallo, das ist ein Test'
-        sitter_01.birthday = DateTime('01.01.1970')
+        sitter_01.fullage = True
         sitter_01.gender = 'female'
         sitter_01.reindexObject()
 
         sitter_02 = self.sitter_folder['sitter-02']
-        sitter_02.birthday = DateTime('01.01.1988')
+        sitter_02.fullage = True
         sitter_02.gender = 'male'
         sitter_02.reindexObject()
 
