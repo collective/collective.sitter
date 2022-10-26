@@ -5,7 +5,7 @@ from z3c.form.interfaces import NOT_CHANGED
 from zope.interface import Invalid
 
 
-# http://widerin.net/blog/image-filesize-validator-for-dexterity-content-types-in-plone
+# https://widerin.net/blog/image-filesize-validator-for-dexterity-content-types-in-plone
 
 # 2 MB size limit
 MAXSIZE = 1024 * 1024 * 2
