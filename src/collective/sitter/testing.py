@@ -15,6 +15,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
 from plone.testing.zope import Browser
 from plone.testing.zope import WSGI_SERVER_FIXTURE
+from Products.Sessions.tests.testSessionDataManager import _populate
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid import IIntIds
@@ -35,6 +36,8 @@ class SitterLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.sitter)
 
     def setUpPloneSite(self, portal):
+        _populate(portal.__parent__)
+
         applyProfile(portal, 'collective.sitter:default')
         portal.acl_users.userFolderAddUser(
             SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ['Manager'], []
