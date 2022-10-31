@@ -1,11 +1,21 @@
 from ..content.sitter import ISitter
 from ..sitterstate import ISitterState
+from collective.sitter import _
 from plone import api
+from plone.autoform.form import AutoExtensibleForm
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.add import DefaultAddView
 from Products.CMFPlone import PloneMessageFactory
 from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form import button
+from z3c.form import field
+from z3c.form import form
+from zope import component
+from zope import interface
+from zope import schema
+from zope.interface import Interface, Invalid
 
 import logging
 
@@ -13,7 +23,125 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class SitterView(BrowserView):
+def is_checked(value):
+    if not value:
+        raise Invalid(_("Bitte akzeptieren Sie die Nutzungbedingungen"))
+    return True
+
+
+class ISitterContactFormSchema(Interface):
+    """Define form fields"""
+
+    name = schema.TextLine(
+        title=u"Your name",
+    )
+    email = schema.TextLine(
+        title=u"Your email",
+    )
+    homepage = schema.TextLine(
+        title=u"Your homepage",
+        required=False
+    )
+    accept_terms = schema.Bool(
+        title=_(
+            u'Accept terms',
+        ),
+        description=_(u''),
+        required=True,
+        default=None,
+        readonly=False,
+        constraint=is_checked
+    )
+    message = schema.Text(
+        title=_(
+            u'Message',
+        ),
+        description=_(
+            u'Message',
+        ),
+        default=None,
+        required=False,
+        readonly=False,
+    )
+
+
+@component.adapter(interface.Interface)
+@interface.implementer(ISitterContactFormSchema)
+class SitterContactAdapter(object):
+    def __init__(self, context):
+        self.name = None
+        self.email = None
+        self.homepage = None
+        self.accept_terms = None
+        self.message = None
+
+
+class SitterContactForm(AutoExtensibleForm, form.Form):
+    schema = ISitterContactFormSchema
+    form_name = 'sittercontactform'
+    view_name = 'sitterview'
+    # fields = field.Fields(ISitterContactFormSchema)
+    enable_form_tabbing = False
+    css_class = 'easyformForm'
+    default_fieldset_label = _(u'')
+    form_template = ViewPageTemplateFile('templates/sitterview.pt')
+    thx_template = ViewPageTemplateFile('templates/thankspage.pt')
+
+    thx_title = _(u'Eine E-Mail an den Babysitter wurde erfolgreich versendet')
+    thx_text = _(u'Sie erhalten eine Kopie dieser E-Mail.')
+    mail_send_sucsessfully = False
+
+
+    def update(self):
+        if not self.context.getLayout() == self.view_name:
+            self.request.response.redirect(self.context.absolute_url())
+
+        # disable Plone's editable border
+        # self.request.set('disable_border', True)
+
+        # call the base class version - this is very important!
+        super(SitterContactForm, self).update()
+        if self.fields['message'].field.default is None or self.fields['message'].field.default != self.getTextvorlage():
+            self.fields['message'].field.default = self.getTextvorlage()
+            super(SitterContactForm, self).update()
+        self.template = self.form_template
+
+        # Goto thankspage if form has been send without errors
+        if self.request.method != 'POST':
+            return
+        data, errors = self.extractData()
+        if errors:
+            # render errors
+            return
+        if self.mail_send_sucsessfully:
+            self.template = self.thx_template
+
+    @button.buttonAndHandler(_(u'Absenden'), name='submit')
+    def handleApply(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        error_msg = _('Fehler beim Kontaktieren des Babysitters')
+        fromname = data['name']
+        fromemail = data['email']
+        message = data['message']
+        toname =self.context.nickname
+        toemail = self.context.email
+        accept_terms = data['accept_terms']
+        if data['homepage'] is None and accept_terms and toemail != '':
+            # only spammers will fill homepage field
+            mailer = SitterMailer(toname, toemail, fromname, fromemail, message)
+            try:
+                mailer.send_mail()
+                self.mail_send_sucsessfully = True
+            except Exception as ex:
+                self.status = error_msg
+                self.mail_send_sucsessfully = False
+        else:
+            self.status = error_msg
+
+    # Sitter properties
     @property
     def sitter_state(self):
         return ISitterState(self.context)
@@ -71,7 +199,7 @@ class SitterView(BrowserView):
         return sitter_folder.absolute_url()
 
 
-class SitterMailView(BrowserView):
+class SitterMailer(object):
 
     mail_template = """\
 To: "{to_name}" <{to_mail}>
@@ -80,63 +208,40 @@ Subject: {subject}
 
 {text}"""
 
-    def __call__(self):
-        nickname = self.context.nickname
-        sitter_mail = self.context.email
+    def __init__(self, toname: str, toemail: str, fromname: str, fromemail: str, message: str):
+        self.toname = toname
+        self.fromname = fromname
+        self.toemail = toemail
+        self.fromemail = fromemail
+        self.message = message
+        self.fromname_default = api.portal.get_registry_record('sitter.contact_name')
+        self.fromemail_default = api.portal.get_registry_record('sitter.contact_from')
+        self.contact_subject = api.portal.get_registry_record('sitter.contact_subject')
 
-        if not sitter_mail:
-            logger.error(
-                f'Could not send email because sitter {nickname} has no email address.'
-            )
-            return (
-                'Die E-Mail konnte nicht erfolgreich gesendet werden. '
-                'Bitte versuchen Sie es später noch einmal.'
-            )
-
-        form = self.request.form
-
-        if 'homepage' in form:
-            # homepage is a honeypot field for spammers
-            self.request.response.setStatus(202)  # better visibility in logs
-            return 'Die E-Mail wurde !erfolgreich versendet'
-
-        sitter_folder = ISitterState(self.context).get_sitter_folder()
-        if sitter_folder.agreement and form.get('accepted') != 'True':
-            return 'Bitte bestätigen Sie die Nutzungsbedingungen (über dem Textfeld).'
-
-        kontaktname = form.get('kontaktname')
-        kontaktemail = form.get('kontaktemail')
-        kontakttext = form.get('kontakttext')
-        if not all((kontaktname, kontaktemail, kontakttext)):
-            return 'Bitte füllen Sie alle Felder aus.'
-
-        subject = api.portal.get_registry_record('sitter.contact_subject')
-
+    def send_mail(self):
         text = api.portal.get_registry_record('sitter.contact_sitter_text')
         mail_text = self.mail_template.format(
-            to_mail=sitter_mail,
-            to_name=nickname,
-            from_mail=kontaktemail,
-            from_name=kontaktname,
-            subject=subject,
-            text=text.format(text=kontakttext),
+            to_mail=self.toemail,
+            to_name=self.toname,
+            from_mail=self.fromemail,
+            from_name=self.fromname,
+            subject=self.contact_subject,
+            text=text.format(text=self.message),
         )
 
-        mail_from = api.portal.get_registry_record('sitter.contact_from')
-        mail_from_name = api.portal.get_registry_record('sitter.contact_name')
         copy = api.portal.get_registry_record('sitter.contact_copy_text')
         mail_copy = self.mail_template.format(
-            to_mail=kontaktemail,
-            to_name=kontaktname,
-            from_mail=mail_from,
-            from_name=mail_from_name,
-            subject=subject,
-            text=copy.format(text=kontakttext),
+            to_mail=self.fromemail,
+            to_name=self.fromname,
+            from_mail=self.fromemail_default,
+            from_name=self.fromname_default,
+            subject=self.contact_subject,
+            text=copy.format(text=self.message),
         )
 
         try:
             logger.info(
-                f'Send contact mail to sitter {sitter_mail} and copy to {kontaktemail}.'
+                f'Send contact mail to sitter {self.sitter_mail} and copy to {self.email}.'
             )
             host = api.portal.get_tool('MailHost')
             host.send(mail_text, immediate=True, charset='utf-8')
@@ -144,18 +249,14 @@ Subject: {subject}
         except Exception as ex:
             # This should only occur while testing
             logger.error(f'Could not send email: {ex}')
-
-        return (
-            'Eine E-Mail an den Babysitter wurde erfolgreich versendet. '
-            'Sie erhalten eine Kopie dieser E-Mail.'
-        )
+            raise ex
 
 
 class AddForm(DefaultAddForm):
     """Custom add form that makes sure of some policies that cannot be expressed by
     permissions alone.
     """
-
+    #ToDo: Is this still working?
     def render(self):
         sitterstate = ISitterState(self.context)
         if not sitterstate.has_accepted():

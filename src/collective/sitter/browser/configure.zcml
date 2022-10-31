@@ -77,13 +77,13 @@
       permission="zope.Public"
       allowed_attributes="breadcrumbs"
       />
-
+  <adapter factory=".sitter.SitterContactAdapter" />
   <browser:page
     name="sitterview"
     for="..content.sitter.ISitter"
-    class=".sitter.SitterView"
+    layer="zope.interface.Interface"
+    class=".sitter.SitterContactForm"
     permission="zope2.View"
-    template="templates/sitterview.pt"
     />
 
   <browser:page
@@ -93,13 +93,6 @@
       layer=".layer.ICollectiveSitterLayer"
       permission="zope.Public"
       />
-
-  <browser:page
-    name="sittermailview"
-    for="..content.sitter.ISitter"
-    class=".sitter.SitterMailView"
-    permission="zope2.View"
-    />
 
   <adapter
     for="Products.CMFCore.interfaces.IFolderish
