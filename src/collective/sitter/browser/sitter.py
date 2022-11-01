@@ -241,7 +241,7 @@ Subject: {subject}
 
         try:
             logger.info(
-                f'Send contact mail to sitter {self.sitter_mail} and copy to {self.email}.'
+                f'Send contact mail to sitter {self.toemail} and copy to {self.fromemail}.'
             )
             host = api.portal.get_tool('MailHost')
             host.send(mail_text, immediate=True, charset='utf-8')
