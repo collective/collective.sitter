@@ -138,13 +138,4 @@
     factory=".faceted.Shuffle"
     />
 
-  <!-- Macros -->
-    <browser:page
-      name="sittercontent"
-      for="*"
-      permission="zope2.Public"
-      class=".macros.SitterMacros"
-      template="templates/macros/sittercontent.pt"
-      />
-
 </configure>

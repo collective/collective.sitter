@@ -12,17 +12,11 @@
     <section
       class="sitteraccount__intro"
     >
-      <h1 tal:condition="python: view.is_manager" i18n:translate="">Sittermanager</h1>
-      <h1 tal:condition="python: not view.is_manager" i18n:translate="">Mein Babysittereintrag</h1>
+      <h1 i18n:translate="">Mein Babysittereintrag</h1>
 
       <p>${view/account_intro_text}</p>
     </section>
-    <section
-      class="sitteraccount__next_step"
-      tal:condition="python: not view.is_manager"
-    >
-
-
+    <section class="sitteraccount__next_step">
       <h2 i18n:translate="">Mein nächster Schritt</h2>
       <tal:define tal:define="step python: view.get_current_registration_step()">
 
@@ -49,7 +43,7 @@
     </section>
     <section
       class="sitteraccount__my_entry"
-      tal:condition="python: (not view.is_manager) and view.sitter_state.has_accepted()"
+      tal:condition="python: view.sitter_state.has_accepted()"
     >
       <h2 i18n:translate="">Mein Eintrag</h2>
       <ul class="sitter_entry__toolbar">
@@ -70,69 +64,19 @@
         </li>
       </ul>
       <div class="sittercontainer" tal:condition="python: view.sitter_state.is_created() and not view.sitter_state.is_deleted()">
-        <div metal:use-macro="context/sittercontent/sittercontent"></div>
+        <div metal:use-macro="view/sitter/sitterview/sittercontent"></div>
       </div>
     </section>
     <section
-      class="sitteraccount__manager_tools"
-      tal:condition="python: view.is_manager"
-    >
-      <h2>Werkzeuge</h2>
-      <ul class="sitter_entry__toolbar">
-        <li>
-          <a
-            class="context"
-            href="${view/sitter_folder/absolute_url}/folder_contents"
-            i18n:translate=""
-          >Ordner Inhalt anzeigen</a>
-        </li>
-        <li>
-          <a
-            class="context"
-            href="${view/sitter_folder/absolute_url}/edit"
-            i18n:translate=""
-          >Ordner Eigenschaften bearbeiten</a>
-        </li>
-        <li tal:condition="python: view.agreement_url is not None">
-          <a
-            class="context"
-            href="${view/agreement_url}"
-            i18n:translate=""
-          >Nutzungsbedingungen bearbeiten</a>
-        </li>
-        <li tal:condition="python: view.info_text_url is not None">
-          <a
-            class="context"
-            href="${view/info_text_url}"
-            i18n:translate=""
-          >Info-Text für unangemeldete Benutzer bearbeiten</a>
-        </li>
-        <li tal:condition="python: view.info_text_logged_in_url is not None">
-          <a
-            class="context"
-            href="${view/info_text_logged_in_url}"
-            i18n:translate=""
-          >Info-Text für angemeldete Benutzer bearbeiten</a>
-        </li>
-        <li>
-          <a
-            class="context"
-            href="${view/sitter_folder/absolute_url}/deletesitter"
-            i18n:translate=""
-          >Alte Sitter Löschen</a>
-        </li>
-      </ul>
-    </section>
-    <section
       class="sitteraccount__faq"
-      tal:condition="python: len(view.get_fqa) > 0"
+      tal:condition="python: len(view.get_faq) > 0"
     >
       <h2 i18n:translate="">FAQ</h2>
       <ul>
-        <tal:repeat tal:repeat="fqa view/get_fqa">
+        <tal:repeat tal:repeat="faq view/get_faq">
           <li>
-            <h3>${fqa/question}</h3>
-            <p>${fqa/answer}</p>
+            <h3>${faq/question}</h3>
+            <p>${faq/answer}</p>
           </li>
         </tal:repeat>
       </ul>
