@@ -6,7 +6,6 @@ from plone.autoform.form import AutoExtensibleForm
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.add import DefaultAddView
 from Products.CMFPlone import PloneMessageFactory
-from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
@@ -15,7 +14,8 @@ from z3c.form import form
 from zope import component
 from zope import interface
 from zope import schema
-from zope.interface import Interface, Invalid
+from zope.interface import Interface
+from zope.interface import Invalid
 
 import logging
 
@@ -80,20 +80,18 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
     schema = ISitterContactFormSchema
     form_name = 'sittercontactform'
     view_name = 'sitterview'
-    # fields = field.Fields(ISitterContactFormSchema)
     enable_form_tabbing = False
     css_class = 'easyformForm'
     default_fieldset_label = _(u'')
     form_template = ViewPageTemplateFile('templates/sitterview.pt')
     thx_template = ViewPageTemplateFile('templates/thankspage.pt')
-
     thx_title = _(u'Eine E-Mail an den Babysitter wurde erfolgreich versendet')
     thx_text = _(u'Sie erhalten eine Kopie dieser E-Mail.')
     mail_send_sucsessfully = False
 
 
     def update(self):
-        if not self.context.getLayout() == self.view_name:
+        if self.context.getLayout() != self.view_name:
             self.request.response.redirect(self.context.absolute_url())
 
         # disable Plone's editable border
@@ -256,7 +254,6 @@ class AddForm(DefaultAddForm):
     """Custom add form that makes sure of some policies that cannot be expressed by
     permissions alone.
     """
-    #ToDo: Is this still working?
     def render(self):
         sitterstate = ISitterState(self.context)
         if not sitterstate.has_accepted():
