@@ -45,7 +45,7 @@ sich mit Ihnen in Verbindung setzen.
 
 
 class ISitterFqaConfig(Interface):
-    question = schema.TextLine(title=u'Farge')
+    question = schema.TextLine(title=u'Frage')
     answer = schema.Text(title=u'Antwort')
 
 
@@ -234,7 +234,6 @@ class ISitterSettings(Interface):
     )
     widget(sitteraccount_faq_sitter=DataGridFieldFactory)
 
-
     sitteraccount_faq_manager = schema.List(
         title='FQA (für Sitter)',
         description='Häufig gestellte Fragen (für die Sittermanager)',
@@ -244,12 +243,12 @@ class ISitterSettings(Interface):
     widget(sitteraccount_faq_manager=DataGridFieldFactory)
 
     sitteraccount_intro_text_sitter = schema.Text(
-        title='Sitteraccount Seite Intro Text (Sitter)',
+        title='Sitteraccount Seite Intro Text',
         default='Von hier aus kannst du den Anmeldeprozess abschließen, deinen Eintrag bearbeiten und zur Prüfung durch die Redaktion einreichen.',
     )
 
     sitteraccount_intro_text_manager = schema.Text(
-        title='Sitteraccount Seite Intro Text (Sitter)',
+        title='Sittermanager Seite Intro Text',
         default='',
     )
 
