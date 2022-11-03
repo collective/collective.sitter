@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from eea.facetednavigation.interfaces import IDisableSmartFacets
 from eea.facetednavigation.interfaces import IFacetedNavigable
 from eea.facetednavigation.interfaces import IHidePloneRightColumn

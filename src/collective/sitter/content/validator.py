@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from plone.namedfile.interfaces import INamedBlobImageField
 from z3c.form import validator
 from z3c.form.interfaces import NOT_CHANGED

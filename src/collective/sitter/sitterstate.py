@@ -1,4 +1,4 @@
-from . import MessageFactory as _
+from . import _
 from plone import api
 from plone.memoize.view import memoize
 from plone.protect.authenticator import createToken

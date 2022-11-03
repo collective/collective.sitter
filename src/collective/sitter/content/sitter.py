@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from .. import vocabularies
 from ..sitterstate import ISitterState
 from bs4 import BeautifulSoup

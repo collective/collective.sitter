@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from ..sitterstate import ISitterState
 from plone import api
 from plone.app.portlets.portlets import base

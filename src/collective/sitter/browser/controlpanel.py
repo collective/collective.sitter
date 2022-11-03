@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.supermodel import model

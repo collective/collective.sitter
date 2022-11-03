@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from ..sitterstate import ISitterState
 from DateTime import DateTime
 from eea.facetednavigation.browser.app.query import FacetedQueryHandler

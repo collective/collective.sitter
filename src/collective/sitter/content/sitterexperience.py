@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from plone.dexterity.content import Item
 from plone.supermodel import model
 from zope import schema

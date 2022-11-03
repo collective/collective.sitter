@@ -1,4 +1,4 @@
-from .. import MessageFactory as _
+from .. import _
 from plone.dexterity.content import Item
 from plone.namedfile.field import NamedImage
 from plone.supermodel import model
