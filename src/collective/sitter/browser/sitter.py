@@ -9,7 +9,6 @@ from Products.CMFPlone import PloneMessageFactory
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
-from z3c.form import field
 from z3c.form import form
 from zope import component
 from zope import interface
@@ -38,11 +37,12 @@ class ISitterContactFormSchema(Interface):
     email = schema.TextLine(
         title=_('email'),
     )
-    homepage = schema.TextLine(title='homepage', required=False)
+    homepage = schema.TextLine(
+        title='homepage',
+        required=False,
+    )
     accept_terms = schema.Bool(
-        title=_(
-            'accept_terms_title',
-        ),
+        title=_('accept_terms_title'),
         description=_('accept_terms_description'),
         required=True,
         default=None,
@@ -50,12 +50,8 @@ class ISitterContactFormSchema(Interface):
         constraint=is_checked,
     )
     message = schema.Text(
-        title=_(
-            'message_title',
-        ),
-        description=_(
-            'message_description',
-        ),
+        title=_('message_title'),
+        description=_('message_description'),
         default=None,
         required=False,
         readonly=False,
@@ -131,7 +127,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
             try:
                 mailer.send_mail()
                 self.mail_send_sucsessfully = True
-            except Exception as ex:
+            except Exception:
                 self.status = error_msg
                 self.mail_send_sucsessfully = False
         else:
