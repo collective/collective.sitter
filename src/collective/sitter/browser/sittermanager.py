@@ -13,6 +13,18 @@ logger = logging.getLogger(__name__)
 
 class SitterManagerView(BrowserView):
 
+    def __call__(self, *args, **kwargs):
+        if api.user.has_permission(
+            'collective.sitter: Manage sitters', obj=self.context
+        ):
+            return super().__call__(*args, **kwargs)
+        else:
+            # if we change permission of this view in configure.zcml the view will not
+            # be themed with diazo anymore
+            # b/c diazo rules only match for "body.viewpermission-view"
+            response = self.request.response
+            response.setStatus(403)
+
     @property
     def sitter_state(self):
         return ISitterState(self.context)

@@ -23,11 +23,12 @@
     template="templates/sitteraccount.pt"
     />
 
+  <!-- Manager permission is checked inside the views call-->
   <browser:page
     name="sittermanager"
     for="..content.sitterfolder.ISitterFolder"
     class=".sittermanager.SitterManagerView"
-    permission="collective.sitter.ManageSitters"
+    permission="zope2.View"
     template="templates/sittermanager.pt"
     />
 
