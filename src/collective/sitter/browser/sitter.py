@@ -38,10 +38,7 @@ class ISitterContactFormSchema(Interface):
     email = schema.TextLine(
         title=_("email"),
     )
-    homepage = schema.TextLine(
-        title=u"homepage",
-        required=False
-    )
+    homepage = schema.TextLine(title=u"homepage", required=False)
     accept_terms = schema.Bool(
         title=_(
             u'accept_terms_title',
@@ -50,7 +47,7 @@ class ISitterContactFormSchema(Interface):
         required=True,
         default=None,
         readonly=False,
-        constraint=is_checked
+        constraint=is_checked,
     )
     message = schema.Text(
         title=_(
@@ -88,7 +85,6 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
     thx_text = _(u'You will receive a copy of this email')
     mail_send_sucsessfully = False
 
-
     def update(self):
         if self.context.getLayout() != self.view_name:
             self.request.response.redirect(self.context.absolute_url())
@@ -98,7 +94,10 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
 
         # call the base class version - this is very important!
         super(SitterContactForm, self).update()
-        if self.fields['message'].field.default is None or self.fields['message'].field.default != self.getTextvorlage():
+        if (
+            self.fields['message'].field.default is None
+            or self.fields['message'].field.default != self.getTextvorlage()
+        ):
             self.fields['message'].field.default = self.getTextvorlage()
             super(SitterContactForm, self).update()
         self.template = self.form_template
@@ -123,7 +122,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         fromname = data['name']
         fromemail = data['email']
         message = data['message']
-        toname =self.context.nickname
+        toname = self.context.nickname
         toemail = self.context.email
         accept_terms = data['accept_terms']
         if data['homepage'] is None and accept_terms and toemail != '':
@@ -197,8 +196,9 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
 
 
 class SitterMailer(object):
-
-    def __init__(self, toname: str, toemail: str, fromname: str, fromemail: str, message: str):
+    def __init__(
+        self, toname: str, toemail: str, fromname: str, fromemail: str, message: str
+    ):
         self.toname = toname
         self.fromname = fromname
         self.toemail = toemail
@@ -217,17 +217,21 @@ class SitterMailer(object):
                 f'Send contact mail to sitter {self.toemail} and copy to {self.fromemail}.'
             )
             # Send mail to sitter
-            api.portal.send_email(sender=f'{self.fromname} <{self.fromemail}>',
-                                  recipient=f'{self.toname} <{self.toemail}>',
-                                  subject=self.contact_subject,
-                                  body=text.format(text=self.message),
-                                  immediate=True)
+            api.portal.send_email(
+                sender=f'{self.fromname} <{self.fromemail}>',
+                recipient=f'{self.toname} <{self.toemail}>',
+                subject=self.contact_subject,
+                body=text.format(text=self.message),
+                immediate=True,
+            )
             # Send copy of mail
-            api.portal.send_email(sender=f'{self.fromname_default} <{self.fromemail_default}>',
-                                  recipient=f'{self.fromname} <{self.fromemail}>',
-                                  subject=self.contact_subject,
-                                  body=copy.format(text=self.message),
-                                  immediate=True)
+            api.portal.send_email(
+                sender=f'{self.fromname_default} <{self.fromemail_default}>',
+                recipient=f'{self.fromname} <{self.fromemail}>',
+                subject=self.contact_subject,
+                body=copy.format(text=self.message),
+                immediate=True,
+            )
         except Exception as ex:
             # This should only occur while testing
             logger.error(f'Could not send email: {ex}')
@@ -238,6 +242,7 @@ class AddForm(DefaultAddForm):
     """Custom add form that makes sure of some policies that cannot be expressed by
     permissions alone.
     """
+
     def render(self):
         sitterstate = ISitterState(self.context)
         if not sitterstate.has_accepted():
