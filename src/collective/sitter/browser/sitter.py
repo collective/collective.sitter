@@ -198,13 +198,6 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
 
 class SitterMailer(object):
 
-    mail_template = """\
-To: "{to_name}" <{to_mail}>
-From: "{from_name}" <{from_mail}>
-Subject: {subject}
-
-{text}"""
-
     def __init__(self, toname: str, toemail: str, fromname: str, fromemail: str, message: str):
         self.toname = toname
         self.fromname = fromname
@@ -217,32 +210,24 @@ Subject: {subject}
 
     def send_mail(self):
         text = api.portal.get_registry_record('sitter.contact_sitter_text')
-        mail_text = self.mail_template.format(
-            to_mail=self.toemail,
-            to_name=self.toname,
-            from_mail=self.fromemail,
-            from_name=self.fromname,
-            subject=self.contact_subject,
-            text=text.format(text=self.message),
-        )
-
         copy = api.portal.get_registry_record('sitter.contact_copy_text')
-        mail_copy = self.mail_template.format(
-            to_mail=self.fromemail,
-            to_name=self.fromname,
-            from_mail=self.fromemail_default,
-            from_name=self.fromname_default,
-            subject=self.contact_subject,
-            text=copy.format(text=self.message),
-        )
 
         try:
             logger.info(
                 f'Send contact mail to sitter {self.toemail} and copy to {self.fromemail}.'
             )
-            host = api.portal.get_tool('MailHost')
-            host.send(mail_text, immediate=True, charset='utf-8')
-            host.send(mail_copy, immediate=True, charset='utf-8')
+            # Send mail to sitter
+            api.portal.send_email(sender=f'{self.fromname} <{self.fromemail}>',
+                                  recipient=f'{self.toname} <{self.toemail}>',
+                                  subject=self.contact_subject,
+                                  body=text.format(text=self.message),
+                                  immediate=True)
+            # Send copy of mail
+            api.portal.send_email(sender=f'{self.fromname_default} <{self.fromemail_default}>',
+                                  recipient=f'{self.fromname} <{self.fromemail}>',
+                                  subject=self.contact_subject,
+                                  body=copy.format(text=self.message),
+                                  immediate=True)
         except Exception as ex:
             # This should only occur while testing
             logger.error(f'Could not send email: {ex}')
