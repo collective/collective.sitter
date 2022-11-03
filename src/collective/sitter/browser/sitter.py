@@ -79,7 +79,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
     thx_template = ViewPageTemplateFile('templates/thankspage.pt')
     thx_title = _('email sent successfully')
     thx_text = _('You will receive a copy of this email')
-    mail_send_sucsessfully = False
+    mail_sent_successfully = False
 
     def update(self):
         if self.context.getLayout() != self.view_name:
@@ -105,7 +105,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         if errors:
             # render errors
             return
-        if self.mail_send_sucsessfully:
+        if self.mail_sent_successfully:
             self.template = self.thx_template
 
     @button.buttonAndHandler(_('Submit'), name='submit')
@@ -114,7 +114,6 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         if errors:
             self.status = self.formErrorsMessage
             return
-        error_msg = _('error while sending mail to sitter')
         fromname = data['name']
         fromemail = data['email']
         message = data['message']
@@ -126,12 +125,12 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
             mailer = SitterMailer(toname, toemail, fromname, fromemail, message)
             try:
                 mailer.send_mail()
-                self.mail_send_sucsessfully = True
             except Exception:
-                self.status = error_msg
-                self.mail_send_sucsessfully = False
-        else:
-            self.status = error_msg
+                pass
+            else:
+                self.mail_sent_successfully = True
+                return
+        self.status = _('error while sending mail to sitter')
 
     # Sitter properties
     @property
