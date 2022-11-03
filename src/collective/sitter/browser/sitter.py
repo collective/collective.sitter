@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 def is_checked(value):
     if not value:
-        raise Invalid(_("Bitte akzeptieren Sie die Nutzungbedingungen"))
+        raise Invalid(_("please accept terms"))
     return True
 
 
@@ -33,20 +33,20 @@ class ISitterContactFormSchema(Interface):
     """Define form fields"""
 
     name = schema.TextLine(
-        title=u"Your name",
+        title=_("name"),
     )
     email = schema.TextLine(
-        title=u"Your email",
+        title=_("email"),
     )
     homepage = schema.TextLine(
-        title=u"Your homepage",
+        title=u"homepage",
         required=False
     )
     accept_terms = schema.Bool(
         title=_(
-            u'Accept terms',
+            u'accept_terms_title',
         ),
-        description=_(u''),
+        description=_(u'accept_terms_description'),
         required=True,
         default=None,
         readonly=False,
@@ -54,10 +54,10 @@ class ISitterContactFormSchema(Interface):
     )
     message = schema.Text(
         title=_(
-            u'Message',
+            u'message_title',
         ),
         description=_(
-            u'Message',
+            u'message_description',
         ),
         default=None,
         required=False,
@@ -82,11 +82,10 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
     view_name = 'sitterview'
     enable_form_tabbing = False
     css_class = 'easyformForm'
-    default_fieldset_label = _(u'')
     form_template = ViewPageTemplateFile('templates/sitterview.pt')
     thx_template = ViewPageTemplateFile('templates/thankspage.pt')
-    thx_title = _(u'Eine E-Mail an den Babysitter wurde erfolgreich versendet')
-    thx_text = _(u'Sie erhalten eine Kopie dieser E-Mail.')
+    thx_title = _(u'email sent successfully')
+    thx_text = _(u'You will receive a copy of this email')
     mail_send_sucsessfully = False
 
 
@@ -114,13 +113,13 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         if self.mail_send_sucsessfully:
             self.template = self.thx_template
 
-    @button.buttonAndHandler(_(u'Absenden'), name='submit')
+    @button.buttonAndHandler(_(u'Submit'), name='submit')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
             return
-        error_msg = _('Fehler beim Kontaktieren des Babysitters')
+        error_msg = _('error while sending mail to sitter')
         fromname = data['name']
         fromemail = data['email']
         message = data['message']

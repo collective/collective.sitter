@@ -160,6 +160,10 @@ msgstr ""
 msgid "Sitter agency"
 msgstr "Sitterbörse"
 
+#: collective/sitter/browser/sitter.py
+msgid "Submit"
+msgstr "Senden"
+
 #: collective/sitter/content/sitter.py
 msgid "Waehlen Sie aus, mit welchen Altersklassen sie schon Erfahrungen haben."
 msgstr "Wählen Sie aus, mit welchen Altersklassen Sie schon Erfahrungen haben."
@@ -205,6 +209,18 @@ msgstr ""
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "delete_old_sitters"
 msgstr ""
+#: collective/sitter/browser/sitter.py
+msgid "You will receive a copy of this email"
+msgstr "Sie erhalten eine Kopie dieser E-Mail"
+
+#: collective/sitter/browser/sitter.py
+msgid "accept_terms_description"
+msgstr " "
+
+#: collective/sitter/browser/sitter.py
+#: collective/sitter/browser/templates/sitterview.pt
+msgid "accept_terms_title"
+msgstr "Bitte akzeptieren Sie die Nutzungsbedingungen"
 
 #: collective/sitter/content/sitter.py
 msgid "desc_district"
@@ -227,6 +243,17 @@ msgstr ""
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "edit_sitter_folder"
 msgstr ""
+#: collective/sitter/browser/sitter.py
+msgid "email"
+msgstr "Ihre E-Mail-Adresse"
+
+#: collective/sitter/browser/sitter.py
+msgid "email sent successfully"
+msgstr "Nachricht erfolgreich gesendet"
+
+#: collective/sitter/browser/sitter.py
+msgid "error while sending mail to sitter"
+msgstr "Fehler beim Senden der Nachricht"
 
 #. Default: "Erfahrung"
 #: collective/sitter/browser/templates/sitterview.pt
@@ -283,6 +310,21 @@ msgstr "Ablehnen"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "my_sitterentry"
 msgstr ""
+#: collective/sitter/browser/sitter.py
+msgid "message_description"
+msgstr " "
+
+#: collective/sitter/browser/sitter.py
+msgid "message_title"
+msgstr "Ihre Nachricht"
+
+#: collective/sitter/browser/sitter.py
+msgid "name"
+msgstr "Ihr Name"
+
+#: collective/sitter/browser/sitter.py
+msgid "please accept terms"
+msgstr "Bitte akzeptieren Sie die Nutzungsbedingungen"
 
 #: collective/sitter/content/sitterfolder.py
 msgid "possible_agreement"

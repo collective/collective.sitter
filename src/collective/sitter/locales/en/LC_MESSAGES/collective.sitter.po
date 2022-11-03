@@ -159,6 +159,10 @@ msgstr ""
 msgid "Sitter agency"
 msgstr ""
 
+#: collective/sitter/browser/sitter.py
+msgid "Submit"
+msgstr ""
+
 #: collective/sitter/content/sitter.py
 msgid "Waehlen Sie aus, mit welchen Altersklassen sie schon Erfahrungen haben."
 msgstr "Choose the experiences you have."
@@ -204,6 +208,18 @@ msgstr "Delete Entry"
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "delete_old_sitters"
 msgstr "delete old sitters"
+#: collective/sitter/browser/sitter.py
+msgid "You will receive a copy of this email"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+msgid "accept_terms_description"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+#: collective/sitter/browser/templates/sitterview.pt
+msgid "accept_terms_title"
+msgstr ""
 
 #: collective/sitter/content/sitter.py
 msgid "desc_district"
@@ -226,6 +242,17 @@ msgstr "Edit Entry"
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "edit_sitter_folder"
 msgstr "Edit sitter folder properties"
+#: collective/sitter/browser/sitter.py
+msgid "email"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+msgid "email sent successfully"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+msgid "error while sending mail to sitter"
+msgstr ""
 
 #. Default: "Erfahrung"
 #: collective/sitter/browser/templates/sitterview.pt
@@ -280,6 +307,20 @@ msgstr "Decline"
 #. Default: "Mein Eintrag"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "my_sitterentry"
+#: collective/sitter/browser/sitter.py
+msgid "message_description"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+msgid "message_title"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+msgid "name"
+msgstr ""
+
+#: collective/sitter/browser/sitter.py
+msgid "please accept terms"
 msgstr ""
 
 #: collective/sitter/content/sitterfolder.py
