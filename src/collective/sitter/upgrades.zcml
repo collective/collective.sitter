@@ -2,11 +2,4 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
-  <genericsetup:upgradeDepends
-    title="add sitteraccount settings to controlpanel"
-    source="1"
-    destination="2"
-    import_steps="plone.app.registry"
-    profile="collective.sitter:default" />
-
 </configure>

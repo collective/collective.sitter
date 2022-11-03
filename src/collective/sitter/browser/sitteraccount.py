@@ -1,6 +1,7 @@
 from .. import MessageFactory as _
 from ..sitterstate import ISitterState
 from .sitter import SitterView
+from ..content.sitter import Sitter
 from plone import api
 from Products.Five.browser import BrowserView
 from plone.protect.authenticator import createToken
@@ -22,7 +23,7 @@ class SitterAccountView(BrowserView):
         return self.sitter_state.get_sitter_folder()
 
     @property
-    def sitter(self) -> SitterView:
+    def sitter(self) -> Sitter:
         return self.sitter_state.get_sitter().getObject()
 
     @property
