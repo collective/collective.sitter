@@ -7,7 +7,6 @@ from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 
 import logging
-import re
 
 
 logger = logging.getLogger(__name__)
@@ -57,22 +56,10 @@ class SitterView(BrowserView):
             return '/'.join(agreement.to_object.getPhysicalPath())
 
     def get_local_referer(self):
-        request = self.request
-        current_url = self.context.absolute_url()
-        referer = request.getHeader('Referer')
-        if referer is not None:
-            if '?' in referer:
-                url_without_params = r'(.*?)\?'
-                match_obj = re.search(url_without_params, referer)
-                referer_without_params = match_obj.groups()[0]
-            else:
-                referer_without_params = referer
-            came_from_sitterlist = r'^{}'.format(re.escape(referer_without_params))
-            if re.search(came_from_sitterlist, current_url):
+        if referer := self.request.getHeader('Referer') is not None:
+            referer_without_params = referer.split('?', 1)[0]
+            if self.context.absolute_url().startswith(referer_without_params):
                 return referer
-            else:
-                return None
-        return None
 
     def get_overview_url(self):
         sitter_folder = self.sitter_state.get_sitter_folder()
