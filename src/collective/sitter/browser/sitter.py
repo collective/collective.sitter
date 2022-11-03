@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 def is_checked(value):
     if not value:
-        raise Invalid(_("please accept terms"))
+        raise Invalid(_('please accept terms'))
     return True
 
 
@@ -33,17 +33,17 @@ class ISitterContactFormSchema(Interface):
     """Define form fields"""
 
     name = schema.TextLine(
-        title=_("name"),
+        title=_('name'),
     )
     email = schema.TextLine(
-        title=_("email"),
+        title=_('email'),
     )
-    homepage = schema.TextLine(title=u"homepage", required=False)
+    homepage = schema.TextLine(title='homepage', required=False)
     accept_terms = schema.Bool(
         title=_(
-            u'accept_terms_title',
+            'accept_terms_title',
         ),
-        description=_(u'accept_terms_description'),
+        description=_('accept_terms_description'),
         required=True,
         default=None,
         readonly=False,
@@ -51,10 +51,10 @@ class ISitterContactFormSchema(Interface):
     )
     message = schema.Text(
         title=_(
-            u'message_title',
+            'message_title',
         ),
         description=_(
-            u'message_description',
+            'message_description',
         ),
         default=None,
         required=False,
@@ -64,7 +64,7 @@ class ISitterContactFormSchema(Interface):
 
 @component.adapter(interface.Interface)
 @interface.implementer(ISitterContactFormSchema)
-class SitterContactAdapter(object):
+class SitterContactAdapter:
     def __init__(self, context):
         self.name = None
         self.email = None
@@ -81,8 +81,8 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
     css_class = 'easyformForm'
     form_template = ViewPageTemplateFile('templates/sitterview.pt')
     thx_template = ViewPageTemplateFile('templates/thankspage.pt')
-    thx_title = _(u'email sent successfully')
-    thx_text = _(u'You will receive a copy of this email')
+    thx_title = _('email sent successfully')
+    thx_text = _('You will receive a copy of this email')
     mail_send_sucsessfully = False
 
     def update(self):
@@ -93,13 +93,13 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         # self.request.set('disable_border', True)
 
         # call the base class version - this is very important!
-        super(SitterContactForm, self).update()
+        super().update()
         if (
             self.fields['message'].field.default is None
             or self.fields['message'].field.default != self.getTextvorlage()
         ):
             self.fields['message'].field.default = self.getTextvorlage()
-            super(SitterContactForm, self).update()
+            super().update()
         self.template = self.form_template
 
         # Goto thankspage if form has been send without errors
@@ -112,7 +112,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         if self.mail_send_sucsessfully:
             self.template = self.thx_template
 
-    @button.buttonAndHandler(_(u'Submit'), name='submit')
+    @button.buttonAndHandler(_('Submit'), name='submit')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
@@ -195,7 +195,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         return sitter_folder.absolute_url()
 
 
-class SitterMailer(object):
+class SitterMailer:
     def __init__(
         self, toname: str, toemail: str, fromname: str, fromemail: str, message: str
     ):
