@@ -7,10 +7,9 @@
 
     <metal:block fill-slot="main">
 
-        <h1
-            class="documentFirstHeading"
-            tal:content="view/thx_title | nothing"
-            />
+        <h1 class="documentFirstHeading">
+            ${view/thx_title | nothing}
+        </h1>
         <div tal:content="view/thx_text | nothing">
         </div>
 

@@ -22,7 +22,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def is_checked(value):
+def are_terms_accepted(value):
     if not value:
         raise Invalid(_('please accept terms'))
     return True
@@ -47,7 +47,7 @@ class ISitterContactFormSchema(Interface):
         required=True,
         default=None,
         readonly=False,
-        constraint=is_checked,
+        constraint=are_terms_accepted,
     )
     message = schema.Text(
         title=_('message_title'),
@@ -91,8 +91,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         # call the base class version - this is very important!
         super().update()
         if (
-            self.fields['message'].field.default is None
-            or self.fields['message'].field.default != self.getTextvorlage()
+            self.fields['message'].field.default != self.getTextvorlage()
         ):
             self.fields['message'].field.default = self.getTextvorlage()
             super().update()

@@ -83,11 +83,13 @@
   <browser:page
     name="sitterview"
     for="..content.sitter.ISitter"
-    layer="zope.interface.Interface"
     class=".sitter.SitterContactForm"
     permission="zope2.View"
     />
-
+  <!--
+    layer=".layer.ICollectiveSitterLayer" is not working for
+    "sitterview" - no idea why
+  -->
   <browser:page
       name="title"
       for="..content.sitter.ISitter"
