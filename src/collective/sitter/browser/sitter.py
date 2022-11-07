@@ -90,9 +90,7 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
 
         # call the base class version - this is very important!
         super().update()
-        if (
-            self.fields['message'].field.default != self.getTextvorlage()
-        ):
+        if self.fields['message'].field.default != self.getTextvorlage():
             self.fields['message'].field.default = self.getTextvorlage()
             super().update()
         self.template = self.form_template
