@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-26 21:06+0000\n"
+"POT-Creation-Date: 2022-11-07 08:31+0000\n"
 "PO-Revision-Date: 2022-10-02 18:44+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,12 +62,32 @@ msgstr ""
 msgid "Einreichen"
 msgstr ""
 
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Eintrag bearbeiten"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Eintrag einreichen"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Eintrag erstellen"
+msgstr ""
+
 #: collective/sitter/sitterstate.py
 msgid "Eintrag gelöscht"
 msgstr ""
 
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Eintrag löschen"
+msgstr ""
+
 #: collective/sitter/sitterstate.py
 msgid "Eintrag veröffentlicht"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Eintrag wiederherstellen"
 msgstr ""
 
 #: collective/sitter/content/sitter.py
@@ -76,6 +96,10 @@ msgstr "Experiences"
 
 #: collective/sitter/configure.zcml
 msgid "Extension profile for Sitter agency"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "FAQ"
 msgstr ""
 
 #: collective/sitter/content/sitter.py
@@ -120,6 +144,18 @@ msgstr ""
 
 #: collective/sitter/content/sitter.py
 msgid "Languages"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Mein Babysittereintrag"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Mein Eintrag"
+msgstr ""
+
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "Mein nächster Schritt"
 msgstr ""
 
 #: collective/sitter/content/sitter.py
@@ -175,6 +211,26 @@ msgstr ""
 msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuzeigen. Sie bestätigen uns, dass Sie das alleinige Urheberrecht, das Recht bzw. die Erlaubnis auf Veröffentlichung des im Rahmen der Babysitteranzeige hochgeladenen Fotos besitzen sowie die Zustimmung eventuell weiterer Personen auf dem Foto vorliegen haben."
 msgstr ""
 
+#. Default: "Nutzungsbedingungen bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "change_agreement_text"
+msgstr ""
+
+#. Default: "Info-Text für unangemeldete Benutzer bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "change_info_text"
+msgstr ""
+
+#. Default: "Info-Text für angemeldete Benutzer bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "change_info_text_logged_in"
+msgstr ""
+
+#. Default: "Alte Sitter Löschen"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "delete_old_sitters"
+msgstr ""
+
 #: collective/sitter/content/sitter.py
 msgid "desc_district"
 msgstr ""
@@ -187,10 +243,20 @@ msgstr ""
 msgid "desc_gender"
 msgstr ""
 
+#. Default: "Ordner Eigenschaften bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "edit_sitter_folder"
+msgstr ""
+
 #. Default: "Erfahrung"
 #: collective/sitter/browser/templates/sitterview.pt
 #: collective/sitter/content/sitterfolder.py
 msgid "experiences"
+msgstr ""
+
+#. Default: "FAQ"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "fqa"
 msgstr ""
 
 #: collective/sitter/browser/templates/sitterview.pt
@@ -231,6 +297,11 @@ msgstr "Qualifications you share with sitters."
 msgid "qualifications"
 msgstr "qualifications"
 
+#. Default: "Ordner Inhalt anzeigen"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "show_sitter_folder_content"
+msgstr ""
+
 #. Default: "Sitter"
 #: collective/sitter/profiles/default/types/sitter.xml
 msgid "sitter"
@@ -264,6 +335,16 @@ msgstr ""
 #: collective/sitter/content/sitterfolder.py
 msgid "sitter_folder_name"
 msgstr "Sitter folder name"
+
+#. Default: "Sittermanager"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "sitter_manager"
+msgstr ""
+
+#. Default: "Werkzeuge"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "sitter_manager_tools"
+msgstr ""
 
 #: collective/sitter/portlet/sitterportlet.py
 msgid "sitter_portlet_add_desc"

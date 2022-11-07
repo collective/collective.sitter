@@ -68,7 +68,7 @@
       class="sitteraccount__faq"
       tal:condition="python: len(view.get_faq) > 0"
     >
-      <h2 i18n:translate="fqa">FAQ</h2>
+      <h2 i18n:translate="faq">FAQ</h2>
       <ul>
         <tal:repeat tal:repeat="faq view/get_faq">
           <li>
