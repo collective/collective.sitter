@@ -1,5 +1,5 @@
-from ..sitterstate import ISitterState
 from ..content.sitter import ISitter
+from ..sitterstate import ISitterState
 from plone import api
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.add import DefaultAddView

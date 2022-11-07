@@ -3,8 +3,8 @@ from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
-from plone.supermodel import model
 from plone.autoform.directives import widget
+from plone.supermodel import model
 from plone.z3cform import layout
 from zope import schema
 from zope.interface import Interface
@@ -44,9 +44,9 @@ sich mit Ihnen in Verbindung setzen.
 """
 
 
-class ISitterFqaConfig(Interface):
-    question = schema.TextLine(title=u'Frage')
-    answer = schema.Text(title=u'Antwort')
+class ISitterFaqConfig(Interface):
+    question = schema.TextLine(title='Frage')
+    answer = schema.Text(title='Antwort')
 
 
 class ISitterSettings(Interface):
@@ -220,25 +220,25 @@ class ISitterSettings(Interface):
     sitteraccount_faq_sitter = schema.List(
         title='FQA (für Sitter)',
         description='Häufig gestellte Fragen (für die Sitter)',
-        value_type=DictRow(title=u'tablerow', schema=ISitterFqaConfig),
+        value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
         default=[
             {
                 'question': 'Wie lege ich einen Eintrag an',
-                'answer': 'Nach der Registrierung musst du noch die Nutzungsbedingungen akzeptieren. Danach kannst du einen Eintrag anlegen.'
+                'answer': 'Nach der Registrierung musst du noch die Nutzungsbedingungen akzeptieren. Danach kannst du einen Eintrag anlegen.',
             },
             {
                 'question': 'Warum ist mein Eintrag nicht sichtbar',
-                'answer': 'Nachdem du den Eintrag erstellt hast. Musst du diesen noch zur Kontrolle einreichen. Danach werden sich die Sittermanager darum kümmern dass der Eintrag freigeschaltet wird.'
-            }
-        ]
+                'answer': 'Nachdem du den Eintrag erstellt hast. Musst du diesen noch zur Kontrolle einreichen. Danach werden sich die Sittermanager darum kümmern dass der Eintrag freigeschaltet wird.',
+            },
+        ],
     )
     widget(sitteraccount_faq_sitter=DataGridFieldFactory)
 
     sitteraccount_faq_manager = schema.List(
         title='FQA (für Sitter)',
         description='Häufig gestellte Fragen (für die Sittermanager)',
-        value_type=DictRow(title=u'tablerow', schema=ISitterFqaConfig),
-        default=[]
+        value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
+        default=[],
     )
     widget(sitteraccount_faq_manager=DataGridFieldFactory)
 

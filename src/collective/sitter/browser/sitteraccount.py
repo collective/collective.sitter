@@ -1,10 +1,10 @@
 from .. import MessageFactory as _
+from ..content.sitter import Sitter
 from ..sitterstate import ISitterState
 from .sitter import SitterView
-from ..content.sitter import Sitter
 from plone import api
-from Products.Five.browser import BrowserView
 from plone.protect.authenticator import createToken
+from Products.Five.browser import BrowserView
 
 import logging
 
@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class SitterAccountView(BrowserView):
-
     @property
     def sitter_state(self):
         return ISitterState(self.context)

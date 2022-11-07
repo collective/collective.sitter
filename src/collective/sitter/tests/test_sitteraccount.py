@@ -3,6 +3,7 @@ from ..testing import TestCase
 from plone import api
 from zExceptions import Unauthorized
 
+
 class TestSitterAccountView(TestCase):
     layer = SITTER_FUNCTIONAL_TESTING
 
@@ -57,50 +58,35 @@ class TestSitterAccountView(TestCase):
         self._go_to_account_page()
 
         self.assertIn(
-            'Bitte akzeptieren Sie die Nutzungsbedingungen.',
-            self.browser.contents
+            'Bitte akzeptieren Sie die Nutzungsbedingungen.', self.browser.contents
         )
 
         self._accept_agb()
         self._go_to_account_page()
 
-        self.assertIn(
-            'Bitte geben Sie einige Daten zu sich an.',
-            self.browser.contents
-        )
+        self.assertIn('Bitte geben Sie einige Daten zu sich an.', self.browser.contents)
 
         self._create_sitter(nickname='Testfirst', details='this is a sitter')
         own_sitterobject_name = 'testfirst'
         self._go_to_account_page()
 
-        self.assertIn(
-            'Einreichen',
-            self.browser.contents
-        )
+        self.assertIn('Einreichen', self.browser.contents)
 
         self._submit_sitter_entry(own_sitterobject_name)
         self._go_to_account_page()
 
-        self.assertIn(
-            'Warten auf Freigabe',
-            self.browser.contents
-        )
+        self.assertIn('Warten auf Freigabe', self.browser.contents)
 
         self._delete_sitter_entry(own_sitterobject_name)
         self._go_to_account_page()
 
-        self.assertIn(
-            'Eintrag gelöscht',
-            self.browser.contents
-        )
+        self.assertIn('Eintrag gelöscht', self.browser.contents)
 
         self._recycle_sitter_entry(own_sitterobject_name)
         self._go_to_account_page()
 
-        self.assertIn(
-            'Einreichen',
-            self.browser.contents
-        )
+        self.assertIn('Einreichen', self.browser.contents)
+
 
 class TestSitterManagerView(TestCase):
     layer = SITTER_FUNCTIONAL_TESTING
