@@ -46,12 +46,6 @@ class TestSitterAccountView(TestCase):
     def _go_to_account_page(self):
         self.browser.open(self.account_url)
 
-    def test_sitteraccount_manager_view(self):
-        self.login_site_owner()
-        self._go_to_account_page()
-
-        self.assertIn('<h1>Sittermanager</h1>', self.browser.contents)
-
     def test_sitteraccount_sitter_view(self):
         self.login_test_user()
         self._go_to_account_page()
@@ -107,3 +101,20 @@ class TestSitterAccountView(TestCase):
             'Einreichen',
             self.browser.contents
         )
+
+class TestSitterManagerView(TestCase):
+    layer = SITTER_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        super().setUp()
+        self.portal_url = self.portal.absolute_url()
+        self.account_url = f'{self.portal_url}/{self.sitter_folder_name}/sittermanager'
+
+    def _go_to_account_page(self):
+        self.browser.open(self.account_url)
+
+    def test_sittermanager_view(self):
+        self.login_site_owner()
+        self._go_to_account_page()
+
+        self.assertIn('<h1>Sittermanager</h1>', self.browser.contents)
