@@ -15,8 +15,8 @@ repos:
     hooks:
       - id: black
         language_version: python 3.9
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.10.1
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
     hooks:
       - id: isort
         additional_dependencies:
