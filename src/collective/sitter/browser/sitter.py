@@ -56,7 +56,7 @@ class SitterView(BrowserView):
             return '/'.join(agreement.to_object.getPhysicalPath())
 
     def get_local_referer(self):
-        if referer := self.request.getHeader('Referer') is not None:
+        if (referer := self.request.getHeader('Referer')) is not None:
             referer_without_params = referer.split('?', 1)[0]
             if self.context.absolute_url().startswith(referer_without_params):
                 return referer
