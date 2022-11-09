@@ -114,16 +114,12 @@ class DeleteSitterView(BrowserView):
             folder = self.context
             ids = ids_to_delete[:]
             folder.manage_delObjects(ids_to_delete)
-            message = 'Deleted {} sitters with ids ({})'.format(
-                len(ids), ', '.join(ids)
-            )
+            message = f'Deleted {len(ids)} sitters with ids ({", ".join(ids)})'
             logger.info(message)
             plone_utils.addPortalMessage(message)
         except Exception as e:
             logger.warn(
-                'Could not delete {} sitters with ids {}: {}'.format(
-                    len(ids), ', '.join(ids), e
-                )
+                f'Could not delete {len(ids)} sitters with ids {", ".join(ids)}: {e}'
             )
 
 

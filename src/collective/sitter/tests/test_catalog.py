@@ -319,7 +319,9 @@ class TestSearch:  # (BaseTest):
         self.assertEqual(0, len(results))
 
     def test_randomOrder_sameSessionSameOrder(self):
-        with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
+        with patch.object(
+            SearchSitterView, '_get_or_create_session', return_value={}  # noqa
+        ):
             results1 = self.view_under_test._find_sitters()
             results2 = self.view_under_test._find_sitters()
         ids1 = [brain.getId for brain in results1]
@@ -327,13 +329,15 @@ class TestSearch:  # (BaseTest):
         self.assertEqual(ids1, ids2)
 
     def test_randomOrder_differentSessionDifferentOrder(self):
-        with patch.object(SearchSitterView, '_get_or_create_session', return_value={}):
+        with patch.object(
+            SearchSitterView, '_get_or_create_session', return_value={}  # noqa
+        ):
             results1 = self.view_under_test._find_sitters()
         ids1 = [brain.getId for brain in results1]
         # retry to counter spurious failure if orders turn out equal by chance
         for i in range(3):
             with patch.object(
-                SearchSitterView, '_get_or_create_session', return_value={}
+                SearchSitterView, '_get_or_create_session', return_value={}  # noqa
             ):
                 results2 = self.view_under_test._find_sitters()
             ids2 = [brain.getId for brain in results2]
