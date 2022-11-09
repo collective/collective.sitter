@@ -209,7 +209,7 @@ class ISitterSettings(Interface):
 
     model.fieldset(
         'sitteraccount',
-        label='Sitter account page',
+        label=_('sitter_account_page'),
         fields=[
             'sitteraccount_faq_sitter',
             'sitteraccount_faq_manager',
@@ -218,37 +218,28 @@ class ISitterSettings(Interface):
         ],
     )
     sitteraccount_faq_sitter = schema.List(
-        title='FQA (für Sitter)',
-        description='Häufig gestellte Fragen (für die Sitter)',
+        title=_('faq_sitter_label'),
+        description=_('faq_sitter_description'),
         value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
-        default=[
-            {
-                'question': 'Wie lege ich einen Eintrag an',
-                'answer': 'Nach der Registrierung musst du noch die Nutzungsbedingungen akzeptieren. Danach kannst du einen Eintrag anlegen.',
-            },
-            {
-                'question': 'Warum ist mein Eintrag nicht sichtbar',
-                'answer': 'Nachdem du den Eintrag erstellt hast. Musst du diesen noch zur Kontrolle einreichen. Danach werden sich die Sittermanager darum kümmern dass der Eintrag freigeschaltet wird.',
-            },
-        ],
+        default=[],
     )
     widget(sitteraccount_faq_sitter=DataGridFieldFactory)
 
     sitteraccount_faq_manager = schema.List(
-        title='FQA (für Sitter)',
-        description='Häufig gestellte Fragen (für die Sittermanager)',
+        title=_('faq_sittermanager_label'),
+        description=_('faq_sittermanager_description'),
         value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
         default=[],
     )
     widget(sitteraccount_faq_manager=DataGridFieldFactory)
 
     sitteraccount_intro_text_sitter = schema.Text(
-        title='Sitteraccount Seite Intro Text',
-        default='Von hier aus kannst du den Anmeldeprozess abschließen, deinen Eintrag bearbeiten und zur Prüfung durch die Redaktion einreichen.',
+        title=_('sitteraccont_intro_label'),
+        default='',
     )
 
     sitteraccount_intro_text_manager = schema.Text(
-        title='Sittermanager Seite Intro Text',
+        title=_('sittermanager_intro_label'),
         default='',
     )
 

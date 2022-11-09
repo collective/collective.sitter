@@ -101,7 +101,6 @@
     permission="zope2.View"
     />
 
-
   <adapter
     for="Products.CMFCore.interfaces.IFolderish
          *

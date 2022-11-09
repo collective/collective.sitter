@@ -3,22 +3,22 @@
 }
 
 .sitteraccount__my_entry .sittercontainer {
-    border: solid 2px black;
-    padding: 20px;
+  border: solid 2px black;
+  padding: 20px;
 }
 .sitter_entry__toolbar {
-    display: flex;
-    padding: 0;
-    width: 100%;
-    gap: 10px;
+  display: flex;
+  padding: 0;
+  width: 100%;
+  gap: 10px;
 }
 
 ul.sitter_entry__toolbar li,
 .sitteraccount__faq li {
-    list-style: none;
-    margin-left: 0;
+  list-style: none;
+  margin-left: 0;
 }
 
 .sitteraccount__faq ul {
-    padding-left: 0;
+  padding-left: 0;
 }

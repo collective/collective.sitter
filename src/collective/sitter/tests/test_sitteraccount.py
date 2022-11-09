@@ -1,7 +1,5 @@
 from ..testing import SITTER_FUNCTIONAL_TESTING
 from ..testing import TestCase
-from plone import api
-from zExceptions import Unauthorized
 
 
 class TestSitterAccountView(TestCase):

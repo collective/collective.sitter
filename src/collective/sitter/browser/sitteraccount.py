@@ -1,7 +1,5 @@
-from .. import MessageFactory as _
 from ..content.sitter import Sitter
 from ..sitterstate import ISitterState
-from .sitter import SitterView
 from plone import api
 from plone.protect.authenticator import createToken
 from Products.Five.browser import BrowserView

@@ -12,12 +12,12 @@
     <section
       class="sitteraccount__intro"
     >
-      <h1 i18n:translate="">Mein Babysittereintrag</h1>
+      <h1 i18n:translate="sitteraccount_intro_title">Mein Babysittereintrag</h1>
 
       <p>${view/account_intro_text}</p>
     </section>
     <section class="sitteraccount__next_step">
-      <h2 i18n:translate="">Mein nächster Schritt</h2>
+      <h2 i18n:translate="sitteraccount_next_step">Mein nächster Schritt</h2>
       <tal:define tal:define="step python: view.get_current_registration_step()">
 
         <a class="activestep" tal:condition="python: step.link != ''" tal:attributes="href nocall: step/link" tal:content="nocall: step/text" ></a>
@@ -45,22 +45,22 @@
       class="sitteraccount__my_entry"
       tal:condition="python: view.sitter_state.has_accepted()"
     >
-      <h2 i18n:translate="">Mein Eintrag</h2>
+      <h2 i18n:translate="my_sitterentry">Mein Eintrag</h2>
       <ul class="sitter_entry__toolbar">
         <li tal:condition="python: view.sitter_state.has_accepted() and not view.sitter_state.is_created()">
-          <a class="context" href="${view/add_entry_url}" i18n:translate="">Eintrag erstellen</a>
+          <a class="context" href="${view/add_entry_url}" i18n:translate="create_entry">Eintrag erstellen</a>
         </li>
         <li tal:condition="python: view.sitter_state.is_created() and not view.sitter_state.is_submitted()">
-          <a class="context" href="${view/submit_entry_url}" i18n:translate="">Eintrag einreichen</a>
+          <a class="context" href="${view/submit_entry_url}" i18n:translate="submit_entry">Eintrag einreichen</a>
         </li>
         <li tal:condition="python: view.sitter_state.is_created() and not view.sitter_state.is_deleted()">
-          <a class="context" href="${view/edit_entry_url}" i18n:translate="">Eintrag bearbeiten</a>
+          <a class="context" href="${view/edit_entry_url}" i18n:translate="edit_entry">Eintrag bearbeiten</a>
         </li>
         <li tal:condition="python: view.sitter_state.is_created() and not view.sitter_state.is_deleted()">
-          <a class="context" href="${view/delete_entry_url}" i18n:translate="">Eintrag löschen</a>
+          <a class="context" href="${view/delete_entry_url}" i18n:translate="delete_entry">Eintrag löschen</a>
         </li>
         <li tal:condition="python: view.sitter_state.is_deleted()">
-          <a class="context" href="${view/recycle_entry_url}" i18n:translate="">Eintrag wiederherstellen</a>
+          <a class="context" href="${view/recycle_entry_url}" i18n:translate="restore_entry">Eintrag wiederherstellen</a>
         </li>
       </ul>
       <div class="sittercontainer" tal:condition="python: view.sitter_state.is_created() and not view.sitter_state.is_deleted()">
@@ -71,7 +71,7 @@
       class="sitteraccount__faq"
       tal:condition="python: len(view.get_faq) > 0"
     >
-      <h2 i18n:translate="">FAQ</h2>
+      <h2 i18n:translate="faq">FAQ</h2>
       <ul>
         <tal:repeat tal:repeat="faq view/get_faq">
           <li>
