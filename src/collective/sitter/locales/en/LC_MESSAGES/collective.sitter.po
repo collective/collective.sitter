@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-09 10:55+0000\n"
+"POT-Creation-Date: 2022-11-09 12:00+0000\n"
 "PO-Revision-Date: 2022-10-02 18:44+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -355,26 +355,6 @@ msgstr "Sittermanager"
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "sitter_manager_tools"
 msgstr "Sittermanagers tools"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_add_desc"
-msgstr "This portlet displays details on the state of registration as a sitter."
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_add_label"
-msgstr "Add Sitter Portlet"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_edit_desc"
-msgstr "This portlet displays details on the state of registration as a sitter."
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_edit_label"
-msgstr "Edit Sitter Portlet"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_title"
-msgstr "Sitter Portlet"
 
 #. Default: "Sitter Qualification"
 #: collective/sitter/profiles/default/types/sitterqualification.xml

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-09 10:55+0000\n"
+"POT-Creation-Date: 2022-11-09 12:00+0000\n"
 "PO-Revision-Date: 2022-10-26 23:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,26 +357,6 @@ msgstr ""
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "sitter_manager_tools"
 msgstr ""
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_add_desc"
-msgstr "Dieses Portlet zeigt Details zum Registrierungsstatus als Babysitter."
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_add_label"
-msgstr "Babysitter-Portlet hinzufügen"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_edit_desc"
-msgstr "Dieses Portlet zeigt Details zum Registrierungsstatus als Babysitter."
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_edit_label"
-msgstr "Babysitter-Portlet bearbeiten"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_title"
-msgstr "Babysitter-Portlet"
 
 #. Default: "Sitter Qualification"
 #: collective/sitter/profiles/default/types/sitterqualification.xml
