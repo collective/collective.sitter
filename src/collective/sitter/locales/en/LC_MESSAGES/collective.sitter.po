@@ -241,19 +241,19 @@ msgstr "FAQ"
 
 #: collective/sitter/browser/controlpanel.py
 msgid "faq_sitter_description"
-msgstr ""
+msgstr "Frequently asked questions for sitter"
 
 #: collective/sitter/browser/controlpanel.py
 msgid "faq_sitter_label"
-msgstr ""
+msgstr "FAQ"
 
 #: collective/sitter/browser/controlpanel.py
 msgid "faq_sittermanager_description"
-msgstr ""
+msgstr "Frequently asked questions for sittermanger"
 
 #: collective/sitter/browser/controlpanel.py
 msgid "faq_sittermanager_label"
-msgstr ""
+msgstr "FAQ"
 
 #: collective/sitter/browser/templates/sitterview.pt
 msgid "full age"
@@ -388,26 +388,26 @@ msgstr ""
 
 #: collective/sitter/browser/controlpanel.py
 msgid "sitteraccont_intro_label"
-msgstr ""
+msgstr "Sitteraccount intro text"
 
 #. Default: "Mein Babysittereintrag"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "sitteraccount_intro_title"
-msgstr ""
+msgstr "My Sitteraccount"
 
 #. Default: "Mein nächster Schritt"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "sitteraccount_next_step"
-msgstr ""
+msgstr "My next step"
 
 #: collective/sitter/browser/controlpanel.py
 msgid "sittermanager_intro_label"
-msgstr ""
+msgstr "Sittermanger intro text"
 
 #. Default: "Eintrag einreichen"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "submit_entry"
-msgstr ""
+msgstr "Submit Entry"
 
 #: collective/sitter/profiles/default/actions.xml
 msgid "user_action_my_sitter_entry"
