@@ -1,274 +1,278 @@
-
 .sittercontainer {
-    border:1px solid #CCCCCC;
-    margin-bottom:0px;
-    width:100%;
+  border: 1px solid #cccccc;
+  margin-bottom: 0px;
+  width: 100%;
 }
 
 .sittercontent {
-    min-width:70%;
+  min-width: 70%;
 }
 
 .sitterimageholder {
-    border:1px solid #fcfcfc;
-    float:left;
-    margin:10px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding:5px;
+  border: 1px solid #fcfcfc;
+  float: left;
+  margin: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 5px;
 }
 
 .sitterinformation {
-    width:95%;
-    padding-left: 1em;
-
+  width: 95%;
+  padding-left: 1em;
 }
 
 .inputline {
-    margin: 10px;
+  margin: 10px;
 }
 
-#kontaktname{}
-#kontaktemail{}
+#kontaktname {
+}
+#kontaktemail {
+}
 
-dl > dd.step.portletItem, dl > dd.steptodo.portletItem {
-    padding-top: 0.5em;
-    padding-bottom: 0.35em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
+dl > dd.step.portletItem,
+dl > dd.steptodo.portletItem {
+  padding-top: 0.5em;
+  padding-bottom: 0.35em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
 }
 
 p.step_description,
 .step_more_links,
-.step_more_links_toggle{
-    font-size: 1em;
-    margin: 0.2em;
-    margin-left: 0.5em;
+.step_more_links_toggle {
+  font-size: 1em;
+  margin: 0.2em;
+  margin-left: 0.5em;
 }
 
 .step {
-    padding-bottom: 0.25em !important;
+  padding-bottom: 0.25em !important;
 }
 
-dl.portletSitter a, dl.portletSitter a:visited{
-    color: #227ab1;
+dl.portletSitter a,
+dl.portletSitter a:visited {
+  color: #227ab1;
 }
 
 div.portlet ul.step_more_links {
-    padding: 0px;
+  padding: 0px;
 }
 
-.step_more_links > li{
-    list-style: none;
+.step_more_links > li {
+  list-style: none;
 }
 
 .activestep {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .activestep-img {
-    color: #227ab1;
+  color: #227ab1;
 }
 
-.activestep-img, .done {
-    vertical-align:0% !important;
+.activestep-img,
+.done {
+  vertical-align: 0% !important;
 }
 
 .done {
-    color: #C5DB93;
+  color: #c5db93;
 }
 
 .finished {
-    color: #6CA43F;
+  color: #6ca43f;
 }
 
 .info {
-    color: #227ab1;
+  color: #227ab1;
 }
 
 .steptodo {
-    color: gray;
+  color: gray;
 }
 
 .table {
-    display: table;
+  display: table;
 }
 
 .table-row {
-    display: table-row;
+  display: table-row;
 }
 
 .table-cell {
-    display: table-cell;
-    padding: 0em 1em 1em 1em;
-    width: 25%;
+  display: table-cell;
+  padding: 0em 1em 1em 1em;
+  width: 25%;
 }
 
 button.btn,
- a.btn {
-    background-color: #dee7ec;
-    border-left: 1px solid #CCCCCC;
-    border-bottom: 1px solid #CCCCCC;
-    border-right: 1px solid #DDDDDD;
-    border-top: 1px solid #DDDDDD;
+a.btn {
+  background-color: #dee7ec;
+  border-left: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
 
-    color: Black !important;
-    cursor: pointer;
-    font-size: 0.9em;
-    padding: 0.5rem;
-    text-transform: none;
-    vertical-align: middle;
-    visibility: visible;
-    margin: 1rem;
-    white-space: nowrap;
+  color: Black !important;
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 0.5rem;
+  text-transform: none;
+  vertical-align: middle;
+  visibility: visible;
+  margin: 1rem;
+  white-space: nowrap;
 }
 
 button.btn:hover,
 a.btn:hover {
-    background-color: #D8E3E9 !important;
-    border-left: 1px solid #BBBBBB;
-    border-bottom: 1px solid #BBBBBB;
-    border-right: 1px solid #CCCCCC;
-    border-top: 1px solid #CCCCCC;
+  background-color: #d8e3e9 !important;
+  border-left: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
 }
 
 .btn-back {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 a.btn {
-    display: inline-block;
-    margin-left: 0;
+  display: inline-block;
+  margin-left: 0;
 }
 
 a.btn-logout {
-    margin: 0px;
-    width: 100%;
+  margin: 0px;
+  width: 100%;
 }
 
 a.btn-logout span {
-    vertical-align: middle;
+  vertical-align: middle;
 }
-a.btn-logout span i:nth-child(2){
-    color:  #cccccc;
+a.btn-logout span i:nth-child(2) {
+  color: #cccccc;
 }
-
 
 a.btn:hover,
 a.btn:active {
-    color: black !important;
-    text-decoration: none !important;
+  color: black !important;
+  text-decoration: none !important;
 }
 
 #content .sittercontent ul {
-    list-style-type: None
+  list-style-type: None;
 }
 
 #content .sittercontent li {
-    line-height: 3em;
-    vertical-align: baseline;
+  line-height: 3em;
+  vertical-align: baseline;
 }
 
 #content .sittercontent li i.fa {
-    top: inherit;
-    bottom: 1em;
+  top: inherit;
+  bottom: 1em;
 }
 
 .shortinfo {
-    margin: 4px;
-    padding-left: 4px;
-    vertical-align: baseline;
+  margin: 4px;
+  padding-left: 4px;
+  vertical-align: baseline;
 }
 
 .shortinfo h3 {
-    padding-left: 4px;
+  padding-left: 4px;
 }
 
 .sittercontactform {
-    padding: 2em;
+  padding: 2em;
 }
 
 .input {
-    width: auto;
+  width: auto;
 }
 
 .inputline .child {
-    margin: 0px 10px 0px 10px;
+  margin: 0px 10px 0px 10px;
 }
 
 .contactlabel {
-    width: 200px;
+  width: 200px;
 }
 
-#result-info, #result-error {
-    margin: 10px;
-    font-weight: bold;
-    display: inline-block;
+#result-info,
+#result-error {
+  margin: 10px;
+  font-weight: bold;
+  display: inline-block;
 }
 
 #result-error .fa-exclamation-triangle {
-    color: red;
+  color: red;
 }
 
 #result-info .fa-info-circle {
-    color: #6CA43F;
+  color: #6ca43f;
 }
 
 dl.portalMessage {
-    border-color: #CCCCCC ;
+  border-color: #cccccc;
 }
 
-dl.portalMessage dt, dl.portalMessage dd {
-    font-size: 1.35em;
+dl.portalMessage dt,
+dl.portalMessage dd {
+  font-size: 1.35em;
 }
 
 dl.portalMessage dt {
-    background-color: #FFCA40;
-    color: #000000;
-    font-weight: normal;
+  background-color: #ffca40;
+  color: #000000;
+  font-weight: normal;
 }
 
 dl.portalMessage dd {
-    background-color: white;
+  background-color: white;
 }
 
 .sitter-step-info {
-    margin: 10px;
+  margin: 10px;
 }
 
 .sitter-step-info div:first-child {
-    width: 0.1% !important;
+  width: 0.1% !important;
 }
 
 .sitter-step-info div:nth-child(2) {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 .sitter-step-info-head {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 .sitter-step-info-head a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .flexcontainer {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -ms-flex-direction: row;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .child {
-    min-width: 150px;
-    margin: 20px;
+  min-width: 150px;
+  margin: 20px;
 }
 
 .child.input {
-    padding: 8px;
+  padding: 8px;
 }

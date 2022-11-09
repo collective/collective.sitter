@@ -6,29 +6,29 @@ Die Babysitterbörse dient der ersten Kontaktaufnahme von Eltern mit Babysittern
 
 Ein Angehöriger der Philipps-Universität Marburg, der seine Dienste als Babysitter anbieten möchte, meldet sich zuerst mit seinem Staff-/Students-Account an der Babysitter an. Danach kann er nähere Angaben zu sich machen:
 
-* Titel der Babysitter-Anzeige
-* Details
-* Bild
-* Wohnort
-* Geschlecht
-* Betreuungserfahrung
-* Mobilität
-* Geburtsdatum
-* Sprachen
-* Qualifikationen und Auszeichnungen
-* Sonstige Qualifikationen
+- Titel der Babysitter-Anzeige
+- Details
+- Bild
+- Wohnort
+- Geschlecht
+- Betreuungserfahrung
+- Mobilität
+- Geburtsdatum
+- Sprachen
+- Qualifikationen und Auszeichnungen
+- Sonstige Qualifikationen
 
 Nur die Eingabe eines Titels für die Babysitter-Anzeige ist Pflicht. Alle anderen Felder können, müssen aber nicht, ausgefüllt werden.
 
 ![](images/create-sitter.png)
 
-*Bild 1: Anlegen einer Babysitter-Anzeige*
+_Bild 1: Anlegen einer Babysitter-Anzeige_
 
 Ist der Babysitter mit der Eingabe der Daten fertig, so ist die Anzeige noch nicht gleich im Internet veröffentlicht. Er muss diese erst noch zur Redaktion einreichen.
 
 ![](images/submit-sitter.png)
 
-*Bild 2: Einrichen einer Babysitter-Anzeige*
+_Bild 2: Einrichen einer Babysitter-Anzeige_
 
 Die Redaktion prüft die Babysitter-Anzeige und veröffentlicht sie im Internet. Der Babysitter kann später jederzeit seine Babysitter-Anzeige ändern, ohne dass sie erneut eingereicht werden muss. Auch kann er sie löschen. Dabei wird sie zunächst offline gestellt und nach spätestens 7 Tagen endgültig vom Server gelöscht.
 
@@ -40,19 +40,19 @@ Meldet sich eine Redakteurin an der Babysitterbörse an, so sieht sie in der lin
 
 ![](images/revision-list.png)
 
-*Bild 3: Revisionsliste*
+_Bild 3: Revisionsliste_
 
 Öffnet Sie eine solche Anzeige, kann sie oben den Status von "zur Redaktion eingereicht" in "Veröffentlicht" ändern. Danach ist die Anzeige im Internet sichtbar.
 
 ![](images/publish-sitter.png)
 
-*Bild 4: einen Babysitter-Eintrag veröffentlichen*
+_Bild 4: einen Babysitter-Eintrag veröffentlichen_
 
 ### Menü für Redakteure
 
 ![](images/manager-menu.png)
 
-*Bild 5: Menü für Redakteure*
+_Bild 5: Menü für Redakteure_
 
 #### Ordner Inhalt anzeigen
 
@@ -72,7 +72,7 @@ Folgt man dem Link "alte Sitter löschen", kommt man zu einer Seite auf der zu s
 
 ![](images/delete-private-deleteting-objects.png)
 
-*Bild 6: Nicht veröffentlichte Babysitter-Anzeigen löschen*
+_Bild 6: Nicht veröffentlichte Babysitter-Anzeigen löschen_
 
 ### Babysitter-Erfahrung bzw. Babysitter-Qualifikation abändern/hinzufügen
 
@@ -80,13 +80,13 @@ Sowohl bei dem Feld Erfahrung als auch Qualifikationen handelt es sich um Auswah
 
 ![](images/create-qualification-experience.png)
 
-*Bild 7: Objekte für Babysitter-Erfahrung bzw. Babysitter-Qualifikation erstellen*
+_Bild 7: Objekte für Babysitter-Erfahrung bzw. Babysitter-Qualifikation erstellen_
 
 Ist ein solches Objekt erstellt, muss es anschließend veröffentlicht werden. Danach muss es unter "Ordner Eigenschaften bearbeiten" der entsprechenden Liste hinzugefügt werden.
 
 ![](images/add-qualification-experience.png)
 
-*Bild 8: Qualifikation- bzw. Erfahrungs-Objekte zur jeweiligen Auswahlliste hinzufügen*
+_Bild 8: Qualifikation- bzw. Erfahrungs-Objekte zur jeweiligen Auswahlliste hinzufügen_
 
 ### Administration
 
@@ -96,7 +96,7 @@ Suchen nach `sitter`:
 
 ![](images/configuration-portal-registry.png)
 
-*Bild 9: Konfigurationseinträge ändern*
+_Bild 9: Konfigurationseinträge ändern_
 
 Durch einen Klick auf die jeweilige Eigenschaft kann der Wert dieser verändert werden.
 
