@@ -52,7 +52,7 @@ class SitterView(BrowserView):
     def get_terms_of_use_link(self):
         sitter_folder = self.sitter_state.get_sitter_folder()
         agreement = sitter_folder.agreement
-        if hasattr(agreement, 'to_object'):
+        if agreement is not None:
             return '/'.join(agreement.to_object.getPhysicalPath())
 
     def get_local_referer(self):
