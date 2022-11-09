@@ -193,12 +193,12 @@ msgstr "change info text for logged in users"
 #. Default: "Eintrag erstellen"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "create_entry"
-msgstr ""
+msgstr "Create Entry"
 
 #. Default: "Eintrag löschen"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "delete_entry"
-msgstr ""
+msgstr "Delete Entry"
 
 #. Default: "Alte Sitter Löschen"
 #: collective/sitter/browser/templates/sittermanager.pt
@@ -220,7 +220,7 @@ msgstr ""
 #. Default: "Eintrag bearbeiten"
 #: collective/sitter/browser/templates/sitteraccount.pt
 msgid "edit_entry"
-msgstr ""
+msgstr "Edit Entry"
 
 #. Default: "Ordner Eigenschaften bearbeiten"
 #: collective/sitter/browser/templates/sittermanager.pt
