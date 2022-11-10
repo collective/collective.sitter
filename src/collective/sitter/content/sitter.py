@@ -3,7 +3,8 @@ from .. import vocabularies
 from ..sitterstate import ISitterState
 from bs4 import BeautifulSoup
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.app.textfield import RichText as RichTextField
+from plone.app.z3cform.widget import RichTextFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Item
 from plone.indexer.decorator import indexer
@@ -26,6 +27,24 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+TINY_MCE_LIGHT_OPTIONS = {
+    'tiny': {
+        'menu': {},
+        'menubar': [],
+        'toolbar': 'undo redo | bold italic'
+        ' | alignleft aligncenter alignright alignjustify'
+        ' | bullist numlist outdent indent',
+        'plugins': [
+            'hr',
+            'lists',
+            'nonbreaking',
+            'noneditable',
+            'pagebreak',
+            'paste',
+        ],
+    }
+}
+
 
 class ISitter(model.Schema, IImageScaleTraversable):
     """
@@ -37,11 +56,16 @@ class ISitter(model.Schema, IImageScaleTraversable):
         required=True,
     )
 
-    directives.widget(details=WysiwygFieldWidget)
-    details = schema.Text(
+    directives.widget(
+        'details',
+        RichTextFieldWidget,
+        pattern_options=TINY_MCE_LIGHT_OPTIONS,
+    )
+    details = RichTextField(
         title=_('Detailed Information'),
         description=_('Beschreiben Sie sich hier mit ein paar kurzen Worten.'),
         required=False,
+        allowed_mime_types=['text/html'],
     )
 
     image = NamedBlobImage(
