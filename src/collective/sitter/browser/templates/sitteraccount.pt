@@ -64,7 +64,7 @@
         </li>
       </ul>
       <div class="sittercontainer" tal:condition="python: view.sitter_state.is_created() and not view.sitter_state.is_deleted()">
-        <div metal:use-macro="view/sitter/sitterview/sittercontent"></div>
+        <div metal:use-macro="view/sittercontentmacro"></div>
       </div>
     </section>
     <section

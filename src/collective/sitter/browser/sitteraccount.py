@@ -24,6 +24,11 @@ class SitterAccountView(BrowserView):
         return self.sitter_state.get_sitter().getObject()
 
     @property
+    def sittercontentmacro(self) -> BrowserView:
+        sitterview = self.sitter.restrictedTraverse('sitterview')
+        return sitterview.form_template.macros['sittercontent']
+
+    @property
     def account_intro_text(self):
         return api.portal.get_registry_record('sitter.sitteraccount_intro_text_sitter')
 
