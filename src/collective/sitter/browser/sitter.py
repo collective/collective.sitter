@@ -1,3 +1,4 @@
+from ..content.sitter import ISitter
 from ..sitterstate import ISitterState
 from plone import api
 from plone.dexterity.browser.add import DefaultAddForm
@@ -16,6 +17,10 @@ class SitterView(BrowserView):
     @property
     def sitter_state(self):
         return ISitterState(self.context)
+
+    @property
+    def sitter(self):
+        return ISitter(self.context)
 
     def __call__(self):
         self.remove_from_portal_messages(

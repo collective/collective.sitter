@@ -45,6 +45,7 @@ setup(
         'z3c.jbot',
         'z3c.relationfield',
         'zope.formlib',
+        'collective.z3cform.datagridfield',
     ],
     extras_require={
         'test': [

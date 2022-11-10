@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.sitter">
+
+<body>
+
+<metal:main fill-slot="main">
+    <section
+      class="sitteraccount__intro"
+    >
+      <h1 i18n:translate="sitter_manager">Sittermanager</h1>
+      <p>${view/account_intro_text}</p>
+    </section>
+    <section
+      class="sitteraccount__manager_tools"
+    >
+      <h2 i18n:translate="sitter_manager_tools">Werkzeuge</h2>
+      <ul class="sitter_entry__toolbar">
+        <li>
+          <a
+            class="context"
+            href="${view/sitter_folder/absolute_url}/folder_contents"
+            i18n:translate="show_sitter_folder_content"
+          >Ordner Inhalt anzeigen</a>
+        </li>
+        <li>
+          <a
+            class="context"
+            href="${view/sitter_folder/absolute_url}/edit"
+            i18n:translate="edit_sitter_folder"
+          >Ordner Eigenschaften bearbeiten</a>
+        </li>
+        <li tal:condition="python: view.agreement_url is not None">
+          <a
+            class="context"
+            href="${view/agreement_url}"
+            i18n:translate="change_agreement_text"
+          >Nutzungsbedingungen bearbeiten</a>
+        </li>
+        <li tal:condition="python: view.info_text_url is not None">
+          <a
+            class="context"
+            href="${view/info_text_url}"
+            i18n:translate="change_info_text"
+          >Info-Text für unangemeldete Benutzer bearbeiten</a>
+        </li>
+        <li tal:condition="python: view.info_text_logged_in_url is not None">
+          <a
+            class="context"
+            href="${view/info_text_logged_in_url}"
+            i18n:translate="change_info_text_logged_in"
+          >Info-Text für angemeldete Benutzer bearbeiten</a>
+        </li>
+        <li>
+          <a
+            class="context"
+            href="${view/sitter_folder/absolute_url}/deletesitter"
+            i18n:translate="delete_old_sitters"
+          >Alte Sitter Löschen</a>
+        </li>
+      </ul>
+    </section>
+    <section
+      class="sitteraccount__faq"
+      tal:condition="python: len(view.get_faq) > 0"
+    >
+      <h2 i18n:translate="faq">FAQ</h2>
+      <ul>
+        <tal:repeat tal:repeat="faq view/get_faq">
+          <li>
+            <h3>${faq/question}</h3>
+            <p>${faq/answer}</p>
+          </li>
+        </tal:repeat>
+      </ul>
+    </section>
+</metal:main>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-26 21:06+0000\n"
+"POT-Creation-Date: 2022-11-09 12:00+0000\n"
 "PO-Revision-Date: 2022-10-26 23:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,6 +176,36 @@ msgstr ""
 msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuzeigen. Sie bestätigen uns, dass Sie das alleinige Urheberrecht, das Recht bzw. die Erlaubnis auf Veröffentlichung des im Rahmen der Babysitteranzeige hochgeladenen Fotos besitzen sowie die Zustimmung eventuell weiterer Personen auf dem Foto vorliegen haben."
 msgstr ""
 
+#. Default: "Nutzungsbedingungen bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "change_agreement_text"
+msgstr ""
+
+#. Default: "Info-Text für unangemeldete Benutzer bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "change_info_text"
+msgstr ""
+
+#. Default: "Info-Text für angemeldete Benutzer bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "change_info_text_logged_in"
+msgstr ""
+
+#. Default: "Eintrag erstellen"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "create_entry"
+msgstr ""
+
+#. Default: "Eintrag löschen"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "delete_entry"
+msgstr ""
+
+#. Default: "Alte Sitter Löschen"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "delete_old_sitters"
+msgstr ""
+
 #: collective/sitter/content/sitter.py
 msgid "desc_district"
 msgstr " "
@@ -188,12 +218,44 @@ msgstr "Geben Sie an, ob Sie volljährig sind. Die Angebote können ggf. danach 
 msgid "desc_gender"
 msgstr " "
 
+#. Default: "Eintrag bearbeiten"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "edit_entry"
+msgstr ""
+
+#. Default: "Ordner Eigenschaften bearbeiten"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "edit_sitter_folder"
+msgstr ""
+
 #. Default: "Erfahrung"
 #: collective/sitter/browser/templates/sitterview.pt
 #: collective/sitter/content/sitterfolder.py
 #, fuzzy
 msgid "experiences"
 msgstr "Betreuungserfahrung"
+
+#. Default: "FAQ"
+#: collective/sitter/browser/templates/sitteraccount.pt
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "faq"
+msgstr "FAQ"
+
+#: collective/sitter/browser/controlpanel.py
+msgid "faq_sitter_description"
+msgstr "Fragen und Antworten für die Sitteraccount Seite"
+
+#: collective/sitter/browser/controlpanel.py
+msgid "faq_sitter_label"
+msgstr "FAQ"
+
+#: collective/sitter/browser/controlpanel.py
+msgid "faq_sittermanager_description"
+msgstr "Fragen und Antworten für die Sittermanger Seite"
+
+#: collective/sitter/browser/controlpanel.py
+msgid "faq_sittermanager_label"
+msgstr "FAQ"
 
 #: collective/sitter/browser/templates/sitterview.pt
 msgid "full age"
@@ -217,6 +279,11 @@ msgstr "Annehmen"
 msgid "label_Decline"
 msgstr "Ablehnen"
 
+#. Default: "Mein Eintrag"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "my_sitterentry"
+msgstr ""
+
 #: collective/sitter/content/sitterfolder.py
 msgid "possible_agreement"
 msgstr "Datenschutzbestimmungen"
@@ -233,10 +300,24 @@ msgstr "Qualifikationen, die dem Babysitter zur Auswahl gestellt werden."
 msgid "qualifications"
 msgstr "Qualifikationen"
 
+#. Default: "Eintrag wiederherstellen"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "restore_entry"
+msgstr ""
+
+#. Default: "Ordner Inhalt anzeigen"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "show_sitter_folder_content"
+msgstr ""
+
 #. Default: "Sitter"
 #: collective/sitter/profiles/default/types/sitter.xml
 msgid "sitter"
 msgstr "Babysitter"
+
+#: collective/sitter/browser/controlpanel.py
+msgid "sitter_account_page"
+msgstr "Sitteraccount"
 
 #. Default: "Sitter entry"
 #: collective/sitter/profiles/default/types/sitter.xml
@@ -267,25 +348,15 @@ msgstr "Ordner, der alle Babysitter enthält"
 msgid "sitter_folder_name"
 msgstr "Babysitter-Ordner-Name"
 
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_add_desc"
-msgstr "Dieses Portlet zeigt Details zum Registrierungsstatus als Babysitter."
+#. Default: "Sittermanager"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "sitter_manager"
+msgstr ""
 
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_add_label"
-msgstr "Babysitter-Portlet hinzufügen"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_edit_desc"
-msgstr "Dieses Portlet zeigt Details zum Registrierungsstatus als Babysitter."
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_edit_label"
-msgstr "Babysitter-Portlet bearbeiten"
-
-#: collective/sitter/portlet/sitterportlet.py
-msgid "sitter_portlet_title"
-msgstr "Babysitter-Portlet"
+#. Default: "Werkzeuge"
+#: collective/sitter/browser/templates/sittermanager.pt
+msgid "sitter_manager_tools"
+msgstr ""
 
 #. Default: "Sitter Qualification"
 #: collective/sitter/profiles/default/types/sitterqualification.xml
@@ -296,6 +367,29 @@ msgstr "Betreuungsqualifikation"
 #: collective/sitter/profiles/default/types/sitterqualification.xml
 msgid "sitter_qualification_desc"
 msgstr "Betreuungsqualifikation"
+
+#: collective/sitter/browser/controlpanel.py
+msgid "sitteraccont_intro_label"
+msgstr "Sitteraccount Einstiegstext"
+
+#. Default: "Mein Babysittereintrag"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "sitteraccount_intro_title"
+msgstr ""
+
+#. Default: "Mein nächster Schritt"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "sitteraccount_next_step"
+msgstr ""
+
+#: collective/sitter/browser/controlpanel.py
+msgid "sittermanager_intro_label"
+msgstr "Sittermanager Einstiegstext"
+
+#. Default: "Eintrag einreichen"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "submit_entry"
+msgstr ""
 
 #: collective/sitter/profiles/default/actions.xml
 msgid "user_action_my_sitter_entry"

@@ -22,6 +22,7 @@ from zope.intid import IIntIds
 
 import collective.sitter
 import collective.taxonomy
+import collective.z3cform.datagridfield
 import unittest
 
 
@@ -33,11 +34,13 @@ class SitterLayer(PloneSandboxLayer):
     )
 
     def setUpZope(self, app, configurationContext):
+        self.loadZCML(package=collective.z3cform.datagridfield)
         self.loadZCML(package=collective.sitter)
 
     def setUpPloneSite(self, portal):
         _populate(portal.__parent__)
 
+        applyProfile(portal, 'collective.z3cform.datagridfield:default')
         applyProfile(portal, 'collective.sitter:default')
         portal.acl_users.userFolderAddUser(
             SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ['Manager'], []

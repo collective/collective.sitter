@@ -16,6 +16,23 @@
       />
 
   <browser:page
+    name="account"
+    for="..content.sitterfolder.ISitterFolder"
+    class=".sitteraccount.SitterAccountView"
+    permission="zope2.View"
+    template="templates/sitteraccount.pt"
+    />
+
+  <!-- Manager permission is checked inside the views call-->
+  <browser:page
+    name="sittermanager"
+    for="..content.sitterfolder.ISitterFolder"
+    class=".sittermanager.SitterManagerView"
+    permission="zope2.View"
+    template="templates/sittermanager.pt"
+    />
+
+  <browser:page
     name="sitter-controlpanel"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     class=".controlpanel.SitterSettingsView"

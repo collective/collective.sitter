@@ -1,6 +1,9 @@
 from .. import _
+from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
+from collective.z3cform.datagridfield.registry import DictRow
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
+from plone.autoform.directives import widget
 from plone.supermodel import model
 from plone.z3cform import layout
 from zope import schema
@@ -39,6 +42,11 @@ sich mit Ihnen in Verbindung setzen.
 
 {text}
 """
+
+
+class ISitterFaqConfig(Interface):
+    question = schema.TextLine(title='Frage')
+    answer = schema.Text(title='Antwort')
 
 
 class ISitterSettings(Interface):
@@ -197,6 +205,42 @@ class ISitterSettings(Interface):
             '{text} ist der Platzhalter für den Text der Anfrage.'
         ),
         default=default_contact_copy_text,
+    )
+
+    model.fieldset(
+        'sitteraccount',
+        label=_('sitter_account_page'),
+        fields=[
+            'sitteraccount_faq_sitter',
+            'sitteraccount_faq_manager',
+            'sitteraccount_intro_text_sitter',
+            'sitteraccount_intro_text_manager',
+        ],
+    )
+    sitteraccount_faq_sitter = schema.List(
+        title=_('faq_sitter_label'),
+        description=_('faq_sitter_description'),
+        value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
+        default=[],
+    )
+    widget(sitteraccount_faq_sitter=DataGridFieldFactory)
+
+    sitteraccount_faq_manager = schema.List(
+        title=_('faq_sittermanager_label'),
+        description=_('faq_sittermanager_description'),
+        value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
+        default=[],
+    )
+    widget(sitteraccount_faq_manager=DataGridFieldFactory)
+
+    sitteraccount_intro_text_sitter = schema.Text(
+        title=_('sitteraccont_intro_label'),
+        default='',
+    )
+
+    sitteraccount_intro_text_manager = schema.Text(
+        title=_('sittermanager_intro_label'),
+        default='',
     )
 
 
