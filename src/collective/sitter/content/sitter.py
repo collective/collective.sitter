@@ -29,17 +29,10 @@ logger = logging.getLogger(__name__)
 
 TINY_MCE_LIGHT_OPTIONS = {
     'tiny': {
-        'menu': {},
-        'menubar': [],
-        'toolbar': 'undo redo | bold italic'
-        ' | alignleft aligncenter alignright alignjustify'
-        ' | bullist numlist outdent indent',
+        'menubar': False,
+        'toolbar': 'undo redo | bold italic' ' | bullist numlist',
         'plugins': [
-            'hr',
             'lists',
-            'nonbreaking',
-            'noneditable',
-            'pagebreak',
             'paste',
         ],
     }
