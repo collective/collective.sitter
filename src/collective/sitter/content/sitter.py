@@ -221,11 +221,14 @@ class Sitter(Item):
         objects = [x.to_object for x in sitter_folder.experiences]
         return [obj for obj in objects if obj.UID() in set(self.experiences)]
 
+    def get_details(self):
+        return self.details.output
+
     def abbreviated_details(self, length):
-        if not self.details:
+        if not self.get_details():
             return ''
 
-        soup = BeautifulSoup(self.details, features='lxml')
+        soup = BeautifulSoup(self.get_details(), features='lxml')
 
         def soup_iter():
             remaining = length
