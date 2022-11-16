@@ -12,17 +12,10 @@
       tal:condition="current_step"
       class="table sitter-step-info">
       <div class="table-row table-cell">
-        <p>
-          <i class="fa fa-info-circle fa-4x info"></i>
-        </p>
-      </div>
-      <div class="table-row table-cell">
         <p class="table sitter-step-info-head">
-          <a tal:condition="current_step/link"
-            tal:content="structure current_step/text"
-            tal:attributes="href current_step/link" />
-          <span tal:condition="not: current_step/link"
-            tal:content="structure current_step/text" />
+          <h2>
+            ${current_step/text}
+          </h2>
         </p>
         <p tal:content="structure current_step/description" />
       </div>
@@ -30,6 +23,7 @@
 
     <div class="sittercontainer">
       <metal:macro define-macro="sittercontent">
+      <h1>${view/sitter/title}</h1>
         <div class="sittercontent">
           <div tal:define="fullage view/sitter/fullage; gender view/sitter/get_gender"
             tal:condition="python:fullage or gender">
