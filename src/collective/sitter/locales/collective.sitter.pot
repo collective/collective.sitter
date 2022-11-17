@@ -160,6 +160,10 @@ msgstr ""
 msgid "Sitter agency"
 msgstr ""
 
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "Submit"
+msgstr ""
+
 #: collective.sitter/src/collective/sitter/content/sitter.py
 msgid "Waehlen Sie aus, mit welchen Altersklassen sie schon Erfahrungen haben."
 msgstr ""
@@ -204,6 +208,17 @@ msgstr ""
 #. Default: "Alte Sitter Löschen"
 #: collective.sitter/src/collective/sitter/browser/templates/sittermanager.pt
 msgid "delete_old_sitters"
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "You will receive a copy of this email"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "accept_terms_description"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+#: collective.sitter/src/collective/sitter/browser/templates/sitterview.pt
+msgid "accept_terms_title"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
@@ -226,6 +241,16 @@ msgstr ""
 #. Default: "Ordner Eigenschaften bearbeiten"
 #: collective.sitter/src/collective/sitter/browser/templates/sittermanager.pt
 msgid "edit_sitter_folder"
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "email"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "email sent successfully"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "error while sending mail to sitter"
 msgstr ""
 
 #. Default: "Erfahrung"
@@ -281,6 +306,20 @@ msgstr ""
 #. Default: "Mein Eintrag"
 #: collective.sitter/src/collective/sitter/browser/templates/sitteraccount.pt
 msgid "my_sitterentry"
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "message_description"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "message_title"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "name"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "please accept terms"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitterfolder.py

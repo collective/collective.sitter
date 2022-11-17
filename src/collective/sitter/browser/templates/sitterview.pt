@@ -1,268 +1,139 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      metal:use-macro="context/main_template/macros/master"
-      i18n:domain="collective.sitter">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="collective.sitter">
 
-<body>
+  <metal:main fill-slot="main">
 
-<metal:main fill-slot="content-core">
-
-  <div
-    tal:define="current_step view/get_current_registration_step|nothing"
-    tal:condition="current_step"
-    class="table sitter-step-info">
-    <div class="table-row table-cell">
-      <p>
-        <i class="fa fa-info-circle fa-4x info"></i>
-      </p>
-    </div>
-    <div class="table-row table-cell">
-      <p class="table sitter-step-info-head">
-        <a tal:condition="current_step/link"
-           tal:content="structure current_step/text"
-           tal:attributes="href current_step/link" />
-        <span tal:condition="not: current_step/link"
-              tal:content="structure current_step/text" />
-      </p>
-      <p tal:content="structure current_step/description" />
-    </div>
-  </div>
-
-  <div class="sittercontainer" >
-    <metal:macro define-macro="sittercontent">
-      <div class="sittercontent" >
-        <div tal:define="fullage view/sitter/fullage; gender view/sitter/get_gender"
-             tal:condition="python:fullage or gender">
-          <tal:span condition="fullage" i18n:translate="full age">full age
-          </tal:span><tal:span condition="python:fullage and gender">,</tal:span>
-          <tal:span condition="gender" content="gender" />
-        </div>
-
-        <div class="sitterimageholder" tal:condition="view/sitter/has_image">
-          <img tal:attributes="src string:${view/sitter/absolute_url}/@@images/image/large"/>
-        </div>
-        <div class="sitterinformation" tal:content="structure view/sitter/get_details" />
+    <div tal:define="current_step view/get_current_registration_step|nothing"
+      tal:condition="current_step"
+      class="table sitter-step-info">
+      <div class="table-row table-cell">
+        <p class="table sitter-step-info-head">
+          <h2>
+            ${current_step/text}
+          </h2>
+        </p>
+        <p tal:content="structure current_step/description" />
       </div>
-      <div style="clear:both;"></div>
+    </div>
 
-      <div class="flexcontainer">
-        <div class="child" tal:condition="view/sitter/qualifications">
-          <div>
-            <h3>Qualifikationen:</h3>
+    <div class="sittercontainer">
+      <metal:macro define-macro="sittercontent">
+      <h1>${view/sitter/title}</h1>
+        <div class="sittercontent">
+          <div tal:define="fullage view/sitter/fullage; gender view/sitter/get_gender"
+            tal:condition="python:fullage or gender">
+            <tal:span condition="fullage"
+              i18n:translate="full age">full age
+            </tal:span>
+            <tal:span condition="python:fullage and gender">,</tal:span>
+            <tal:span condition="gender"
+              content="gender" />
+          </div>
+
+          <div class="sitterimageholder"
+            tal:condition="view/sitter/has_image">
+            <img tal:attributes="src string:${view/sitter/absolute_url}/@@images/image/large" alt=""/>
+          </div>
+          <div class="sitterinformation"
+            tal:content="structure view/sitter/get_details" />
+        </div>
+        <div style="clear:both;"></div>
+
+        <div class="flexcontainer">
+          <div class="child"
+            tal:condition="view/sitter/qualifications">
+            <div>
+              <h3>Qualifikationen:</h3>
+              <ul>
+                <li tal:repeat="obj python: view.sitter.get_qualifications()">
+                  <b tal:content="obj/beschreibung"></b>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="child"
+            tal:condition="view/sitter/experiences">
+            <div>
+              <h3>
+                <tal:span i18n:translate="experiences">Erfahrung</tal:span>:
+              </h3>
+              <ul>
+                <li tal:repeat="obj python: view.sitter.get_experiences()">
+                  <b tal:content="obj/beschreibung"></b> (                  <i tal:content="obj/Title"></i>)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="child"
+            tal:define="languages python: view.sitter.get_language_list()"
+            tal:condition="languages">
+            <h3>Sprachen:</h3>
             <ul>
-              <li tal:repeat="obj python: view.sitter.get_qualifications()">
-                <b tal:content="obj/beschreibung"></b>
+              <li tal:repeat="langs languages">
+                <b tal:content="langs"></b>
+              </li>
+            </ul>
+          </div>
+
+          <div class="child"
+            tal:define="mobility python: view.sitter.get_mobility()"
+            tal:condition="mobility">
+            <h3>Mobilität:</h3>
+            <ul>
+              <li tal:repeat="mob mobility">
+                <b tal:content="mob"></b>
               </li>
             </ul>
           </div>
         </div>
-
-        <div class="child" tal:condition="view/sitter/experiences">
-          <div>
-            <h3>
-              <tal:span i18n:translate="experiences">Erfahrung</tal:span>:
-            </h3>
-            <ul>
-              <li tal:repeat="obj python: view.sitter.get_experiences()">
-                <b tal:content="obj/beschreibung"></b> (<i tal:content="obj/Title"> </i>)
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="child"
-             tal:define="languages python: view.sitter.get_language_list()"
-             tal:condition="languages">
-          <h3>Sprachen:</h3>
-          <ul>
-            <li tal:repeat="langs languages">
-              <b tal:content="langs"></b>
-            </li>
-          </ul>
-        </div>
-
-        <div class="child"
-             tal:define="mobility python: view.sitter.get_mobility()"
-             tal:condition="mobility">
-          <h3>Mobilität:</h3>
-          <ul>
-            <li tal:repeat="mob mobility">
-              <b tal:content="mob"></b>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </metal:macro>
-    <div tal:define="local_referer python: view.get_local_referer()">
-    <tal:back-button condition="local_referer">
-      <a class="btn btn-back" tal:attributes="href local_referer">
+      </metal:macro>
+      <div tal:define="local_referer python: view.get_local_referer()">
+        <tal:back-button condition="local_referer">
+          <a class="btn btn-back"
+            tal:attributes="href local_referer">
         Zurück zur Übersicht <i class="fa fa-backward"></i>
-      </a>
-    </tal:back-button>
-    <tal:back-button condition="not: local_referer">
-      <a class="btn btn-back" tal:attributes="href view/get_overview_url">
+          </a>
+        </tal:back-button>
+        <tal:back-button condition="not: local_referer">
+          <a class="btn btn-back"
+            tal:attributes="href view/get_overview_url">
         Zur Übersicht <i class="fa fa-reorder"></i>
-      </a>
-    </tal:back-button>
-  </div>
-
-  <div class="sittercontainer">
-    <div class="sittercontent">
-      <h2>Kontaktformular</h2>
-      <div id="sittercontactform">
-        <div id="contactform" tal:attributes="ajaxformaction string:${context/absolute_url}/sittermailview">
-          <!-- method='post' tal:attributes="action string:${context/absolute_url}/sittermailview" -->
-          <p>Bitte geben Sie hier Ihre Kontaktdaten an. <br/>
-            Nach dem erfolgreichen Absenden des Formulars wird der Babysitter benachrichtigt.
-          </p>
-          <script type="text/javascript">
-            function validateEmail($email) {
-              var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-              if( !emailReg.test( $email ) ) {
-                return false;
-              } else {
-                return true;
-              }
-            }
-
-            $(document).ready(function() {
-              var path = $('#contactform').attr("ajaxformaction");
-              $('#contactform').removeAttr("action");
-              $("#result-info").hide();
-              $("#result-error").hide();
-              $("#sendcontact").click(function() {
-                var formdata = {};
-                var contactmail = $('#kontaktemail').val();
-                var contactname = $('#kontaktname').val();
-                var contacttext = $('#kontakttext').val();
-                var homepage = $('#homepage').val();
-                var accepted = $('#accepted').is(':checked')
-                if(contactmail != null && contactmail != "")
-                  if( validateEmail(contactmail)) {
-                    formdata['kontaktemail'] = contactmail;
-                  } else {
-                    alert("Bitte geben Sie eine gültige Emailadresse an.");
-                    return ;
-                  }
-
-                if(contactname != null && contactname != "") {
-                  formdata['kontaktname'] = contactname;
-                }
-                if(contacttext != null && contacttext != "") {
-                  formdata['kontakttext'] = contacttext;
-                }
-                if(homepage !== null && homepage !== "") {
-                  formdata['homepage'] = homepage;
-                }
-                if(accepted  === true) {
-                  formdata['accepted'] = 'True';
-                }
-
-                $.post(path,
-                  formdata,
-                  function(data,status) {
-                    if(status == "success") {
-                      var expected_return_value = "erfolgreich versendet"
-                      if (data.indexOf(expected_return_value) > -1) {
-                        $("#contactform").hide();
-                        $("#sendcontact").remove();
-                        $("#result-info-msg").html(data);
-                        $("#result-info").show();
-                        if (typeof _paq !== 'undefined') {
-                          _paq.push(['trackGoal', 1]);
-                        }
-                      } else {
-                        $("#result-error-msg").html(data);
-                        $("#result-error").show();
-                      }
-                    } else {
-                      text = "Ein unerwarteter Fehler ist aufgetreten";
-                      $("#result-error-msg").html(text);
-                      $("#result-error").show();
-                    }
-                  }
-                );
-                //,{ kontaktname: $("kontaktname").attr("value"), kontaktemail: $("kontaktemail").attr("value"), kontakttext: $("kontakttext").attr("value") })
-              });
-            });
-          </script>
-
-          <div class="">
-            <div class="inputline honeypot">
-              <div class="input">
-                <h3 class="contactlabel">Homepage:</h3>
-                <div class="input"><input size="26" id="homepage" name="homepage" type="text"
-                                    placeholder='https://www.example.org'/></div>
-              </div>
-            </div>
-
-            <div class="inputline flexcontainer">
-              <h3 class="child contactlabel">
-                <label for="kontaktname">Name:</label>
-              </h3>
-              <div class="child input"><input size="26" id="kontaktname" name="kontaktname" type="text"
-                                        placeholder='Vorname Nachname'/></div>
-            </div>
-
-            <div class="inputline flexcontainer">
-              <h3 class="child contactlabel">
-                <label for="kontaktemail">Ihre E-Mail-Adresse:</label>
-              </h3>
-              <div class="child input"><input size="26" id="kontaktemail" name="kontaktemail" type="text"
-                                        placeholder='meine.adresse@example.org'/></div>
-            </div>
-
-            <div class="inputline flexcontainer"
-                 tal:define="terms_of_use_link view/get_terms_of_use_link"
-                 tal:condition="terms_of_use_link">
-              <h3 class="child contactlabel">
-                <label for="accepted">
-                  <a tal:attributes="href terms_of_use_link" target="_blank">
-                    Nutzungsbedingungen akzeptieren
-                  </a>
-                </label>
-              </h3>
-              <div class="child input">
-                <input type="checkbox" id="accepted" name="accepted" value="True">
-                &nbsp;<a tal:attributes="href terms_of_use_link" target="_blank">Nutzungsbedingungen anzeigen</a>
-              </div>
-            </div>
-
-          </div>
-
-          <textarea id="kontakttext" name="kontakttext" tal:content="view/getTextvorlage" rows="10"
-                    style="margin:10px; width:95%"> Hallo ...,
-
-            ich würde gerne eine Anfrage stellen, da ich für .... auf der Suche nach einem Babysitter bin.
-
-            Mein Kind ist ...
-
-
-          </textarea>
-
-          <button type="button" class="btn" id='sendcontact' name="sendcontact">
-               Anfrage absenden <i class='fa fa-envelope fa-lg'/>
-          </button>
-
-          <div id="result-error">
-            <i class="fa fa-2x fa-exclamation-triangle"></i>
-            <span id="result-error-msg"></span>
-          </div>
-        </div>
-        <div id="result-info">
-           <i class="fa fa-2x fa-info-circle"></i>
-           <span id="result-info-msg"></span>
-        </div>
+          </a>
+        </tal:back-button>
       </div>
-      <div class="sendformular" tal:attributes="id string:sendform-${context/id}">
+
+      <div class="sittercontainer">
+        <div class="sittercontent">
+          <h2>Kontaktformular</h2>
+          <div id="sittercontactform">
+            <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
+          </div>
+
+          <script type="application/javascript">
+  /*Ugly workaround for inline validation of select fields, because of jQuery cloning bug.
+  In Plone the form is cloned and "submited" to validate the field */
+  $(document).on("change", "select", function(){
+      var val = $(this).val(); /*get new value*/
+      var index = this.selectedIndex
+
+      /*find selected option*/
+      $("option", this).removeAttr("selected").filter(function(){
+          return $(this).attr("value") === val;
+      }).first().attr("selected", "selected"); /*add selected attribute to
+      selected option*/
+      this.selectedIndex = index
+  });
+          </script>
+        </div>
       </div>
     </div>
+  </metal:main>
 
-  </div>
-</metal:main>
-
-</body>
 </html>
