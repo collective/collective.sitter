@@ -222,13 +222,14 @@ class Sitter(Item):
         return [obj for obj in objects if obj.UID() in set(self.experiences)]
 
     def get_details(self):
-        return self.details.output
+        return self.details and self.details.output
 
     def abbreviated_details(self, length):
-        if not self.get_details():
+        details = self.get_details()
+        if not details:
             return ''
 
-        soup = BeautifulSoup(self.get_details(), features='lxml')
+        soup = BeautifulSoup(details, features='lxml')
 
         def soup_iter():
             remaining = length
