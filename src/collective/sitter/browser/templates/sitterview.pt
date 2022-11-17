@@ -37,7 +37,7 @@
 
           <div class="sitterimageholder"
             tal:condition="view/sitter/has_image">
-            <img tal:attributes="src string:${view/sitter/absolute_url}/@@images/image/large"/>
+            <img tal:attributes="src string:${view/sitter/absolute_url}/@@images/image/large" alt=""/>
           </div>
           <div class="sitterinformation"
             tal:content="structure view/sitter/get_details" />
