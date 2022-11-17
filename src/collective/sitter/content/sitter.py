@@ -3,7 +3,8 @@ from .. import vocabularies
 from ..sitterstate import ISitterState
 from bs4 import BeautifulSoup
 from plone import api
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
+from plone.app.textfield import RichText as RichTextField
+from plone.app.z3cform.widget import RichTextFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Item
 from plone.indexer.decorator import indexer
@@ -26,6 +27,17 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+TINY_MCE_LIGHT_OPTIONS = {
+    'tiny': {
+        'menubar': False,
+        'toolbar': 'undo redo | bold italic' ' | bullist numlist',
+        'plugins': [
+            'lists',
+            'paste',
+        ],
+    }
+}
+
 
 class ISitter(model.Schema, IImageScaleTraversable):
     """
@@ -37,11 +49,16 @@ class ISitter(model.Schema, IImageScaleTraversable):
         required=True,
     )
 
-    directives.widget(details=WysiwygFieldWidget)
-    details = schema.Text(
+    directives.widget(
+        'details',
+        RichTextFieldWidget,
+        pattern_options=TINY_MCE_LIGHT_OPTIONS,
+    )
+    details = RichTextField(
         title=_('Detailed Information'),
         description=_('Beschreiben Sie sich hier mit ein paar kurzen Worten.'),
         required=False,
+        allowed_mime_types=['text/html'],
     )
 
     image = NamedBlobImage(
@@ -204,11 +221,15 @@ class Sitter(Item):
         objects = [x.to_object for x in sitter_folder.experiences]
         return [obj for obj in objects if obj.UID() in set(self.experiences)]
 
+    def get_details(self):
+        return self.details and self.details.output
+
     def abbreviated_details(self, length):
-        if not self.details:
+        details = self.get_details()
+        if not details:
             return ''
 
-        soup = BeautifulSoup(self.details, features='lxml')
+        soup = BeautifulSoup(details, features='lxml')
 
         def soup_iter():
             remaining = length
