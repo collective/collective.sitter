@@ -12,6 +12,7 @@ from plone.namedfile.field import NamedBlobImage
 from plone.namedfile.interfaces import IImageScaleTraversable
 from plone.supermodel import model
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.browser.select import SelectFieldWidget
 from zope import schema
@@ -111,6 +112,13 @@ class ISitter(model.Schema, IImageScaleTraversable):
         title=_('Full age'),
         description=_('desc_fullage'),
         required=True,
+    )
+    # Display the field as optional since a value will be set in any case and marking
+    # the field as required wrongly suggests having to check it as true.
+    directives.widget(
+        'fullage',
+        SingleCheckBoxFieldWidget,
+        required=False,
     )
 
     directives.widget(language=CheckBoxFieldWidget)
