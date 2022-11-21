@@ -27,3 +27,12 @@ ul.sitter_entry__toolbar li,
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+.back-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.back-button::before {
+  content: "\2190";  /* &larr; */
+}

@@ -91,7 +91,9 @@
           </div>
         </div>
       </metal:macro>
-      <div tal:define="local_referer python: view.get_local_referer()">
+
+      <div class="back-button"
+           tal:define="local_referer python: view.get_local_referer()">
         <tal:back-button condition="local_referer">
           <a class="btn btn-back"
             tal:attributes="href local_referer">
