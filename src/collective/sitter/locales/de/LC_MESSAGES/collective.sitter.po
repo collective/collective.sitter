@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-09 12:00+0000\n"
+"POT-Creation-Date: 2022-11-21 22:37+0000\n"
 "PO-Revision-Date: 2022-10-26 23:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,6 +180,18 @@ msgstr ""
 msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuzeigen. Sie bestätigen uns, dass Sie das alleinige Urheberrecht, das Recht bzw. die Erlaubnis auf Veröffentlichung des im Rahmen der Babysitteranzeige hochgeladenen Fotos besitzen sowie die Zustimmung eventuell weiterer Personen auf dem Foto vorliegen haben."
 msgstr ""
 
+#: collective/sitter/browser/sitter.py
+msgid "You will receive a copy of this email"
+msgstr "Sie erhalten eine Kopie dieser E-Mail"
+
+#: collective/sitter/browser/sitter.py
+msgid "accept_terms_description"
+msgstr " "
+
+#: collective/sitter/browser/sitter.py
+msgid "accept_terms_title"
+msgstr "Bitte akzeptieren Sie die Nutzungsbedingungen"
+
 #. Default: "Nutzungsbedingungen bearbeiten"
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "change_agreement_text"
@@ -209,18 +221,6 @@ msgstr ""
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "delete_old_sitters"
 msgstr ""
-#: collective/sitter/browser/sitter.py
-msgid "You will receive a copy of this email"
-msgstr "Sie erhalten eine Kopie dieser E-Mail"
-
-#: collective/sitter/browser/sitter.py
-msgid "accept_terms_description"
-msgstr " "
-
-#: collective/sitter/browser/sitter.py
-#: collective/sitter/browser/templates/sitterview.pt
-msgid "accept_terms_title"
-msgstr "Bitte akzeptieren Sie die Nutzungsbedingungen"
 
 #: collective/sitter/content/sitter.py
 msgid "desc_district"
@@ -243,6 +243,7 @@ msgstr ""
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "edit_sitter_folder"
 msgstr ""
+
 #: collective/sitter/browser/sitter.py
 msgid "email"
 msgstr "Ihre E-Mail-Adresse"
@@ -284,10 +285,6 @@ msgstr "Fragen und Antworten für die Sittermanger Seite"
 msgid "faq_sittermanager_label"
 msgstr "FAQ"
 
-#: collective/sitter/browser/templates/sitterview.pt
-msgid "full age"
-msgstr "volljährig"
-
 #: collective/sitter/content/sitterfolder.py
 msgid "info_text"
 msgstr ""
@@ -306,10 +303,6 @@ msgstr "Annehmen"
 msgid "label_Decline"
 msgstr "Ablehnen"
 
-#. Default: "Mein Eintrag"
-#: collective/sitter/browser/templates/sitteraccount.pt
-msgid "my_sitterentry"
-msgstr ""
 #: collective/sitter/browser/sitter.py
 msgid "message_description"
 msgstr " "
@@ -317,6 +310,11 @@ msgstr " "
 #: collective/sitter/browser/sitter.py
 msgid "message_title"
 msgstr "Ihre Nachricht"
+
+#. Default: "Mein Eintrag"
+#: collective/sitter/browser/templates/sitteraccount.pt
+msgid "my_sitterentry"
+msgstr ""
 
 #: collective/sitter/browser/sitter.py
 msgid "name"

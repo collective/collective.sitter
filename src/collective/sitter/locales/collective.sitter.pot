@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-09 12:00+0000\n"
+"POT-Creation-Date: 2022-11-21 22:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,6 +180,18 @@ msgstr ""
 msgid "Wählen Sie ein Foto von Ihrer Festplatte, um es in der Übersicht anzuzeigen. Sie bestätigen uns, dass Sie das alleinige Urheberrecht, das Recht bzw. die Erlaubnis auf Veröffentlichung des im Rahmen der Babysitteranzeige hochgeladenen Fotos besitzen sowie die Zustimmung eventuell weiterer Personen auf dem Foto vorliegen haben."
 msgstr ""
 
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "You will receive a copy of this email"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "accept_terms_description"
+msgstr ""
+
+#: collective.sitter/src/collective/sitter/browser/sitter.py
+msgid "accept_terms_title"
+msgstr ""
+
 #. Default: "Nutzungsbedingungen bearbeiten"
 #: collective.sitter/src/collective/sitter/browser/templates/sittermanager.pt
 msgid "change_agreement_text"
@@ -208,17 +220,6 @@ msgstr ""
 #. Default: "Alte Sitter Löschen"
 #: collective.sitter/src/collective/sitter/browser/templates/sittermanager.pt
 msgid "delete_old_sitters"
-#: collective.sitter/src/collective/sitter/browser/sitter.py
-msgid "You will receive a copy of this email"
-msgstr ""
-
-#: collective.sitter/src/collective/sitter/browser/sitter.py
-msgid "accept_terms_description"
-msgstr ""
-
-#: collective.sitter/src/collective/sitter/browser/sitter.py
-#: collective.sitter/src/collective/sitter/browser/templates/sitterview.pt
-msgid "accept_terms_title"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/content/sitter.py
@@ -241,6 +242,8 @@ msgstr ""
 #. Default: "Ordner Eigenschaften bearbeiten"
 #: collective.sitter/src/collective/sitter/browser/templates/sittermanager.pt
 msgid "edit_sitter_folder"
+msgstr ""
+
 #: collective.sitter/src/collective/sitter/browser/sitter.py
 msgid "email"
 msgstr ""
@@ -281,10 +284,6 @@ msgstr ""
 msgid "faq_sittermanager_label"
 msgstr ""
 
-#: collective.sitter/src/collective/sitter/browser/templates/sitterview.pt
-msgid "full age"
-msgstr ""
-
 #: collective.sitter/src/collective/sitter/content/sitterfolder.py
 msgid "info_text"
 msgstr ""
@@ -303,15 +302,17 @@ msgstr ""
 msgid "label_Decline"
 msgstr ""
 
-#. Default: "Mein Eintrag"
-#: collective.sitter/src/collective/sitter/browser/templates/sitteraccount.pt
-msgid "my_sitterentry"
 #: collective.sitter/src/collective/sitter/browser/sitter.py
 msgid "message_description"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/browser/sitter.py
 msgid "message_title"
+msgstr ""
+
+#. Default: "Mein Eintrag"
+#: collective.sitter/src/collective/sitter/browser/templates/sitteraccount.pt
+msgid "my_sitterentry"
 msgstr ""
 
 #: collective.sitter/src/collective/sitter/browser/sitter.py
