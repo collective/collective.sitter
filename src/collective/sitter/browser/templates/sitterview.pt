@@ -12,11 +12,7 @@
       tal:condition="current_step"
       class="table sitter-step-info">
       <div class="table-row table-cell">
-        <p class="table sitter-step-info-head">
-          <h2>
-            ${current_step/text}
-          </h2>
-        </p>
+        <h2 class="table sitter-step-info-head">${current_step/text}</h2>
         <p tal:content="structure current_step/description" />
       </div>
     </div>
