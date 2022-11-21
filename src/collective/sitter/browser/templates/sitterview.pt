@@ -21,16 +21,6 @@
       <metal:macro define-macro="sittercontent">
       <h1>${view/sitter/title}</h1>
         <div class="sittercontent">
-          <div tal:define="fullage view/sitter/fullage; gender view/sitter/get_gender"
-            tal:condition="python:fullage or gender">
-            <tal:span condition="fullage"
-              i18n:translate="full age">full age
-            </tal:span>
-            <tal:span condition="python:fullage and gender">,</tal:span>
-            <tal:span condition="gender"
-              content="gender" />
-          </div>
-
           <div class="sitterimageholder"
             tal:condition="view/sitter/has_image">
             <img tal:attributes="src string:${view/sitter/absolute_url}/@@images/image/large" alt=""/>
@@ -87,6 +77,17 @@
                 <b tal:content="mob"></b>
               </li>
             </ul>
+          </div>
+
+          <div class="child"
+            tal:define="fullage view/sitter/fullage">
+            <h3>Volljährig: <tal:span replace="python:'ja' if fullage else 'nein'" /></h3>
+          </div>
+
+          <div class="child"
+            tal:define="gender view/sitter/get_gender"
+            tal:condition="gender">
+            <h3>Geschlecht: ${gender}</h3>
           </div>
         </div>
       </metal:macro>
