@@ -65,7 +65,7 @@
               </h3>
               <ul>
                 <li tal:repeat="obj python: view.sitter.get_experiences()">
-                  <b tal:content="obj/beschreibung"></b> (                  <i tal:content="obj/Title"></i>)
+                  <b tal:content="obj/beschreibung"></b> <i>(${obj/Title})</i>
                 </li>
               </ul>
             </div>
