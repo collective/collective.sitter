@@ -232,6 +232,14 @@ class SitterMailer:
             raise ex
 
 
+class AccountURLMixin:
+    @property
+    def account_url(self):
+        sitterstate = ISitterState(self.context)
+        sitter_folder = sitterstate.get_sitter_folder()
+        return f'{sitter_folder.absolute_url()}/account'
+
+
 class AddForm(DefaultAddForm):
     """Custom add form that makes sure of some policies that cannot be expressed by
     permissions alone.
@@ -252,12 +260,20 @@ class AddView(DefaultAddView):
     form = AddForm
 
 
-class EditForm(DefaultEditForm):
+class EditForm(DefaultEditForm, AccountURLMixin):
     def nextURL(self):
-        sitterstate = ISitterState(self.context)
-        sitter_folder = sitterstate.get_sitter_folder()
-        return f'{sitter_folder.absolute_url()}/account'
+        return self.account_url
 
 
 class EditView(DefaultEditView):
     form = EditForm
+
+
+class TransitionView(AccountURLMixin):
+    def __call__(self):
+        workflow_action = self.request.form['workflow_action']
+        try:
+            api.content.transition(self.context, workflow_action)
+        except api.exc.InvalidParameterError:
+            pass
+        self.request.response.redirect(self.account_url)

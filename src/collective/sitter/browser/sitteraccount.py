@@ -52,16 +52,16 @@ class SitterAccountView(BrowserView):
         sitter = self.sitter_state.get_sitter()
         auth_token = createToken()
         auth = f'_authenticator={auth_token}'
-        return f'{sitter.getURL()}/content_status_modify?workflow_action=delete&{auth}'
+        return f'{sitter.getURL()}/transition?workflow_action=delete&{auth}'
 
     def submit_entry_url(self) -> str:
         sitter = self.sitter_state.get_sitter()
         auth_token = createToken()
         auth = f'_authenticator={auth_token}'
-        return f'{sitter.getURL()}/content_status_modify?workflow_action=submit&{auth}'
+        return f'{sitter.getURL()}/transition?workflow_action=submit&{auth}'
 
     def recycle_entry_url(self) -> str:
         sitter = self.sitter_state.get_sitter()
         auth_token = createToken()
         auth = f'_authenticator={auth_token}'
-        return f'{sitter.getURL()}/content_status_modify?workflow_action=recycle&{auth}'
+        return f'{sitter.getURL()}/transition?workflow_action=recycle&{auth}'

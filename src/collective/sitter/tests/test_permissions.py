@@ -34,19 +34,19 @@ class TestPermissionsForeign(TestPermissionsBase):
         self.assertRaises(Unauthorized, self.browser.open, url)
 
     def test_notAllowedToSubmitForeignSitterObjects(self):
-        url = f'{self.sitter_url}/content_status_modify?workflow_action=submit'
+        url = f'{self.sitter_url}/transition?workflow_action=submit'
         self.assertRaises(Unauthorized, self.browser.open, url)
 
     def test_notAllowedToPublishForeignSitterObjects(self):
-        url = f'{self.sitter_url}/content_status_modify?workflow_action=publish'
+        url = f'{self.sitter_url}/transition?workflow_action=publish'
         self.assertRaises(Unauthorized, self.browser.open, url)
 
     def test_notAllowedToRejectForeignSitterObjects(self):
-        url = f'{self.sitter_url}/content_status_modify?workflow_action=reject'
+        url = f'{self.sitter_url}/transition?workflow_action=reject'
         self.assertRaises(Unauthorized, self.browser.open, url)
 
     def test_notAllowedToRetractForeignSitterObjects(self):
-        url = f'{self.sitter_url}/content_status_modify?workflow_action=retract'
+        url = f'{self.sitter_url}/transition?workflow_action=retract'
         self.assertRaises(Unauthorized, self.browser.open, url)
 
     def test_notAllowedToDeleteForeignObject(self):
@@ -70,7 +70,7 @@ class TestPermissions(TestPermissionsBase):
         self.assertIn('Testfirst', self.browser.contents)
         self.assertIn('this is a sitter', self.browser.contents)
 
-        self.browser.open(f'{own_url}/content_status_modify?workflow_action=publish')
+        self.browser.open(f'{own_url}/transition?workflow_action=publish')
         sitter = self.sitter_folder[own_sitterobject_name]
         state = api.content.get_state(sitter)
         self.assertEqual('private', state)

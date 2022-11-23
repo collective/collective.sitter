@@ -156,14 +156,10 @@ class SitterState:
             sitter_url = this_sitter.getURL()
             auth_token = createToken()
             auth = f'_authenticator={auth_token}'
-            link = f'{sitter_url}/content_status_modify?workflow_action=submit&{auth}'
+            link = f'{sitter_url}/transition?workflow_action=submit&{auth}'
             edit_link = f'{sitter_url}/edit?{auth}'
-            delete_link = (
-                f'{sitter_url}/content_status_modify?workflow_action=delete&{auth}'
-            )
-            recycle_link = (
-                f'{sitter_url}/content_status_modify?workflow_action=recycle&{auth}'
-            )
+            delete_link = f'{sitter_url}/transition?workflow_action=delete&{auth}'
+            recycle_link = f'{sitter_url}/transition?workflow_action=recycle&{auth}'
 
         if not self.is_deleted():
             step3 = RegistrationStep(

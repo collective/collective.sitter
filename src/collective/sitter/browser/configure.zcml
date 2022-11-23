@@ -119,6 +119,13 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <browser:view
+      name="transition"
+      for="..content.sitter.ISitter"
+      class=".sitter.TransitionView"
+      permission="cmf.ModifyPortalContent"
+      />
+
   <browser:page
     name="ActionHelpers"
     for="*"

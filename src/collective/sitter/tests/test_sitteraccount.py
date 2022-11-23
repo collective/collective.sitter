@@ -24,21 +24,21 @@ class TestSitterAccountView(TestCase):
     def _submit_sitter_entry(self, object_name):
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{object_name}/content_status_modify?workflow_action=submit'
+            f'/{object_name}/transition?workflow_action=submit'
         )
         self.browser.open(url)
 
     def _delete_sitter_entry(self, object_name):
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{object_name}/content_status_modify?workflow_action=delete'
+            f'/{object_name}/transition?workflow_action=delete'
         )
         self.browser.open(url)
 
     def _recycle_sitter_entry(self, object_name):
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{object_name}/content_status_modify?workflow_action=recycle'
+            f'/{object_name}/transition?workflow_action=recycle'
         )
         self.browser.open(url)
 
