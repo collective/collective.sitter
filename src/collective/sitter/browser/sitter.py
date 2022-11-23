@@ -239,8 +239,9 @@ class AddForm(DefaultAddForm):
         sitterstate = ISitterState(self.context)
         if not sitterstate.has_accepted():
             self.request.response.redirect(self.context.absolute_url() + '/signupview')
-        elif sitter := sitterstate.get_sitter():
-            self.request.response.redirect(sitter.getURL() + '/edit')
+        elif sitterstate.get_sitter():
+            sitter_folder = sitterstate.get_sitter_folder()
+            self.request.response.redirect(sitter_folder.absolute_url() + '/account')
         else:
             return super().render()
 
