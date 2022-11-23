@@ -147,4 +147,10 @@
     factory=".faceted.Shuffle"
     />
 
+  <adapter
+      for="*
+           zope.publisher.interfaces.http.IHTTPRequest"
+      factory=".postlogin.redirect"
+      />
+
 </configure>
