@@ -5,6 +5,8 @@ from plone import api
 from plone.autoform.form import AutoExtensibleForm
 from plone.dexterity.browser.add import DefaultAddForm
 from plone.dexterity.browser.add import DefaultAddView
+from plone.dexterity.browser.edit import DefaultEditForm
+from plone.dexterity.browser.edit import DefaultEditView
 from Products.CMFPlone import PloneMessageFactory
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
@@ -248,3 +250,14 @@ class AddForm(DefaultAddForm):
 
 class AddView(DefaultAddView):
     form = AddForm
+
+
+class EditForm(DefaultEditForm):
+    def nextURL(self):
+        sitterstate = ISitterState(self.context)
+        sitter_folder = sitterstate.get_sitter_folder()
+        return f'{sitter_folder.absolute_url()}/account'
+
+
+class EditView(DefaultEditView):
+    form = EditForm

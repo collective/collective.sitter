@@ -113,6 +113,13 @@
   </class>
 
   <browser:page
+      name="edit"
+      for="..content.sitter.ISitter"
+      class=".sitter.EditView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
     name="ActionHelpers"
     for="*"
     class=".actionhelpers.ActionHelpers"
