@@ -72,10 +72,13 @@ class DeleteSitterView(BrowserView):
 
     # ToDo: add memoize
 
-    def find_private_sitters(self):
-        days = api.portal.get_registry_record(
+    def days_private(self):
+        return api.portal.get_registry_record(
             'sitter.days_until_deletion_of_private_sitters', default=100
         )
+
+    def find_private_sitters(self):
+        days = self.days_private()
         modified_before = DateTime() - days
         results = api.content.find(
             portal_type='sitter',
@@ -86,10 +89,13 @@ class DeleteSitterView(BrowserView):
         )
         return results
 
-    def find_deleting_sitters(self):
-        days = api.portal.get_registry_record(
+    def days_deleting(self):
+        return api.portal.get_registry_record(
             'sitter.days_until_deletion_of_deleting_sitters', default=60
         )
+
+    def find_deleting_sitters(self):
+        days = self.days_deleting()
         modified_before = DateTime() - days
         results = api.content.find(
             portal_type='sitter',
