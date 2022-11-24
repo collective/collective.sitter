@@ -11,7 +11,8 @@
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main">
     <form name="delete_frm" tal:define="to_delete view/find_private_sitters">
-      <h1>Status: Private</h1>
+      <h1>State: Private</h1>
+      <p>Objects with state private since ${view/days_private} days</p>
       <ul tal:condition="python: len(to_delete) > 0">
         <li tal:repeat="sitter to_delete">
           <span tal:content="sitter/id"></span>
@@ -22,7 +23,8 @@
     </form>
 
     <form name="delete_frm" tal:define="to_delete view/find_deleting_sitters">
-      <h1>Status: Deleting</h1>
+      <h1>State: Deleting</h1>
+      <p>Objects with state deleting since ${view/days_deleting} days</p>
       <ul tal:condition="python: len(to_delete) > 0">
         <li tal:repeat="sitter to_delete">
           <span tal:content="sitter/id"></span>
