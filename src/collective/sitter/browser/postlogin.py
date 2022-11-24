@@ -18,7 +18,7 @@ def redirect(context, request):
 
     def adapter(*args):
         is_manager = api.user.has_permission(
-            'collective.sitter.ManageSitters', obj=sitter_folder
+            'collective.sitter: Manage sitters', obj=sitter_folder
         )
         target = (
             f'{sitter_folder.absolute_url()}/sittermanager'
