@@ -12,7 +12,6 @@ from zope.interface import alsoProvides
 
 import eea.facetednavigation.browser
 import logging
-import urllib.request
 
 
 logger = logging.getLogger(__name__)
@@ -127,107 +126,6 @@ class DeleteSitterView(BrowserView):
             logger.warn(
                 f'Could not delete {len(ids)} sitters with ids {", ".join(ids)}: {e}'
             )
-
-
-class CheckCreatorView(BrowserView):
-    def __call__(self, deleted_ldap_users_service=None):
-        request = self.request
-        alsoProvides(request, IDisableCSRFProtection)
-
-        if deleted_ldap_users_service is None:
-            self.deleted_ldap_users_service = DeletedLdapUsersService()
-        else:
-            self.deleted_ldap_users_service = deleted_ldap_users_service
-
-        if 'action' in self.request:
-            action = self.request['action']
-            if action == 'set_to_private':
-                self.set_to_private()
-
-        return super().__call__()
-
-    def set_to_private(self):
-        status_action = {
-            'deleting': None,
-            'pending': 'reject',
-            'private': None,
-            'published': 'reject',
-        }
-        for brain in self.find_invalid_sitter_objects():
-            current_status = brain.review_state
-            action = status_action[current_status]
-            logger.error(f'Setting {brain.getId} to private using {action}')
-            if action is None:
-                continue
-            current_object = brain.getObject()
-            try:
-                api.content.transition(current_object, action)
-            except Exception as e:
-                logger.error(
-                    f'Could not set {current_object.id} to private using {action}: {e}'
-                )
-
-        self.deleted_ldap_users_service.remove_all_from_list()
-
-    def find_invalid_sitter_objects(self):
-        catalog_results = api.content.find(portal_type='sitter')
-        results = [r for r in catalog_results if not self._is_valid_user(r.Creator)]
-        return results
-
-    def _is_valid_user(self, user):
-        is_valid = user in self._get_local_users()
-        if not is_valid:
-            is_valid = not self._is_a_deleted_ldap_user(user)
-        return is_valid
-
-    def _get_local_users(self):
-        return self.context.acl_users.source_users.getUserNames() + ['admin']
-
-    def _is_a_deleted_ldap_user(self, user):
-        return user in self.deleted_ldap_users_service.list_of_removed_users
-
-
-class DeletedLdapUsersService:
-    def __init__(self):
-        self.list_deleted_users_web_service_url = api.portal.get_registry_record(
-            'sitter.list_deleted_users_web_service_url', default=None
-        )
-        self.remove_deleted_users_web_service_url = api.portal.get_registry_record(
-            'sitter.remove_deleted_users_web_service_url', default=None
-        )
-        self._list_of_removed_users = self._get_list_of_removed_users()
-
-    def _get_list_of_removed_users(self):
-        try:
-            logger.info(f'web service url {self.list_deleted_users_web_service_url}')
-            no_proxy_support = urllib.request.ProxyHandler({})
-            opener = urllib.request.build_opener(no_proxy_support)
-            result = opener.open(self.list_deleted_users_web_service_url)
-            logger.info('got users to delete')
-            deleted_users_list = result.read().split('\n')
-        except Exception as e:
-            logger.warn(f'Could not get list of deleted ldap users: {e}')
-            deleted_users_list = []
-        return deleted_users_list
-
-    @property
-    def list_of_removed_users(self):
-        return self._list_of_removed_users
-
-    def remove_user_from_list_of_deleted_users(self, user):
-        url = f'{self.remove_deleted_users_web_service_url}/{user}'
-        try:
-            no_proxy_support = urllib.request.ProxyHandler({})
-            opener = urllib.request.build_opener(no_proxy_support)
-            opener.open(url)
-        except Exception as e:
-            logger.warn(
-                f'Could not remove user {user} from list of deleted ldap users: {e}'
-            )
-
-    def remove_all_from_list(self):
-        for c in self.list_of_removed_users:
-            self.remove_user_from_list_of_deleted_users(c)
 
 
 def _listify(value):

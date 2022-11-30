@@ -56,14 +56,6 @@
     />
 
   <browser:page
-    name="checkcreator"
-    for="..content.sitterfolder.ISitterFolder"
-    permission="zope2.DeleteObjects"
-    template="templates/checkcreator.pt"
-    class=".sitterfolder.CheckCreatorView"
-    />
-
-  <browser:page
       name="faceted_query"
       for="..content.sitterfolder.ISitterFolder"
       class=".sitterfolder.SitterFolderFacetedQueryHandler"

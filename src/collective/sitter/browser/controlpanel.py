@@ -65,15 +65,6 @@ class ISitterSettings(Interface):
         'angezeigt werden sollen.',
         default=20,
     )
-    list_deleted_users_web_service_url = schema.TextLine(
-        title='Url des Webservices, der gelöschte Benutzer-Accounts auflistet.',
-    )
-    remove_deleted_users_web_service_url = schema.TextLine(
-        title=(
-            'Url des Webservices, mit dem Benutzer aus der Liste '
-            'der gelöschten Benutzer-Accounts entfernt werden können.'
-        ),
-    )
     district_taxonomy = schema.Choice(
         title='Taxonomie für die Ortsteile',
         vocabulary='collective.taxonomy.taxonomies',
