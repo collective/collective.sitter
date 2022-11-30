@@ -128,14 +128,6 @@ class DeleteSitterView(BrowserView):
             )
 
 
-def _listify(value):
-    if value is None:
-        value = []
-    if type(value) not in (list, tuple):
-        value = [value]
-    return value
-
-
 class SitterFolderFacetedQueryHandler(FacetedQueryHandler):
 
     index = ViewPageTemplateFile(
