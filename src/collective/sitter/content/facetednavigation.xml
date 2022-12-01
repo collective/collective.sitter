@@ -69,13 +69,22 @@
    <property name="maxitems">10</property>
    <property name="sortreversed">False</property>
   </criterion>
+  <criterion name="criteria">
+   <property name="widget">criteria</property>
+   <property name="title">Current search</property>
+   <property name="position">center</property>
+   <property name="section">default</property>
+   <property name="hidden">False</property>
+   <property name="custom_css"></property>
+  </criterion>
   <criterion name="criterion-portaltype">
    <property name="widget">checkbox</property>
    <property name="title">Portal type</property>
    <property name="index">portal_type</property>
    <property name="operator">or</property>
    <property name="operator_visible">False</property>
-   <property name="vocabulary">eea.faceted.vocabularies.FacetedPortalTypes</property>
+   <property
+      name="vocabulary">eea.faceted.vocabularies.FacetedPortalTypes</property>
    <property name="catalog"></property>
    <property name="default">
     <element value="sitter"/>
@@ -89,14 +98,6 @@
    <property name="hidezerocount">False</property>
    <property name="maxitems">5</property>
    <property name="sortreversed">True</property>
-  </criterion>
-  <criterion name="criteria">
-   <property name="widget">criteria</property>
-   <property name="title">Current search</property>
-   <property name="position">center</property>
-   <property name="section">default</property>
-   <property name="hidden">False</property>
-   <property name="custom_css"></property>
   </criterion>
   <criterion name="criterion-resultsperpage">
    <property name="widget">resultsperpage</property>
@@ -123,12 +124,30 @@
   <criterion name="criterion-path">
    <property name="widget">path</property>
    <property name="title">Path</property>
+   <property name="default">/sitter</property>
    <property name="index">path</property>
-   <property name="default">SITTERFOLDER</property>
    <property name="depth">0</property>
    <property name="position">right</property>
    <property name="section">default</property>
    <property name="hidden">True</property>
+   <property name="custom_css"></property>
+  </criterion>
+  <criterion name="c9">
+   <property name="widget">radio</property>
+   <property name="title">Status</property>
+   <property name="index">review_state</property>
+   <property name="vocabulary"></property>
+   <property name="catalog">portal_catalog</property>
+   <property name="hidealloption">False</property>
+   <property name="default">published</property>
+   <property name="position">right</property>
+   <property name="section">default</property>
+   <property name="hidden">True</property>
+   <property name="count">False</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">False</property>
+   <property name="maxitems">0</property>
+   <property name="sortreversed">False</property>
   </criterion>
  </criteria>
 </object>
