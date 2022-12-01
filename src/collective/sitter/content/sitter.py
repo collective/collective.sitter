@@ -284,14 +284,14 @@ def _get_base_url(include_site=True):
 
 
 def send_mail_to_sitter_on_publishing(context, edit_url):
-    subject = api.portal.get_registry_record('sitter.sitter_msg_create_subject')
-    text = api.portal.get_registry_record('sitter.sitter_msg_create_text')
+    subject = api.portal.get_registry_record('sitter.sitter_msg_publish_subject')
+    text = api.portal.get_registry_record('sitter.sitter_msg_publish_text')
     _send_mail_to_sitter(context, subject, text, edit_url)
 
 
 def send_mail_to_sitter_on_creation(context, edit_url):
-    subject = api.portal.get_registry_record('sitter.sitter_msg_publish_subject')
-    text = api.portal.get_registry_record('sitter.sitter_msg_publish_text')
+    subject = api.portal.get_registry_record('sitter.sitter_msg_create_subject')
+    text = api.portal.get_registry_record('sitter.sitter_msg_create_text')
     _send_mail_to_sitter(context, subject, text, edit_url)
 
 
