@@ -13,7 +13,7 @@ from zope.interface import Interface
 default_sitter_msg_create_text = """\
 Vielen Dank für Ihre Registrierung bei der Babysitterbörse.
 
-Falls nicht bereits geschehen, reichen Sie bitte Ihren Babysitter-Eintrag nach
+Falls nicht bereits geschehen, reichen Sie bitte Ihren Babysittereintrag nach
 der Erstellung zur Redaktion ein. Er wird dann geprüft und freigegeben.
 
 {url}
@@ -23,7 +23,7 @@ Mit freundlichen Grüßen
 """
 
 default_sitter_msg_publish_text = """\
-Ihr Babysitter-Eintrag bei der Betreuungsbörse wurde freigegeben und ist unter
+Ihr Babysittereintrag bei der Betreuungsbörse wurde freigegeben und ist unter
 folgendem Link sichtbar:
 
 {url}
@@ -101,32 +101,32 @@ class ISitterSettings(Interface):
     reviewer_msg_create_subject = schema.TextLine(
         title='Mail an Redaktion bei Erstellung: Betreff',
         description='Betreff der Mail an Redaktion, wenn ein Sitter erstellt wurde.',
-        default='Babysitter-Eintrag erstellt',
+        default='Babysittereintrag erstellt',
     )
     reviewer_msg_create_text = schema.Text(
         title='Mail an Redaktion bei Erstellung: Text',
         description='Text der Mail an Redaktion, wenn ein Sitter erstellt wurde.',
-        default='Ein neuer Babysitter-Eintrag wurde erstellt.',
+        default='Ein neuer Babysittereintrag wurde erstellt.',
     )
     reviewer_msg_submit_subject = schema.TextLine(
         title='Mail an Redaktion bei Einreichung: Betreff',
         description='Betreff der Mail an Redaktion, wenn ein Sitter eingereicht wurde.',
-        default='Babysitter-Eintrag eingereicht',
+        default='Babysittereintrag eingereicht',
     )
     reviewer_msg_submit_text = schema.Text(
         title='Mail an Redaktion bei Einreichung: Text',
         description='Text der Mail an Redaktion, wenn ein Sitter eingereicht wurde.',
-        default='Ein neuer Babysitter-Eintrag wurde eingereicht.',
+        default='Ein neuer Babysittereintrag wurde eingereicht.',
     )
     reviewer_msg_modify_subject = schema.TextLine(
         title='Mail an Redaktion bei Änderung: Betreff',
         description='Betreff der Mail an Redaktion, wenn ein Sitter geändert wurde.',
-        default='Babysitter-Eintrag geändert',
+        default='Babysittereintrag geändert',
     )
     reviewer_msg_modify_text = schema.Text(
         title='Mail an Redaktion bei Änderung: Text',
         description='Text der Mail an Redaktion, wenn ein Sitter geändert wurde.',
-        default='Ein neuer Babysitter-Eintrag wurde geändert.',
+        default='Ein neuer Babysittereintrag wurde geändert.',
     )
     sitter_msg_create_subject = schema.TextLine(
         title='Mail an Sitter bei Erstellung: Betreff',
@@ -144,7 +144,7 @@ class ISitterSettings(Interface):
     sitter_msg_publish_subject = schema.TextLine(
         title='Mail an Sitter bei Veröffentlichung: Betreff',
         description='Betreff der Mail an einen Sitter, wenn er veröffentlicht wurde.',
-        default=('Freigabe Ihres Babysitter-Eintrages bei der Betreuungsbörse.'),
+        default=('Freigabe Ihres Babysittereintrages bei der Betreuungsbörse.'),
     )
     sitter_msg_publish_text = schema.Text(
         title='Mail an Sitter bei Veröffentlichung: Text',

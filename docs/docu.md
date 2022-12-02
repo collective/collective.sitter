@@ -46,7 +46,7 @@ _Bild 3: Revisionsliste_
 
 ![](images/publish-sitter.png)
 
-_Bild 4: einen Babysitter-Eintrag veröffentlichen_
+_Bild 4: einen Babysittereintrag veröffentlichen_
 
 ### Menü für Redakteure
 
