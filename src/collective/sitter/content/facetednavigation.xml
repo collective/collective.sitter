@@ -132,7 +132,7 @@
    <property name="hidden">True</property>
    <property name="custom_css"></property>
   </criterion>
-  <criterion name="c9">
+  <criterion name="criterion-review-state">
    <property name="widget">radio</property>
    <property name="title">Status</property>
    <property name="index">review_state</property>
