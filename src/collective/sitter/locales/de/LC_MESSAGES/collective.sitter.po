@@ -362,7 +362,7 @@ msgstr "Sitteraccount"
 #. Default: "Sitter entry"
 #: collective/sitter/profiles/default/types/sitter.xml
 msgid "sitter_desc"
-msgstr "Babysitter-Eintrag"
+msgstr "Babysittereintrag"
 
 #. Default: "Sitter Experience"
 #: collective/sitter/profiles/default/types/sitterexperience.xml
@@ -433,7 +433,7 @@ msgstr ""
 
 #: collective/sitter/profiles/default/actions.xml
 msgid "user_action_my_sitter_entry"
-msgstr "Mein Babysitter-Eintrag"
+msgstr "Mein Babysittereintrag"
 
 #: collective/sitter/profiles/default/actions.xml
 msgid "user_action_reject_sitter_agreement"
