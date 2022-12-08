@@ -157,7 +157,7 @@ msgid "Sie können Ihren Eintrag jetzt <a href=\"${link}\">einreichen</a>, damit
 msgstr ""
 
 #: collective/sitter/profiles/default/types/sitter.xml
-msgid "Sitter"
+msgid "Sitter entry"
 msgstr "Babysittereintrag"
 
 #: collective/sitter/browser/controlpanel.py collective/sitter/configure.zcml
