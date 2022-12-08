@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-21 22:37+0000\n"
+"POT-Creation-Date: 2022-12-02 06:25+0000\n"
 "PO-Revision-Date: 2022-10-02 18:44+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,6 +153,10 @@ msgstr ""
 
 #: collective/sitter/sitterstate.py
 msgid "Sie können Ihren Eintrag jetzt <a href=\"${link}\">einreichen</a>, damit er von der Redaktion freigegeben werden kann. Auch können Sie Ihren Eintrag weiter <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
+msgstr ""
+
+#: collective/sitter/profiles/default/types/sitter.xml
+msgid "Sitter"
 msgstr ""
 
 #: collective/sitter/browser/controlpanel.py collective/sitter/configure.zcml
@@ -347,11 +351,6 @@ msgstr ""
 #: collective/sitter/browser/templates/sittermanager.pt
 msgid "show_sitter_folder_content"
 msgstr "Show sitter folder content"
-
-#. Default: "Sitter"
-#: collective/sitter/profiles/default/types/sitter.xml
-msgid "sitter"
-msgstr "Sitter"
 
 #: collective/sitter/browser/controlpanel.py
 msgid "sitter_account_page"

@@ -4,9 +4,9 @@
    i18n:domain="collective.sitter" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="sitter">Sitter</property>
+  <property name="title" i18n:translate="">Sitter entry</property>
   <property name="description"
-    i18n:translate="sitter_desc">Sitter entry</property>
+    i18n:translate="sitter_desc">Sitter entry description</property>
   <property name="icon_expr">string:${portal_url}/document_icon.png</property>
   <property name="factory">sitter</property>
   <property name="global_allow">False</property>
