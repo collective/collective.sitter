@@ -23,6 +23,7 @@
                     acquire="False">
           <role name="Manager" />
           <role name="Site Administrator" />
+          <role name="Sitter Manager" />
         </permission>
     </permissions>
 </rolemap>
