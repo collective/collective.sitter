@@ -207,9 +207,6 @@ class SitterMailer:
         copy = api.portal.get_registry_record('sitter.contact_copy_text')
 
         try:
-            logger.info(
-                f'Send contact mail to sitter {self.toemail} and copy to {self.fromemail}.'
-            )
             # Send mail to sitter
             api.portal.send_email(
                 sender=f'{self.fromname} <{self.fromemail}>',
@@ -228,7 +225,7 @@ class SitterMailer:
             )
         except Exception as ex:
             # This should only occur while testing
-            logger.error(f'Could not send email: {ex}')
+            logger.error('Could not send email')
             raise ex
 
 

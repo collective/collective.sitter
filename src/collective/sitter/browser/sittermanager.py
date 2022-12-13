@@ -2,11 +2,6 @@ from ..sitterstate import ISitterState
 from plone import api
 from Products.Five.browser import BrowserView
 
-import logging
-
-
-logger = logging.getLogger(__name__)
-
 
 class SitterManagerView(BrowserView):
     def __call__(self, *args, **kwargs):

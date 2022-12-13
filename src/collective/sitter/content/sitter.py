@@ -353,13 +353,11 @@ Subject: {subject}
     )
 
     if not mail_to:
-        logger.error(f'No recipient to send email to:\n\n{mail_text}')
+        logger.error('No recipient to send email to')
         return
 
     try:
         mail_host = api.portal.get_tool('MailHost')
         mail_host.send(mail_text, charset='utf-8')  # immediate?
-        logger.info(f'Send email to {mail_to}')
-        logger.debug(fr'Message send:\ {mail_text}')
-    except Exception as e:
-        logger.warn(f'Could not send email: {e}')
+    except Exception:
+        logger.error('Could not send email')

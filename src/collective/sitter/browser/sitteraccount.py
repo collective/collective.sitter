@@ -4,11 +4,6 @@ from plone import api
 from plone.protect.authenticator import createToken
 from Products.Five.browser import BrowserView
 
-import logging
-
-
-logger = logging.getLogger(__name__)
-
 
 class SitterAccountView(BrowserView):
     @property
