@@ -6,11 +6,6 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.location.location import LocationIterator
 
-import logging
-
-
-logger = logging.getLogger(__name__)
-
 
 class ISitterState(Interface):
     """An adapter that gives access to the current state of the registration process

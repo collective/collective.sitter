@@ -4,11 +4,6 @@ from plone.supermodel import model
 from zope import schema
 from zope.interface import implementer
 
-import logging
-
-
-logger = logging.getLogger(__name__)
-
 
 class ISitterExperience(model.Schema):
     """
