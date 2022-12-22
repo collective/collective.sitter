@@ -275,6 +275,10 @@ def on_change_state(obj, event):
         send_mail_to_reviewer_on_submitting(context=obj, edit_url=edit_url)
     if state == 'published':
         send_mail_to_sitter_on_publishing(context=obj, edit_url=edit_url)
+    if state == 'deleting':
+        creator = obj.get_creator()
+        user = api.user.get(username=creator)
+        user.setMemberProperties(mapping={'accepted_sitter_agreement': False})
 
 
 def _get_base_url(include_site=True):
