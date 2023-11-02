@@ -84,6 +84,7 @@ class TestSitterContentType(TestCase):
     def test_sitter_getMobility_notSet(self):
         mobility = self.sitter_object.get_mobility()
         self.assertTrue(len(mobility) == 0)
+
 class TestSitterAbbreviatedDetailsDetails(TestCase):
 
     layer = SITTER_INTEGRATION_TESTING
@@ -100,4 +101,27 @@ class TestSitterAbbreviatedDetailsDetails(TestCase):
             )
         sitter_object = self.sitter_folder['test-sitter-1']
         sitter_object.details = RichTextValue('<p>asdf asdf asdf asdf asdf</p><p>VG</p>')
-        sitter_object.abbreviated_details(24)
+        abr_details = sitter_object.abbreviated_details(24)
+        self.assertEqual(abr_details, '<p>asdf asdf asdf asdf asdf</p><p>…</p>')
+
+    def test_no_whitespace(self):
+        api.content.create(
+                container=self.sitter_folder,
+                type='sitter',
+                id='test-sitter-1',
+            )
+        sitter_object = self.sitter_folder['test-sitter-1']
+        sitter_object.details = RichTextValue('<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p><p>bbbbbbbbbbbbbbbbbbbbb</p>')
+        abr_details = abbreviated_details = sitter_object.abbreviated_details(20)
+        self.assertEqual(abr_details,'<p>aaaaaaaaaaaaaaaaaaaa…</p>')
+
+    def test_short_details(self):
+        api.content.create(
+                container=self.sitter_folder,
+                type='sitter',
+                id='test-sitter-1',
+            )
+        sitter_object = self.sitter_folder['test-sitter-1']
+        sitter_object.details = RichTextValue('<p>aaaaaaaaa</p>')
+        abr_details = sitter_object.abbreviated_details(50)
+        self.assertEqual(abr_details, '<p>aaaaaaaaa</p>')
