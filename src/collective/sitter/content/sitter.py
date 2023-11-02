@@ -242,6 +242,9 @@ class Sitter(Item):
         def soup_iter():
             remaining = length
             for s in soup.stripped_strings:
+                if remaining <= 0:
+                    yield '…'
+                    break
                 if len(s) > remaining:
                     yield s[:remaining].rsplit(None, 1)[0] + '…'
                     break
