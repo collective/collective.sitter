@@ -2,6 +2,7 @@ from ..testing import SITTER_INTEGRATION_TESTING
 from ..testing import TestCase
 from ..vocabularies import voc_district
 from plone import api
+from plone.app.textfield.value import RichTextValue
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
@@ -83,3 +84,20 @@ class TestSitterContentType(TestCase):
     def test_sitter_getMobility_notSet(self):
         mobility = self.sitter_object.get_mobility()
         self.assertTrue(len(mobility) == 0)
+class TestSitterAbbreviatedDetailsDetails(TestCase):
+
+    layer = SITTER_INTEGRATION_TESTING
+
+    def setUp(self):
+        super().setUp()
+        self.login_site_owner()
+
+    def test_sitter_details(self):
+        api.content.create(
+                container=self.sitter_folder,
+                type='sitter',
+                id='test-sitter-1',
+            )
+        sitter_object = self.sitter_folder['test-sitter-1']
+        sitter_object.details = RichTextValue('<p>asdf asdf asdf asdf asdf</p><p>VG</p>')
+        sitter_object.abbreviated_details(24)
