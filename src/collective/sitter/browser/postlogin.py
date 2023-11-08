@@ -7,6 +7,9 @@ from zope.interface import implementer
 
 @implementer(IRedirectAfterLogin)
 def redirect(context, request):
+    if came_from := request.get('came_from'):
+        return lambda *args: came_from
+
     sitterstate = ISitterState(context)
     sitter_folder = sitterstate.get_sitter_folder()
     if sitter_folder is None:

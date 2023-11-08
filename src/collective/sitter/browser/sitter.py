@@ -140,6 +140,16 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
     def sitter(self):
         return ISitter(self.context)
 
+    @property
+    def logged_in(self):
+        return not api.user.is_anonymous()
+
+    @property
+    def login_url(self):
+        portal = api.portal.get().absolute_url()
+        here = self.context.absolute_url()
+        return f'{portal}/login?came_from={here}'
+
     def __call__(self):
         self.remove_from_portal_messages(
             self.context.translate(PloneMessageFactory('Item state changed.'))
