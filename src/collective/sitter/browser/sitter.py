@@ -33,12 +33,6 @@ def are_terms_accepted(value):
 class ISitterContactFormSchema(Interface):
     """Define form fields"""
 
-    name = schema.TextLine(
-        title=_('name'),
-    )
-    email = schema.TextLine(
-        title=_('email'),
-    )
     homepage = schema.TextLine(
         title='homepage',
         required=False,
@@ -64,8 +58,6 @@ class ISitterContactFormSchema(Interface):
 @interface.implementer(ISitterContactFormSchema)
 class SitterContactAdapter:
     def __init__(self, context):
-        self.name = None
-        self.email = None
         self.homepage = None
         self.accept_terms = None
         self.message = None
@@ -113,8 +105,10 @@ class SitterContactForm(AutoExtensibleForm, form.Form):
         if errors:
             self.status = self.formErrorsMessage
             return
-        fromname = data['name']
-        fromemail = data['email']
+
+        user = api.user.get_current()
+        fromname = user.getProperty('fullname')
+        fromemail = user.getProperty('email')
         message = data['message']
         toname = self.context.nickname
         toemail = self.context.email
