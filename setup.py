@@ -49,6 +49,7 @@ setup(
     ],
     extras_require={
         'test': [
+            'Products.Sessions[tests]',
             'plone.app.contenttypes[test]',
             'plone.app.testing',
             'plone.testing',
