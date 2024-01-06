@@ -108,8 +108,9 @@ class SitterState:
     @memoize
     def get_registration_steps(self):
         steps = []
+        portal_url = api.portal.get().absolute_url()
         sitter_folder_path = self.get_sitter_folder().absolute_url()
-        link = sitter_folder_path + '/login'
+        link = f'{portal_url}/login?came_from={sitter_folder_path}/account'
         step1 = RegistrationStep(
             _('Anmelden'),
             description=_(
