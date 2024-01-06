@@ -49,16 +49,7 @@ class SitterState:
 
     @memoize
     def is_created(self):
-        sitter_folder = self.get_sitter_folder()
-        if not sitter_folder:
-            return False
-
-        results = api.content.find(
-            portal_type='sitter',
-            path='/'.join(sitter_folder.getPhysicalPath()),
-            Creator=str(self.logged_in_member),
-        )
-        return bool(results)
+        return bool(self.get_sitter())
 
     @memoize
     def is_deleted(self):
@@ -98,10 +89,12 @@ class SitterState:
 
     @memoize
     def get_sitter(self):
-        member = self.logged_in_member
+        if not self.is_logged_in():
+            return
+
         query = {
             'portal_type': 'sitter',
-            'Creator': str(member),
+            'Creator': str(self.logged_in_member),
         }
 
         sitter_folder = self.get_sitter_folder()
