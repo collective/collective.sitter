@@ -43,6 +43,17 @@ sich mit Ihnen in Verbindung setzen.
 {text}
 """
 
+default_renewal_reminder_text = """\
+Guten Tag {toname},
+
+die Betreuungsbörse wird zum Monatsende inaktive Nutzer und Anzeigen löschen.
+
+Um Ihre bestehende Anzeige weiter zu nutzen, melden Sie sich bitte vor Monatsende
+einmal am Portal an: {portal_url}
+
+Mit freundlichen Grüßen
+"""
+
 
 class ISitterFaqConfig(Interface):
     question = schema.TextLine(title='Frage')
@@ -196,6 +207,41 @@ class ISitterSettings(Interface):
             '{text} ist der Platzhalter für den Text der Anfrage.'
         ),
         default=default_contact_copy_text,
+    )
+
+    model.fieldset(
+        'renewal',
+        label='Erneuerung der Anzeigenaktivität',
+        fields=[
+            'renewal_schedule',
+            'renewal_reminder_subject',
+            'renewal_reminder_text',
+        ],
+    )
+
+    renewal_schedule = schema.Text(
+        title='Zeitplan für Erneuerung',
+        description=(
+            'Zeitplan für die Erneuerung der Anzeigenaktivität. '
+            'Jede Zeile ist ein Lauf mit vier Daten im Format '
+            '"MM-TT,MM-TT,MM-TT,MM-TT". Die Daten sind Beginn des Anmeldezeitraums, '
+            'Tag der ersten und zweiten Erinnerungs-E-Mail und Tag der Löschung.'
+        ),
+        default="03-01,03-01,03-15,04-01\n09-01,09-01,09-15,10-01",
+    )
+    renewal_reminder_subject = schema.TextLine(
+        title='Erinnerungs-E-Mail für Erneuerung: Betreff',
+        description='Betreff der Erinnerungs-E-Mail, sich am Portal anzumelden.',
+        default='Erneuerung Anzeige Babysitterbörse',
+    )
+    renewal_reminder_text = schema.Text(
+        title='Erinnerungs-E-Mail für Erneuerung: Text',
+        description=(
+            'Text der Erinnerungs-E-Mail, sich am Portal anzumelden.'
+            '{toname} ist der Platzhalter für den Namen des Nutzers, '
+            '{portal_url} für die Basis-URL des Portals.'
+        ),
+        default=default_renewal_reminder_text,
     )
 
     model.fieldset(

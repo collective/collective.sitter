@@ -2,4 +2,20 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
+  <genericsetup:registerProfile
+      name="to_1001"
+      title="Add configuration for renewal"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/to_1001"
+      />
+
+  <genericsetup:upgradeDepends
+      title="Add configuration for renewal"
+      description=""
+      profile="collective.sitter:default"
+      source="1"
+      destination="1001"
+      import_profile="collective.sitter:to_1001" />
+
 </configure>
