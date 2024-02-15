@@ -187,6 +187,8 @@ class SitterFolder(Container):
             )
 
     def delete_inactive_sitters(self, login_after):
+        # Delete a sitter advertisement object. In order to do further clean-up such as
+        # removing user data, subscribe to the IObjectRemovedEvent.
         for sitter_brain, user in self.find_inactive_sitters(login_after):
             sitter = sitter_brain.getObject()
             sitter_ann = IAnnotations(sitter)
@@ -201,7 +203,6 @@ class SitterFolder(Container):
                 continue
             logger.info(f'Delete inactive sitter {sitter_brain.getId}.')
             api.content.delete(sitter)
-            # TODO: remove user data
 
     def eval_renewal_action(self):
         schedule = api.portal.get_registry_record('sitter.renewal_schedule')
