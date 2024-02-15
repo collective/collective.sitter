@@ -204,10 +204,12 @@ class SitterFolder(Container):
             logger.info(f'Delete inactive sitter {sitter_brain.getId}.')
             api.content.delete(sitter)
 
-    def eval_renewal_action(self):
+    def eval_renewal_action(self, run_for_date=None):
         schedule = api.portal.get_registry_record('sitter.renewal_schedule')
         today = date.today()
         year = today.year
+        if run_for_date:
+            today = date.fromisoformat(f'{year}-{run_for_date}')
 
         for line in schedule.splitlines():
             if not (line := line.strip()):
@@ -230,8 +232,8 @@ class SitterFolder(Container):
 
         return None, None
 
-    def run_renewal(self):
-        action, login_after = self.eval_renewal_action()
+    def run_renewal(self, run_for_date=None):
+        action, login_after = self.eval_renewal_action(run_for_date)
         if action and action.startswith('send_renewal_reminder'):
             self.send_renewal_reminder(login_after, action)
         if action == 'delete_inactive_sitters':
