@@ -153,6 +153,11 @@ class SitterFolder(Container):
         portal_url = api.portal.get().absolute_url()
 
         for sitter, user in self.find_inactive_sitters(login_after):
+            if sitter.review_state != 'published':
+                # Don't bother creators of private or deleting sitter ads,
+                # those will be handled by another clean-up process.
+                continue
+
             sitter_ann = IAnnotations(sitter.getObject())
             last = sitter_ann.get(REMOVE_INACTIVE_KEY, ())
             if followup:
