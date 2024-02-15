@@ -150,6 +150,7 @@ class SitterFolder(Container):
         text = api.portal.get_registry_record('sitter.renewal_reminder_text')
         followup = action.endswith('_followup')
         today = date.today()
+        portal_url = api.portal.get().absolute_url()
 
         for sitter, user in self.find_inactive_sitters(login_after):
             sitter_ann = IAnnotations(sitter.getObject())
@@ -167,7 +168,7 @@ class SitterFolder(Container):
                 sender=f'{fromname} <{fromemail}>',
                 recipient=f'{toname} <{toemail}>',
                 subject=subject,
-                body=text.format(toname=toname, portal_url=self.portal_url),
+                body=text.format(toname=toname, portal_url=portal_url),
                 immediate=True,
             )
             if not last:
