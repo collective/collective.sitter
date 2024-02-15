@@ -1,6 +1,7 @@
 from .. import _
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
+from datetime import date
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform.directives import widget
@@ -53,6 +54,31 @@ einmal am Portal an: {portal_url}
 
 Mit freundlichen Grüßen
 """
+
+
+def check_renewal_schedule(value):
+    year = date.today().year
+    prev_deletion = None
+    for line in value.splitlines():
+        if not (line := line.strip()):
+            continue
+        items = line.split(',')
+        if len(items) != 4:
+            return False
+        try:
+            login_after, reminder1, reminder2, deletion = [
+                date.fromisoformat(f'{year}-{item.strip()}') for item in items
+            ]
+        except ValueError:
+            return False
+        if not login_after <= reminder1 < reminder2 < deletion:
+            return False
+        if prev_deletion and prev_deletion > login_after:
+            return False
+        prev_deletion = deletion
+
+    else:
+        return True
 
 
 class ISitterFaqConfig(Interface):
@@ -226,8 +252,12 @@ class ISitterSettings(Interface):
             'Jede Zeile ist ein Lauf mit vier Daten im Format '
             '"MM-TT,MM-TT,MM-TT,MM-TT". Die Daten sind Beginn des Anmeldezeitraums, '
             'Tag der ersten und zweiten Erinnerungs-E-Mail und Tag der Löschung.'
+            'Die Datumsangaben müssen über alle Läufe hinweg aufsteigend geordnet sein, '
+            'und die Erinnnerungs-E-Mails eines Laufs dürfen nicht auf denselben Tag '
+            'oder den Tag der jeweiligen Löschung fallen.'
         ),
         default="03-01,03-01,03-15,04-01\n09-01,09-01,09-15,10-01",
+        constraint=check_renewal_schedule,
     )
     renewal_reminder_subject = schema.TextLine(
         title='Erinnerungs-E-Mail für Erneuerung: Betreff',
