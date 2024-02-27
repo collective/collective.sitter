@@ -165,6 +165,8 @@ class SitterFolder(Container):
                     # All reminders must have been sent before deletion, so we skip the
                     # followup if the initial one wasn't sent in the first place.
                     continue
+            elif last and last[-1][1] == login_after:
+                continue
 
             logger.info(f'Send renewal reminder to {sitter.Creator}.')
             toname = user.getProperty('fullname')
