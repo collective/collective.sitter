@@ -15,6 +15,13 @@
       directory="overrides"
       />
 
+  <browser:view
+      name="sitter_state"
+      for="*"
+      class=".sitterstate.SitterStateView"
+      permission="zope2.View"
+      />
+
   <browser:page
     name="account"
     for="..content.sitterfolder.ISitterFolder"

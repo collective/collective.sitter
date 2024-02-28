@@ -109,7 +109,7 @@
       </div>
 
       <div class="sittercontainer">
-        <div class="sittercontent">
+        <div class="sittercontent" tal:condition="view/logged_in">
           <h2>Kontaktformular</h2>
           <div id="sittercontactform">
             <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
@@ -130,6 +130,12 @@
       this.selectedIndex = index
   });
           </script>
+        </div>
+        <div class="sittercontent" tal:condition="not:view/logged_in">
+          <p class="contactform-hint">
+            Um Kontakt aufzunehmen,
+            <a href="${view/login_url}">melden Sie sich bitte an</a>.
+          </p>
         </div>
       </div>
     </div>
