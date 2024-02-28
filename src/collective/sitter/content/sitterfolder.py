@@ -1,9 +1,12 @@
 from .. import _
+from datetime import date
 from eea.facetednavigation.interfaces import IDisableSmartFacets
 from eea.facetednavigation.interfaces import IFacetedNavigable
 from eea.facetednavigation.interfaces import IHidePloneRightColumn
 from eea.facetednavigation.layout.events import faceted_enabled
 from eea.facetednavigation.layout.interfaces import IFacetedLayout
+from persistent.list import PersistentList
+from plone import api
 from plone.app.z3cform.widget import RelatedItemsFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
@@ -13,6 +16,7 @@ from Products.GenericSetup.interfaces import IBody
 from z3c.relationfield.schema import RelationChoice
 from z3c.relationfield.schema import RelationList
 from zope import schema
+from zope.annotation.interfaces import IAnnotations
 from zope.component import adapter
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
@@ -24,6 +28,10 @@ import os
 
 
 logger = logging.getLogger(__name__)
+logger.setLevel(level='INFO')
+
+
+REMOVE_INACTIVE_KEY = 'REMOVE_INACTIVE'
 
 
 class ISitterFolder(model.Schema, IFacetedNavigable):
@@ -120,6 +128,118 @@ class ISitterFolder(model.Schema, IFacetedNavigable):
 @implementer(ISitterFolder)
 class SitterFolder(Container):
     exclude_from_nav = False
+
+    def find_inactive_sitters(self, login_after):
+        for sitter in api.content.find(
+            portal_type='sitter',
+            path='/'.join(self.getPhysicalPath()),
+        ):
+            user = api.user.get(sitter.Creator)
+            if user is None:
+                # We cannot, in general, be sure whether the user doesn't exist
+                # oder whether there was just an error in some PAS plugin.
+                # Better to skip this user than to delete user data by accident.
+                continue
+            if user.getProperty('last_login_time').asdatetime().date() < login_after:
+                yield sitter, user
+
+    def send_renewal_reminder(self, login_after, action):
+        fromname = api.portal.get_registry_record('sitter.contact_name')
+        fromemail = api.portal.get_registry_record('sitter.contact_from')
+        subject = api.portal.get_registry_record('sitter.renewal_reminder_subject')
+        text = api.portal.get_registry_record('sitter.renewal_reminder_text')
+        followup = action.endswith('_followup')
+        today = date.today()
+        portal_url = api.portal.get().absolute_url()
+
+        for sitter, user in self.find_inactive_sitters(login_after):
+            if sitter.review_state != 'published':
+                # Don't bother creators of private or deleting sitter ads,
+                # those will be handled by another clean-up process.
+                continue
+
+            sitter_ann = IAnnotations(sitter.getObject())
+            last = sitter_ann.get(REMOVE_INACTIVE_KEY, ())
+            if followup:
+                if not (last and last[-1][1:] == (login_after, 'initial_reminder')):
+                    # All reminders must have been sent before deletion, so we skip the
+                    # followup if the initial one wasn't sent in the first place.
+                    continue
+            elif last and last[-1][1] == login_after:
+                continue
+
+            logger.info(f'Send renewal reminder to {sitter.Creator}.')
+            toname = user.getProperty('fullname')
+            toemail = user.getProperty('email')
+            api.portal.send_email(
+                sender=f'{fromname} <{fromemail}>',
+                recipient=f'{toname} <{toemail}>',
+                subject=subject,
+                body=text.format(toname=toname, portal_url=portal_url),
+                immediate=True,
+            )
+            if not last:
+                last = sitter_ann[REMOVE_INACTIVE_KEY] = PersistentList()
+            last.append(
+                (
+                    today,
+                    login_after,
+                    ('followup_reminder' if followup else 'initial_reminder'),
+                )
+            )
+
+    def delete_inactive_sitters(self, login_after):
+        # Delete a sitter advertisement object. In order to do further clean-up such as
+        # removing user data, subscribe to the IObjectRemovedEvent.
+        for sitter_brain, user in self.find_inactive_sitters(login_after):
+            sitter = sitter_brain.getObject()
+            sitter_ann = IAnnotations(sitter)
+            last = sitter_ann.get(REMOVE_INACTIVE_KEY, ())
+            if not (
+                len(last) >= 2
+                and last[-2][1:] == (login_after, 'initial_reminder')
+                and last[-1][1:] == (login_after, 'followup_reminder')
+            ):
+                # All reminders must have been sent before deletion. Followup shouldn't
+                # have been sent without initial, but let's be extra safe.
+                continue
+            logger.info(f'Delete inactive sitter {sitter_brain.getId}.')
+            api.content.delete(sitter)
+
+    def eval_renewal_action(self, run_for_date=None):
+        schedule = api.portal.get_registry_record('sitter.renewal_schedule')
+        today = date.today()
+        year = today.year
+        if run_for_date:
+            today = date.fromisoformat(f'{year}-{run_for_date}')
+
+        for line in schedule.splitlines():
+            if not (line := line.strip()):
+                continue
+            login_after, reminder1, reminder2, deletion = [
+                date.fromisoformat(f'{year}-{item.strip()}') for item in line.split(',')
+            ]
+            # TODO: sanity checks?
+            if login_after <= today <= deletion:
+                action = (
+                    'send_renewal_reminder_initial'
+                    if today == reminder1
+                    else 'send_renewal_reminder_followup'
+                    if today == reminder2
+                    else 'delete_inactive_sitters'
+                    if today == deletion
+                    else None
+                )
+                return action, login_after
+
+        return None, None
+
+    def run_renewal(self, run_for_date=None):
+        action, login_after = self.eval_renewal_action(run_for_date)
+        if action and action.startswith('send_renewal_reminder'):
+            self.send_renewal_reminder(login_after, action)
+        if action == 'delete_inactive_sitters':
+            self.delete_inactive_sitters(login_after)
 
 
 @adapter(ISitterFolder, IObjectAddedEvent)

@@ -1,6 +1,7 @@
 from .. import _
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
+from datetime import date
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.autoform.directives import widget
@@ -42,6 +43,42 @@ sich mit Ihnen in Verbindung setzen.
 
 {text}
 """
+
+default_renewal_reminder_text = """\
+Guten Tag {toname},
+
+die Betreuungsbörse wird zum Monatsende inaktive Nutzer und Anzeigen löschen.
+
+Um Ihre bestehende Anzeige weiter zu nutzen, melden Sie sich bitte vor Monatsende
+einmal am Portal an: {portal_url}
+
+Mit freundlichen Grüßen
+"""
+
+
+def check_renewal_schedule(value):
+    year = date.today().year
+    prev_deletion = None
+    for line in value.splitlines():
+        if not (line := line.strip()):
+            continue
+        items = line.split(',')
+        if len(items) != 4:
+            return False
+        try:
+            login_after, reminder1, reminder2, deletion = [
+                date.fromisoformat(f'{year}-{item.strip()}') for item in items
+            ]
+        except ValueError:
+            return False
+        if not login_after <= reminder1 < reminder2 < deletion:
+            return False
+        if prev_deletion and prev_deletion > login_after:
+            return False
+        prev_deletion = deletion
+
+    else:
+        return True
 
 
 class ISitterFaqConfig(Interface):
@@ -196,6 +233,45 @@ class ISitterSettings(Interface):
             '{text} ist der Platzhalter für den Text der Anfrage.'
         ),
         default=default_contact_copy_text,
+    )
+
+    model.fieldset(
+        'renewal',
+        label='Erneuerung der Anzeigenaktivität',
+        fields=[
+            'renewal_schedule',
+            'renewal_reminder_subject',
+            'renewal_reminder_text',
+        ],
+    )
+
+    renewal_schedule = schema.Text(
+        title='Zeitplan für Erneuerung',
+        description=(
+            'Zeitplan für die Erneuerung der Anzeigenaktivität. '
+            'Jede Zeile ist ein Lauf mit vier Daten im Format '
+            '"MM-TT,MM-TT,MM-TT,MM-TT". Die Daten sind Beginn des Anmeldezeitraums, '
+            'Tag der ersten und zweiten Erinnerungs-E-Mail und Tag der Löschung.'
+            'Die Datumsangaben müssen über alle Läufe hinweg aufsteigend geordnet sein, '
+            'und die Erinnnerungs-E-Mails eines Laufs dürfen nicht auf denselben Tag '
+            'oder den Tag der jeweiligen Löschung fallen.'
+        ),
+        default="03-01,03-01,03-15,04-01\n09-01,09-01,09-15,10-01",
+        constraint=check_renewal_schedule,
+    )
+    renewal_reminder_subject = schema.TextLine(
+        title='Erinnerungs-E-Mail für Erneuerung: Betreff',
+        description='Betreff der Erinnerungs-E-Mail, sich am Portal anzumelden.',
+        default='Erneuerung Anzeige Babysitterbörse',
+    )
+    renewal_reminder_text = schema.Text(
+        title='Erinnerungs-E-Mail für Erneuerung: Text',
+        description=(
+            'Text der Erinnerungs-E-Mail, sich am Portal anzumelden.'
+            '{toname} ist der Platzhalter für den Namen des Nutzers, '
+            '{portal_url} für die Basis-URL des Portals.'
+        ),
+        default=default_renewal_reminder_text,
     )
 
     model.fieldset(
