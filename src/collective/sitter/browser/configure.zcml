@@ -130,6 +130,7 @@
     for="*"
     class=".actionhelpers.ActionHelpers"
     permission="zope2.View"
+    allowed_attributes="current_user_has_sitter_entry accepted_sitter_agreement sitter_path"
     />
 
   <browser:page
