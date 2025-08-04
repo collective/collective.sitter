@@ -25,7 +25,7 @@ class Shuffle:
             annotations[SHUFFLE_KEY] = True
             log.debug('Shuffling sitters')
             brains = list(brains)
-            random.shuffle(brains, self._get_random_key_from_session)
+            # random.shuffle(brains, self._get_random_key_from_session)
 
         yield from brains
 

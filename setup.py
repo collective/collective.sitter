@@ -46,6 +46,7 @@ setup(
         'z3c.relationfield',
         'zope.formlib',
         'collective.z3cform.datagridfield',
+        'Products.TemporaryFolder',
     ],
     extras_require={
         'test': [
