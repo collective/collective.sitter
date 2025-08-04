@@ -78,6 +78,8 @@
     name="collective.sitter.Qualifications"
   />
 
+  <adapter factory=".vocabularies.VocabularyPermissionChecker" />
+
   <include package="collective.monkeypatcher" />
 
   <monkey:patch

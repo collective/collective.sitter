@@ -1,7 +1,12 @@
 from .sitterstate import ISitterState
+from AccessControl import getSecurityManager
 from plone import api
+from plone.app.dexterity.permissions import DXFieldPermissionChecker
 from plone.app.vocabularies.catalog import CatalogVocabulary
 from plone.app.vocabularies.utils import parseQueryString
+from plone.app.z3cform.interfaces import IFieldPermissionChecker
+from Products.CMFCore.interfaces import ISiteRoot
+from zope.component import adapter
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import provider
@@ -9,6 +14,28 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+
+
+PERMISSIONS = {
+    "collective.sitter.Catalog": "View",
+    "collective.sitter.Experiences": "View",
+    "collective.sitter.Qualifications": "View",
+}
+
+
+@adapter(ISiteRoot)
+@implementer(IFieldPermissionChecker)
+class VocabularyPermissionChecker(DXFieldPermissionChecker):
+    def __init__(self, context):
+        self.context = context
+
+    def validate(self, field_name, vocabulary_name):
+        # Validate access to custom vocabularies
+        checker = getSecurityManager().checkPermission
+        if permisson := PERMISSIONS.get(vocabulary_name):
+            return checker(permisson, self.context)
+
+        return super().validate(field_name, vocabulary_name)
 
 
 @implementer(IVocabularyFactory)
