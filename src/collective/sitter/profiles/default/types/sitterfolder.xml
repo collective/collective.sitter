@@ -30,6 +30,7 @@
   <property name="behaviors">
     <element value="plone.namefromtitle" />
     <element value="plone.excludefromnavigation" />
+    <element value="eea.faceted.navigable" />
   </property>
 
   <!-- View information -->
