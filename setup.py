@@ -44,7 +44,6 @@ setup(
         'z3c.form',
         'z3c.jbot',
         'z3c.relationfield',
-        'zope.formlib',
         'collective.z3cform.datagridfield',
         'Products.TemporaryFolder',
     ],
