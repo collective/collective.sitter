@@ -26,7 +26,6 @@
   <include package="z3c.form" />
   <include package="z3c.jbot" />
   <include package="z3c.relationfield" />
-  <include package="zope.formlib" />
 
   <permission
       id="collective.sitter.AddSitter"
