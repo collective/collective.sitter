@@ -82,6 +82,7 @@ class TestPermissions(TestPermissionsBase):
         self.assertFalse(ok)
 
     def test_memberCanNotAccessDeleteSitterView(self):
+        self.browser.open(self.portal_url)
         url = f'{self.sitter_folder_url}/deletesitter'
         self.assertRaises(Unauthorized, self.browser.open, url)
 
