@@ -26,7 +26,6 @@
   <include package="z3c.form" />
   <include package="z3c.jbot" />
   <include package="z3c.relationfield" />
-  <include package="zope.formlib" />
 
   <permission
       id="collective.sitter.AddSitter"
@@ -52,6 +51,7 @@
       directory="profiles/default"
       description="Extension profile for Sitter agency"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
       />
 
   <!-- Sitter State -->
@@ -76,6 +76,8 @@
     provides="zope.schema.interfaces.IVocabularyFactory"
     name="collective.sitter.Qualifications"
   />
+
+  <adapter factory=".vocabularies.VocabularyPermissionChecker" />
 
   <include package="collective.monkeypatcher" />
 

@@ -18,6 +18,7 @@ setup(
     classifiers=[
         'Framework :: Plone',
         'Programming Language :: Python',
+        "Programming Language :: Python :: 3.12",
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     keywords='parents children kinder baby babysitter sitter agency pfleger nurse carer',
@@ -30,6 +31,7 @@ setup(
     namespace_packages=['collective'],
     include_package_data=True,
     zip_safe=False,
+    python_requires='==3.12',
     install_requires=[
         'beautifulsoup4',
         'collective.taxonomy',
@@ -44,8 +46,8 @@ setup(
         'z3c.form',
         'z3c.jbot',
         'z3c.relationfield',
-        'zope.formlib',
         'collective.z3cform.datagridfield',
+        'Products.TemporaryFolder',
     ],
     extras_require={
         'test': [
