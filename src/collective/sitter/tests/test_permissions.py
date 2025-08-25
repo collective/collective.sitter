@@ -1,6 +1,7 @@
 from ..testing import SITTER_FUNCTIONAL_TESTING
 from ..testing import TestCase
 from plone import api
+from plone.protect.authenticator import createToken
 from zExceptions import Unauthorized
 
 
@@ -8,11 +9,11 @@ class TestPermissionsBase(TestCase):
     layer = SITTER_FUNCTIONAL_TESTING
 
     def _accept_agb(self):
-        self.browser.open(f'{self.sitter_folder_url}/signupview')
+        self.browser.open(f'{self.sitter_folder_url}/signupview?_authenticator={createToken()}')
         self.browser.getControl(name='form.button.Accept').click()
 
     def _create_sitter(self, nickname='not', details='this is a test'):
-        self.browser.open(f'{self.sitter_folder_url}/++add++sitter')
+        self.browser.open(f'{self.sitter_folder_url}/++add++sitter?_authenticator={createToken()}')
         form = self.browser.getForm('form')
         form.getControl(name='form.widgets.nickname').value = nickname
         form.getControl(name='form.widgets.details').value = details
@@ -65,12 +66,11 @@ class TestPermissions(TestPermissionsBase):
             nickname='Testfirst', details='this is a sitter'
         )
         own_url = f'{self.sitter_folder_url}/{own_sitterobject_name}'
-
-        self.browser.open(f'{own_url}/edit')
+        self.browser.open(f'{own_url}/edit?_authenticator={createToken()}')
         self.assertIn('Testfirst', self.browser.contents)
         self.assertIn('this is a sitter', self.browser.contents)
 
-        self.browser.open(f'{own_url}/transition?workflow_action=publish')
+        self.browser.open(f'{own_url}/transition?workflow_action=publish&_authenticator={createToken()}')
         sitter = self.sitter_folder[own_sitterobject_name]
         state = api.content.get_state(sitter)
         self.assertEqual('private', state)
@@ -84,7 +84,8 @@ class TestPermissions(TestPermissionsBase):
     def test_memberCanNotAccessDeleteSitterView(self):
         self.browser.open(self.portal_url)
         url = f'{self.sitter_folder_url}/deletesitter'
-        self.assertRaises(Unauthorized, self.browser.open, url)
+        with self.assertRaises(Unauthorized):
+            self.browser.open(url)
 
     def test_siteownerCanAccessDeleteSitterView(self):
         url = f'{self.sitter_folder_url}/deletesitter'

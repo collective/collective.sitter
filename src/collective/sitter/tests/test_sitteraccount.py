@@ -1,5 +1,6 @@
 from ..testing import SITTER_FUNCTIONAL_TESTING
 from ..testing import TestCase
+from plone.protect.authenticator import createToken
 
 
 class TestSitterAccountView(TestCase):
@@ -11,11 +12,11 @@ class TestSitterAccountView(TestCase):
         self.account_url = f'{self.portal_url}/{self.sitter_folder_name}/account'
 
     def _accept_agb(self):
-        self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/signupview')
+        self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/signupview?_authenticator={createToken()}')
         self.browser.getControl(name='form.button.Accept').click()
 
     def _create_sitter(self, nickname='not', details='this is a test'):
-        self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/++add++sitter')
+        self.browser.open(f'{self.portal_url}/{self.sitter_folder_name}/++add++sitter?_authenticator={createToken()}')
         form = self.browser.getForm('form')
         form.getControl(name='form.widgets.nickname').value = nickname
         form.getControl(name='form.widgets.details').value = details
@@ -24,32 +25,32 @@ class TestSitterAccountView(TestCase):
     def _submit_sitter_entry(self, object_name):
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{object_name}/transition?workflow_action=submit'
+            f'/{object_name}/transition?workflow_action=submit&_authenticator={createToken()}'
         )
         self.browser.open(url)
 
     def _delete_sitter_entry(self, object_name):
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{object_name}/transition?workflow_action=delete'
+            f'/{object_name}/transition?workflow_action=delete&_authenticator={createToken()}'
         )
         self.browser.open(url)
 
     def _recycle_sitter_entry(self, object_name):
         url = (
             f'{self.portal_url}/{self.sitter_folder_name}'
-            f'/{object_name}/transition?workflow_action=recycle'
+            f'/{object_name}/transition?workflow_action=recycle&_authenticator={createToken()}'
         )
         self.browser.open(url)
 
     def _go_to_account_page(self):
-        self.browser.open(self.account_url)
+        self.browser.open(f"{self.account_url}?_authenticator={createToken()}")
 
     def test_sitteraccount_sitter_view(self):
         self.login_test_user()
         self._go_to_account_page()
 
-        self.assertIn('<h1>Mein Babysittereintrag</h1>', self.browser.contents)
+        self.assertIn('<h1>My Sitteraccount</h1>', self.browser.contents)
 
     def test_sitteraccount_sitter_view_next_steps_accept(self):
         self.login_test_user()
@@ -81,6 +82,7 @@ class TestSitterAccountView(TestCase):
         self.assertIn('Eintrag gelöscht', self.browser.contents)
 
         self._recycle_sitter_entry(own_sitterobject_name)
+        self._accept_agb()
         self._go_to_account_page()
 
         self.assertIn('Einreichen', self.browser.contents)
@@ -95,7 +97,7 @@ class TestSitterManagerView(TestCase):
         self.account_url = f'{self.portal_url}/{self.sitter_folder_name}/sittermanager'
 
     def _go_to_account_page(self):
-        self.browser.open(self.account_url)
+        self.browser.open(f"{self.account_url}?_authenticator={createToken()}")
 
     def test_sittermanager_view(self):
         self.login_site_owner()
