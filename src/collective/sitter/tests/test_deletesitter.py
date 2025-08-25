@@ -68,11 +68,11 @@ class TestDeleteSitter(TestCase):
         self.assertTrue(len(result) == 1)
 
     def test_deletePrivate(self):
-        self.assertEqual(6, len(self.sitter_folder.getFolderContents()))
+        self.assertEqual(6, len(self.sitter_folder))
         self.view_under_test.delete_private_sitters()
-        self.assertEqual(5, len(self.sitter_folder.getFolderContents()))
+        self.assertEqual(5, len(self.sitter_folder))
 
     def test_deleteDeleting(self):
-        self.assertEqual(6, len(self.sitter_folder.getFolderContents()))
+        self.assertEqual(6, len(self.sitter_folder))
         self.view_under_test.delete_deleting_sitters()
-        self.assertEqual(5, len(self.sitter_folder.getFolderContents()))
+        self.assertEqual(5, len(self.sitter_folder))
