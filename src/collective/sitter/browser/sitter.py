@@ -219,6 +219,12 @@ class SitterMailer:
                 body=text.format(text=self.message),
                 immediate=True,
             )
+            logger.info('E-Mail send to sitter')
+        except Exception as ex:
+            # This should only occur while testing
+            logger.error('Could not send email')
+            raise ex
+        try:
             # Send copy of mail
             api.portal.send_email(
                 sender=f'{self.fromname_default} <{self.fromemail_default}>',
