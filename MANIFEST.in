@@ -1,0 +1,16 @@
+graft src/collective
+graft docs
+graft scripts
+include *.rst
+include *.md
+global-exclude *.pyc
+exclude *.sh
+exclude *.yml
+exclude *.yaml
+include *.py
+exclude buildout-plone6.cfg
+exclude buildout.cfg
+exclude travis.cfg
+exclude data_helper/*
+exclude .prettierignore
+exclude news/*

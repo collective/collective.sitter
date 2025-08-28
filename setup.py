@@ -4,15 +4,13 @@ from setuptools import setup
 import os
 
 
-version = '1.0a1'
+version = '1.0.0.dev10+umr'
 
 setup(
     name='collective.sitter',
     version=version,
     description='Sitter agency',
-    long_description=open('README.md').read()
-    + '\n'
-    + open(os.path.join('docs', 'HISTORY.txt')).read(),
+    long_description=open('README.md').read(),
     # Get more strings from
     # https://pypi.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -20,6 +18,7 @@ setup(
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
+    python_requires=">=3.9",
     keywords='parents children kinder baby babysitter sitter agency pfleger nurse carer',
     author='Thomas Lotze (for starzel.de)',
     author_email='team@starzel.de',
