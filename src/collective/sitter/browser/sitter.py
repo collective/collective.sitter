@@ -1,5 +1,6 @@
 from ..content.sitter import ISitter
 from ..sitterstate import ISitterState
+from ..util import mail_contact
 from collective.sitter import _
 from plone import api
 from plone.autoform.form import AutoExtensibleForm
@@ -213,8 +214,8 @@ class SitterMailer:
         try:
             # Send mail to sitter
             api.portal.send_email(
-                sender=f'{self.fromname} <{self.fromemail}>',
-                recipient=f'{self.toname} <{self.toemail}>',
+                sender=mail_contact(self.fromname, self.fromemail),
+                recipient=mail_contact(self.toname, self.toemail),
                 subject=self.contact_subject,
                 body=text.format(text=self.message),
                 immediate=True,
@@ -228,8 +229,8 @@ class SitterMailer:
         try:
             # Send copy of mail
             api.portal.send_email(
-                sender=f'{self.fromname_default} <{self.fromemail_default}>',
-                recipient=f'{self.fromname} <{self.fromemail}>',
+                sender=mail_contact(self.fromname_default, self.fromemail_default),
+                recipient=mail_contact(self.fromname, self.fromemail),
                 subject=self.contact_subject,
                 body=copy.format(text=self.message),
                 immediate=True,

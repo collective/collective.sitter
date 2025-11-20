@@ -172,8 +172,8 @@ class SitterFolder(Container):
             toname = user.getProperty('fullname')
             toemail = user.getProperty('email')
             api.portal.send_email(
-                sender=f'{fromname} <{fromemail}>',
-                recipient=f'{toname} <{toemail}>',
+                sender=f'"{fromname}" <{fromemail}>',
+                recipient=f'"{toname}" <{toemail}>',
                 subject=subject,
                 body=text.format(toname=toname, portal_url=portal_url),
                 immediate=True,
@@ -224,11 +224,11 @@ class SitterFolder(Container):
                 action = (
                     'send_renewal_reminder_initial'
                     if today == reminder1
-                    else 'send_renewal_reminder_followup'
-                    if today == reminder2
-                    else 'delete_inactive_sitters'
-                    if today == deletion
-                    else None
+                    else (
+                        'send_renewal_reminder_followup'
+                        if today == reminder2
+                        else 'delete_inactive_sitters' if today == deletion else None
+                    )
                 )
                 return action, login_after
 
