@@ -183,3 +183,5 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,venv
+temp_auto_push.bat
+temp_interactive_push.bat
