@@ -1,10 +1,8 @@
 from .. import _
-from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.registry import DictRow
 from datetime import date
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
-from plone.autoform.directives import widget
 from plone.supermodel import model
 from plone.z3cform import layout
 from zope import schema
@@ -87,7 +85,6 @@ class ISitterFaqConfig(Interface):
 
 
 class ISitterSettings(Interface):
-
     days_until_deletion_of_private_sitters = schema.Int(
         title='Tage bis private Sitter-Objekte gelöscht werden',
         default=90,
@@ -290,7 +287,7 @@ class ISitterSettings(Interface):
         value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
         default=[],
     )
-    widget(sitteraccount_faq_sitter=DataGridFieldFactory)
+    # widget(sitteraccount_faq_sitter=DataGridFieldFactory)
 
     sitteraccount_faq_manager = schema.List(
         title=_('faq_sittermanager_label'),
@@ -298,7 +295,7 @@ class ISitterSettings(Interface):
         value_type=DictRow(title='tablerow', schema=ISitterFaqConfig),
         default=[],
     )
-    widget(sitteraccount_faq_manager=DataGridFieldFactory)
+    # widget(sitteraccount_faq_manager=DataGridFieldFactory)
 
     sitteraccount_intro_text_sitter = schema.Text(
         title=_('sitteraccont_intro_label'),

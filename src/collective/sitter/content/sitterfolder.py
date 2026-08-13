@@ -7,7 +7,7 @@ from eea.facetednavigation.layout.events import faceted_enabled
 from eea.facetednavigation.layout.interfaces import IFacetedLayout
 from persistent.list import PersistentList
 from plone import api
-from plone.app.z3cform.widget import RelatedItemsFieldWidget
+from plone.app.z3cform.widgets.contentbrowser import ContentBrowserFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
 from plone.supermodel import model
@@ -50,10 +50,10 @@ class ISitterFolder(model.Schema, IFacetedNavigable):
     )
     directives.widget(
         'agreement',
-        RelatedItemsFieldWidget,
-        pattern_options=dict(
-            selectableTypes=['Document'],
-        ),
+        ContentBrowserFieldWidget,
+        pattern_options={
+            'selectableTypes': ['Document'],
+        },
     )
 
     info_text = RelationChoice(
@@ -63,10 +63,10 @@ class ISitterFolder(model.Schema, IFacetedNavigable):
     )
     directives.widget(
         'info_text',
-        RelatedItemsFieldWidget,
-        pattern_options=dict(
-            selectableTypes=['Document'],
-        ),
+        ContentBrowserFieldWidget,
+        pattern_options={
+            'selectableTypes': ['Document'],
+        },
     )
 
     info_text_logged_in_user = RelationChoice(
@@ -76,10 +76,10 @@ class ISitterFolder(model.Schema, IFacetedNavigable):
     )
     directives.widget(
         'info_text_logged_in_user',
-        RelatedItemsFieldWidget,
-        pattern_options=dict(
-            selectableTypes=['Document'],
-        ),
+        ContentBrowserFieldWidget,
+        pattern_options={
+            'selectableTypes': ['Document'],
+        },
     )
 
     qualifications = RelationList(
@@ -94,10 +94,10 @@ class ISitterFolder(model.Schema, IFacetedNavigable):
     )
     directives.widget(
         'qualifications',
-        RelatedItemsFieldWidget,
-        pattern_options=dict(
-            selectableTypes=['sitterqualification'],
-        ),
+        ContentBrowserFieldWidget,
+        pattern_options={
+            'selectableTypes': ['sitterqualification'],
+        },
     )
 
     experiences = RelationList(
@@ -112,10 +112,10 @@ class ISitterFolder(model.Schema, IFacetedNavigable):
     )
     directives.widget(
         'experiences',
-        RelatedItemsFieldWidget,
-        pattern_options=dict(
-            selectableTypes=['sitterexperience'],
-        ),
+        ContentBrowserFieldWidget,
+        pattern_options={
+            'selectableTypes': ['sitterexperience'],
+        },
     )
 
     vorlage = schema.Text(

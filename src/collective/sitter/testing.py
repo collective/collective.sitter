@@ -15,6 +15,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
 from plone.testing.zope import Browser
 from plone.testing.zope import WSGI_SERVER_FIXTURE
+from Products.CMFPlone.controlpanel.events import handleConfigurationChangedEvent
 from Products.Sessions.tests.testSessionDataManager import _populate
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
@@ -27,7 +28,6 @@ import unittest
 
 
 class SitterLayer(PloneSandboxLayer):
-
     defaultBases = (
         PLONE_APP_CONTENTTYPES_FIXTURE,
         MOCK_MAILHOST_FIXTURE,
@@ -40,14 +40,15 @@ class SitterLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         _populate(portal.__parent__)
 
-        applyProfile(portal, 'collective.z3cform.datagridfield:default')
+        handleConfigurationChangedEvent(None)
+
         applyProfile(portal, 'collective.sitter:default')
         portal.acl_users.userFolderAddUser(
             SITE_OWNER_NAME, SITE_OWNER_PASSWORD, ['Manager'], []
         )
-        api.user.get(username=SITE_OWNER_NAME).setMemberProperties(
-            {'email': 'sitter-06@example.org'}
-        )
+        api.user.get(username=SITE_OWNER_NAME).setMemberProperties({
+            'email': 'sitter-06@example.org'
+        })
         setRoles(portal, TEST_USER_ID, ['Member'])
 
         login(portal, SITE_OWNER_NAME)
