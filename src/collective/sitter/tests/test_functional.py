@@ -8,6 +8,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 import os
 import time
@@ -80,9 +81,9 @@ class BaseSeleniumTestClass(BaseTestClass):
     def selenium_login(self, name, password):
         self.url = f'{self.portal_url}/login'
         self.driver.get(self.url)
-        self.driver.find_element_by_id('__ac_name').send_keys(name)
-        self.driver.find_element_by_id('__ac_password').send_keys(password)
-        self.driver.find_element_by_name('buttons.login').click()
+        self.driver.find_element(By.ID, '__ac_name').send_keys(name)
+        self.driver.find_element(By.ID, '__ac_password').send_keys(password)
+        self.driver.find_element(By.NAME, 'buttons.login').click()
 
     def tearDown(self):
         self.driver.quit()
@@ -90,31 +91,31 @@ class BaseSeleniumTestClass(BaseTestClass):
 
 
 class TestHoneyPot(BaseSeleniumTestClass):
-
     layer = SITTER_SELENIUM_TESTING
 
     def setUp(self):
         super().setUp()
+        self.selenium_login_test_user()
         self.url = f'{self.portal_url}/{self.sitter_folder_name}/sitter-06'
         self.driver.get(self.url)
 
     def test_honeypotfield_notfilled(self):
-        self.driver.find_element_by_id('kontaktname').send_keys('KK')
-        self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
-        self.driver.find_element_by_id('kontakttext').send_keys('hallo')
-        self.driver.find_element_by_id('accepted').click()
-        self.driver.find_element_by_id('sendcontact').click()
+        self.driver.find_element(By.ID, 'kontaktname').send_keys('KK')
+        self.driver.find_element(By.ID, 'kontaktemail').send_keys('mail@example.org')
+        self.driver.find_element(By.ID, 'kontakttext').send_keys('hallo')
+        self.driver.find_element(By.ID, 'accepted').click()
+        self.driver.find_element(By.ID, 'sendcontact').click()
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
     # TODO We cannot simply fill in the form by typing since selenium cannot type into a
     # hidden field. So we might do what a bot would do: directly POST a form body.
     def _test_honeypotfield_filled(self):
-        self.driver.find_element_by_id('kontaktname').send_keys('KK')
-        self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
-        self.driver.find_element_by_id('homepage').send_keys('http://example.org')
-        self.driver.find_element_by_id('accepted').click()
-        self.driver.find_element_by_id('kontakttext').send_keys('hallo')
-        self.driver.find_element_by_id('sendcontact').click()
+        self.driver.find_element(By.ID, 'kontaktname').send_keys('KK')
+        self.driver.find_element(By.ID, 'kontaktemail').send_keys('mail@example.org')
+        self.driver.find_element(By.ID, 'homepage').send_keys('http://example.org')
+        self.driver.find_element(By.ID, 'accepted').click()
+        self.driver.find_element(By.ID, 'kontakttext').send_keys('hallo')
+        self.driver.find_element(By.ID, 'sendcontact').click()
 
         self.assertIn(
             'Die E-Mail wurde !erfolgreich versendet', self.driver.page_source
@@ -122,7 +123,6 @@ class TestHoneyPot(BaseSeleniumTestClass):
 
 
 class TestTermsOfUse(BaseSeleniumTestClass):
-
     layer = SITTER_SELENIUM_TESTING
 
     def setUp(self):
@@ -132,23 +132,22 @@ class TestTermsOfUse(BaseSeleniumTestClass):
 
     def test_accepted_false(self):
         self.assertNotIn('Sie die Nutzungsbedingungen', self.driver.page_source)
-        self.driver.find_element_by_id('kontaktname').send_keys('KK')
-        self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
-        self.driver.find_element_by_id('kontakttext').send_keys('hallo')
-        self.driver.find_element_by_id('sendcontact').click()
+        self.driver.find_element(By.ID, 'kontaktname').send_keys('KK')
+        self.driver.find_element(By.ID, 'kontaktemail').send_keys('mail@example.org')
+        self.driver.find_element(By.ID, 'kontakttext').send_keys('hallo')
+        self.driver.find_element(By.ID, 'sendcontact').click()
         self.assertIn('Sie die Nutzungsbedingungen', self.driver.page_source)
 
     def test_accepted_true(self):
-        self.driver.find_element_by_id('kontaktname').send_keys('KK')
-        self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
-        self.driver.find_element_by_id('accepted').click()
-        self.driver.find_element_by_id('kontakttext').send_keys('hallo')
-        self.driver.find_element_by_id('sendcontact').click()
+        self.driver.find_element(By.ID, 'kontaktname').send_keys('KK')
+        self.driver.find_element(By.ID, 'kontaktemail').send_keys('mail@example.org')
+        self.driver.find_element(By.ID, 'accepted').click()
+        self.driver.find_element(By.ID, 'kontakttext').send_keys('hallo')
+        self.driver.find_element(By.ID, 'sendcontact').click()
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
 
 class TestSpecialChars(BaseSeleniumTestClass):
-
     layer = SITTER_SELENIUM_TESTING
 
     def setUp(self):
@@ -157,16 +156,15 @@ class TestSpecialChars(BaseSeleniumTestClass):
         self.driver.get(self.url)
 
     def test_specialchars(self):
-        self.driver.find_element_by_id('kontaktname').send_keys('hä')
-        self.driver.find_element_by_id('kontaktemail').send_keys('mail@example.org')
-        self.driver.find_element_by_id('accepted').click()
-        self.driver.find_element_by_id('kontakttext').send_keys('hallo täst')
-        self.driver.find_element_by_id('sendcontact').click()
+        self.driver.find_element(By.ID, 'kontaktname').send_keys('hä')
+        self.driver.find_element(By.ID, 'kontaktemail').send_keys('mail@example.org')
+        self.driver.find_element(By.ID, 'accepted').click()
+        self.driver.find_element(By.ID, 'kontakttext').send_keys('hallo täst')
+        self.driver.find_element(By.ID, 'sendcontact').click()
         self.assertIn(SEND_SUCCESSFULLY_MSG, self.driver.page_source)
 
 
 class TestRemovePortalMessage(BaseSeleniumTestClass):
-
     layer = SITTER_SELENIUM_TESTING
 
     def setUp(self):
@@ -178,15 +176,14 @@ class TestRemovePortalMessage(BaseSeleniumTestClass):
 
     def test(self):
         time.sleep(0.1)
-        self.driver.find_element_by_id('plone-contentmenu-workflow').click()
-        self.driver.find_element_by_id('workflow-transition-submit').click()
+        self.driver.find_element(By.ID, 'plone-contentmenu-workflow').click()
+        self.driver.find_element(By.ID, 'workflow-transition-submit').click()
         self.assertNotIn('Item state changed.', self.driver.page_source)
         self.assertNotIn('Artikelstatus geändert.', self.driver.page_source)
         self.assertIn('Kontaktformular', self.driver.page_source)
 
 
 class TestReferer(BaseSeleniumTestClass):
-
     layer = SITTER_SELENIUM_TESTING
 
     def setUp(self):
@@ -220,7 +217,6 @@ class TestReferer(BaseSeleniumTestClass):
 
 
 class TestIsEditable(BaseSeleniumTestClass):
-
     layer = SITTER_SELENIUM_TESTING
 
     def test_sitter_is_editable_for_owner(self):

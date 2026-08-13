@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-02 06:25+0000\n"
+"POT-Creation-Date: 2025-08-21 10:19+0000\n"
 "PO-Revision-Date: 2022-10-26 23:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,13 +156,14 @@ msgstr "Wählen Sie aus, welche Sprachen Sie sprechen."
 msgid "Sie können Ihren Eintrag jetzt <a href=\"${link}\">einreichen</a>, damit er von der Redaktion freigegeben werden kann. Auch können Sie Ihren Eintrag weiter <a href=\"${edit_link}\">bearbeiten</a> oder <a href=\"${delete_link}\">löschen</a>."
 msgstr ""
 
+#: collective/sitter/browser/controlpanel.py
+#: collective/sitter/configure.zcml
+msgid "Sitter agency"
+msgstr "Sitterbörse"
+
 #: collective/sitter/profiles/default/types/sitter.xml
 msgid "Sitter entry"
 msgstr "Babysittereintrag"
-
-#: collective/sitter/browser/controlpanel.py collective/sitter/configure.zcml
-msgid "Sitter agency"
-msgstr "Sitterbörse"
 
 #: collective/sitter/browser/sitter.py
 msgid "Submit"
@@ -249,10 +250,6 @@ msgid "edit_sitter_folder"
 msgstr ""
 
 #: collective/sitter/browser/sitter.py
-msgid "email"
-msgstr "Ihre E-Mail-Adresse"
-
-#: collective/sitter/browser/sitter.py
 msgid "email sent successfully"
 msgstr "Nachricht erfolgreich gesendet"
 
@@ -321,10 +318,6 @@ msgid "my_sitterentry"
 msgstr ""
 
 #: collective/sitter/browser/sitter.py
-msgid "name"
-msgstr "Ihr Name"
-
-#: collective/sitter/browser/sitter.py
 msgid "please accept terms"
 msgstr "Bitte akzeptieren Sie die Nutzungsbedingungen"
 
@@ -358,8 +351,9 @@ msgstr ""
 msgid "sitter_account_page"
 msgstr "Sitteraccount"
 
-#. Default: "Sitter entry"
+#. Default: "Sitter entry description"
 #: collective/sitter/profiles/default/types/sitter.xml
+#, fuzzy
 msgid "sitter_desc"
 msgstr "Babysittereintrag"
 
